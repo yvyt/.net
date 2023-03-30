@@ -1,0 +1,55 @@
+﻿sS
+@{
+    ViewBag.Title = "_MyLayout";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    
+    @RenderSection("Styles", false)
+
+
+</head>
+<header id="header" class="fixed-top d-flex align-items-center" >
+    <div id="container-header" class="container-header">
+        <div class="logo">
+            <h1 class="text-light"><a href="/Home"><span>JobForYou</span></a></h1>
+            <!-- Uncomment below if you prefer to use an image logo -->
+            <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+        </div>
+
+        <nav id="navbar" class="navbar">
+            @{Html.RenderAction("Menu", "Home");}
+            <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav>
+    </div>
+
+</header>
+
+<body style="background:#333">
+    <section id="search">
+        <div class="container-search" id="container-search">
+            <form action="" class="search-bar">
+                <input type="text" placeholder="Tim kiem " name="search">
+                <button type="submit">
+                    <img src="~/Assets/home/images/search4.png">
+                </button>
+            </form>
+        </div>
+    </section>
+    <main id="main">
+        @RenderBody();
+    </main>    
+    <!-- ======= Footer ======= -->
+        <footer id="footer">
+            <div class="footer-top" style="display: flex; color: white; margin:0 20%">
+                @{ Html.RenderAction("Footer", "Home");}
+            </div>
+        </footer>
+        <!-- End Footer -->
+</body>
+</html>

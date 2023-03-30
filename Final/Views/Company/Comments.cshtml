@@ -1,0 +1,27 @@
+﻿@model List<Final.Models.Comment>
+@foreach (var item in Model)
+{
+    <h2><b>@item.name</b></h2>
+    {
+        int r = 0;
+        for (var i = 1; i <= @item.star; i++)
+        {
+
+
+            <i class="fa-solid fa-star" style="background-color: whitesmoke; color: cornflowerblue;"></i>
+            { r = r + 1; }
+        }
+        if (@item.star - r > 0)
+        {
+
+
+            <i class="fa-regular fa-star-half-stroke" style="background-color: whitesmoke; color: cornflowerblue;"></i><b> @item.star</b>
+        }
+        else
+        {
+            <b> @item.star</b>
+        }
+    }
+    <p>@item.ContentComment</p>
+    <hr class="line-list">
+}

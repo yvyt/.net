@@ -1,0 +1,6 @@
+﻿@model List<Final.Models.Job>
+@foreach (var item in Model)
+{
+            @Html.Action("CompanyByJob", "Home", new { id = @item.id })
+}
+

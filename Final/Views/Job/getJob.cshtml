@@ -1,0 +1,32 @@
+﻿@model List<Final.Models.Job>
+@foreach (var item in Model)
+{
+    <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="card" style="width: 17rem;height:300px">
+            @Html.Action("getCompanyByJob", "Job", new { id = @item.id })
+            @if (@item.name.Length > 20)
+            {
+                <h5 class="card-title">@item.name.Substring(0, 20)...</h5><br />
+            }
+            else
+            {
+                <h5 class="card-title">@item.name</h5><br />
+            }
+            @if (item.salary != 0)
+            {
+                <h6 class="card-text" style="color:#9407f2"><b>@item.salary$</b></h6>
+
+            }
+            else
+            {
+                <h6 class="card-text" style="color:#9407f2"><b>Lương thỏa thuận</b></h6>
+
+            }
+            <a href="@ViewBag.meta/@item.id" class="btn btn-primary"><span class="content">Đọc thêm</span></a>
+
+
+        </div>
+    </div>
+
+}
+

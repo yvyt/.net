@@ -1,0 +1,35 @@
+﻿<div class="company-information" style="background-color:whitesmoke">
+    <img src="@Model.image" alt="" style="width:70%;margin: 0 auto">
+    <h3 style="background-color:whitesmoke;text-align:center">@Model.name</h3>
+    <table style="background-color:whitesmoke;margin:0 10%">
+        <tr>
+            <td>
+                <img src="~/Assets/home/images/office-building.png" alt="" width="18px">
+                <span>@Model.type</span>
+            </td>
+            <td>
+                <img src="~/Assets/home/images/country.jpg" alt="" width="30px">
+                <span>@Model.country</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="~/Assets/home/images/calendar.png" alt="" width="18px">
+                @if (Model.OT)
+                {
+                    <span>OT</span>
+                }
+                else
+                {
+                    <span>No OT</span>
+                }
+            </td>
+            <td>
+                <img src="~/Assets/home/images/person.jpg" alt="" width="18px">
+                <span>@Model.employers</span>
+            </td>
+        </tr>
+    </table>
+
+    <a class="btn about-us" style="width:70%;margin: 10% auto;color:whitesmoke" href="/company/@Model.meta">Về chúng tôi</a>
+</div>

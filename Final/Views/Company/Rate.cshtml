@@ -1,0 +1,31 @@
+﻿@{
+
+    float rate = ViewBag.rate;
+    int r = 0;
+    if (@rate.ToString().Equals("NaN"))
+    {
+        <b style="color:red">Chưa có đánh giá</b>
+
+    }
+    else
+    {
+        for (var i = 1; i <= rate; i++)
+        {
+
+
+            <i class="fa-solid fa-star" style="background-color:whitesmoke"></i>
+            { r = r + 1; }
+        }
+        if (rate - r > 0)
+        {
+
+
+            <i class="fa-regular fa-star-half-stroke" style="background-color:whitesmoke"></i><b> @rate</b>
+        }
+        else
+        {
+            <b> @rate</b>
+        }
+    }
+
+}

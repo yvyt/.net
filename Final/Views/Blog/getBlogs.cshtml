@@ -1,0 +1,28 @@
+﻿@model List<Final.Models.Blog>
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+
+            <div class="col-md-3">
+                <div class="card" style="width: 16rem;">
+                    <img class="card-img-top" src="~/Assets/home/images/blog2.jpg" alt="Card image cap">
+                    <div style="width: 16rem;">
+                        @if (item.title.Length > 30)
+                        {
+                            <h5 class="card-title"><b>@item.title.Substring(0, 30)...</b></h5>
+                        }
+                        else
+                        {
+                            <h5 class="card-title"><b></b>@item.title</h5>
+                        }
+                        <p class="card-text">@item.content_story.Substring(0, 60)...</p>
+                        <button>Xem chi tiết</button>
+                    </div>
+                </div>
+            </div>
+
+
+        }
+    </div>
+    </div>

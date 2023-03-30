@@ -1,0 +1,110 @@
+﻿@model List<Final.Models.Story>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_layoutOne.cshtml";
+}
+@section Styles {
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+    <link href="@Url.Content("~/Assets/home/css/StoryStyle.css")" rel="stylesheet" type="text/css" />
+}
+
+<div class="story-banner">
+    <div class="container-fluid">
+        <div class="banner-content">
+            <div class="open-form" style="color:white">
+                <h3 class="text-light">CHUYỆN IT</h3>
+                <p><span class="text-light">Cùng đọc và chia sẻ những câu chuyện IT chân thực nhất nhé!</span></p>
+                <a href="CreateStory.html" class="btn">CHIA SẺ CÙNG JOBFORYOU</a>
+            </div>
+
+            <img src="~/Assets/home/images/story_banner.png" alt="">
+        </div>
+    </div>
+</div>
+
+<div class="story-option">
+    <div class="container-fluid">
+        <h3>Những câu chuyện IT ấn tượng</h3> <br>
+        <div class="top-story">
+            <div class="row">
+                @foreach (var item in Model)
+                {
+
+
+                    <div class="col-lg-4 col-md-4 col-sm-6">
+                        <div class="card" style="width: 20rem;">
+                            <img src="~/Assets/home/images/CV1.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                @if (item.title.Length > 30)
+                                {
+                                    <h5 class="card-title" ><b>@item.title.Substring(0, 30)...</b></h5>
+                                }
+                                else
+                                {
+                                    <h5 class="card-title" ><b></b>@item.title</h5>
+                                }
+                                <p class="card-text">@item.content_story.Substring(0, 60)...</p>
+                                <a href="#" class="btn btn-primary"><span class="content">Detail</span></a>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+
+
+            </div>
+        </div>
+
+        <hr style="border-top: solid 1px;">
+
+        <h3>Những câu chuyện khác</h3>
+        <div class="another-story">
+            @{ Html.RenderAction("AnotherStory", "Story");}
+
+
+
+        </div>
+
+        <hr style="border-top: solid 1px;">
+
+        <div class="tips">
+            <h3>Những thủ thuật công nghệ hữu ích mà dân IT nên biết!</h3>
+            <ul>
+                <li>
+                    <ion-icon name="warning-outline"></ion-icon>
+                    <span>Nếu bạn tải một file PDF và thấy nó có đuôi “.exe”, xóa nó đi. Virus đấy</span>
+                </li>
+                <li>
+                    <ion-icon name="clipboard-outline"></ion-icon>
+                    <span>Khi sao chép gì đó từ Internet về, nhấn Ctrl+Shift+V để dán. Tổ hợp phím tắt này sẽ giúp văn bản của bạn không bị định dạng như văn bản gốc</span>
+                </li>
+                <li>
+                    <ion-icon name="bookmark-outline"></ion-icon>
+                    <span>Nhấn Alt và chọn bất kỳ hình ảnh nào trên Google để tự động lưu về máy tính bạn</span>
+                </li>
+                <li>
+                    <ion-icon name="reload-outline"></ion-icon>
+                    <span>Nếu bạn vô tình đóng một Tab, tổ hợp phím tắt Ctrl+Shift+T sẽ giúp bạn mở lại trang đó</span>
+                </li>
+                <li>
+                    <ion-icon name="download-outline"></ion-icon>
+                    <span>Nếu bạn muốn tải một video từ Youtube về, chỉ cần thêm “ss” vào vào giữa “www.” và “youtube.com” trong đoạn URL</span>
+                </li>
+                <li>
+                    <ion-icon name="arrow-up-outline"></ion-icon>
+                    <span>Highlight một đoạn bất kì trong Word và nhấn Shift+F3 để biến tất cả ký tự thành in hoa hoặc in thường</span>
+                </li>
+                <li>
+                    <ion-icon name="game-controller-outline"></ion-icon>
+                    <span>Bật chế độ máy bay khi chơi game sẽ giúp bạn chặn quảng cáo</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<hr>
+

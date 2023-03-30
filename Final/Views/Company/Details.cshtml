@@ -1,0 +1,84 @@
+﻿
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_layoutOne.cshtml";
+}
+@section Styles {
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/d5237ee958.js" crossorigin="anonymous"></script>
+    <link href="@Url.Content("~/Assets/home/css/DetailCompanyStyle.css")" rel="stylesheet" type="text/css" />
+}
+<hr />
+<!-- <hr class="line-list"> -->
+<div class="container">
+    <div class="title">
+        <div class="row">
+            <div class="col-md-3"><img src="@Model.image"></div>
+            <div class="col-md-9">
+                <h1>@Model.name</h1>
+                <div style="background:whitesmoke">
+                    
+                    <div style="background:whitesmoke;margin-left:5px">
+                        <img style="background-color:whitesmoke" src="~/Assets/home/images/office-building.png" alt="" width="18px">
+                        <span style="background-color:whitesmoke">@Model.type</span>
+                    </div>
+                            <br />
+                                <img style="background-color:whitesmoke" src="~/Assets/home/images/country.jpg" alt="" width="30px">
+                                <span style="background-color:whitesmoke">@Model.country</span>
+                            
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="detail">
+        <div class="row">
+            <div class="col-md-6">
+                <h2><b>Địa chỉ</b></h2>
+                <p>
+                    @Model.location
+                </p>
+
+                <hr class="line-list">
+                <h2><b>Chi tiết công ty</b></h2>
+                <p>
+                    @Model.detail
+                </p>
+
+                <hr class="line-list">
+                <h2><b>Liên hệ</b></h2>
+                <p>
+                    Website: <a href="@Model.website" target="_blank">@Model.website</a>
+                    @if (Model.contact != null)
+                    {
+                    <p>SDT: @Model.contact</p>
+                }
+                else
+                {
+                    <p style="color:red">Chúng tôi sẽ cập nhật phương thức liên lạc sớm nhất !</p>
+                }
+                    </p>
+                </div>
+                <div class="col-md-1"> </div>
+                <div class="col-md-5">
+                    <h2><b>Đánh giá</b></h2>
+                    <div class="rating" style="background-color:whitesmoke">
+                        @Html.Action("Rate", "Company", new { id = @Model.id })
+                    </div>
+                    <input type="text" placeholder="Nhập đánh giá của bạn">
+                    <button>
+                        <span class="shadow"></span>
+                        <span class="edge"></span>
+                        <span class="front text"> Đánh giá</span>
+                    </button>
+                    <div class="review">
+
+                        @Html.Action("Comments", "Company", new { id = @Model.id })
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

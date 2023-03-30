@@ -1,0 +1,130 @@
+﻿@model List<Final.Models.Footer>
+
+<table width="20%" style="margin:20px 10px; color:white" >
+    @foreach (var item in Model)
+    {
+        if (item.type == "header" && item.columnIndex == 1)
+        {
+            <thead>
+                <tr>
+                    <td style="color: white">
+                        <h3>@item.contentF</h3>
+                    </td>
+                </tr>
+            </thead>
+
+        }
+        else if (item.columnIndex == 1)
+        {
+            <tbody>
+                <tr>
+                    <td >
+                        @item.contentF
+
+                    </td>
+                </tr>
+            </tbody>
+
+        }
+    }
+</table>
+<table width="20%" style="margin: 20px 10px; color: white">
+    @foreach (var item in Model)
+    {
+
+        if (item.type == "header" && item.columnIndex == 2)
+        {
+            <thead>
+                <tr>
+                    <td >
+                        <h3>@item.contentF</h3>
+                    </td>
+                </tr>
+            </thead>
+
+        }
+        else if (item.columnIndex == 2)
+        {
+            <tbody>
+                <tr>
+                    <td >
+                        <a href="/" style="color: white">
+                            @item.contentF
+
+                        </a>
+
+                    </td>
+                </tr>
+            </tbody>
+
+        }
+    }
+</table>
+
+<table width="20%" style="margin: 20px 10px; color: white">
+    @foreach (var item in Model)
+    {
+
+        if (item.type == "header" && item.columnIndex == 3)
+        {
+            <thead>
+                <tr>
+                    <td >
+                        <h3>@item.contentF</h3>
+                    </td>
+                </tr>
+            </thead>
+
+        }
+        else if (item.columnIndex == 3)
+        {
+            <tbody>
+                <tr>
+                    <td >
+                        <a href="/" style="color: white">
+                            @item.contentF
+
+                        </a>
+
+                    </td>
+                </tr>
+            </tbody>
+
+        }
+
+    }
+</table>
+
+
+    
+
+<table width="20%" style="margin: 20px 10px; color: white">
+    @foreach (var item in Model)
+    {
+
+        if (item.type == "header" && item.columnIndex == 4)
+        {
+            <thead>
+                <tr>
+                    <td >
+                        <h3>@item.contentF</h3>
+                    </td>
+                </tr>
+            </thead>
+
+        }
+        else if (item.columnIndex == 4)
+        {
+            <tbody>
+                <tr>
+                    <td style="color: white">
+                        @item.contentF
+
+                    </td>
+                </tr>
+            </tbody>
+
+        }
+    }
+</table>
+
