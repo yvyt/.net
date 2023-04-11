@@ -1,0 +1,236 @@
+﻿@model Final.Models.Company
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/admin/Views/Shared/_adminLayout.cshtml";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm("Edit", "Companies", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Company</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.meta, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.meta, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.meta, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.type, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.type, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.type, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.country, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.country, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.country, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("location", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.location)
+                @Html.ValidationMessageFor(model => model.location, "", new { @class = "text-danger" })
+
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.website, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.website, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.website, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("chi tiết", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.detail)
+                @Html.ValidationMessageFor(model => model.detail, "", new { @class = "text-danger" })
+
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.contact, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.contact, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.contact, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            @Html.Label("Ảnh", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                <input type="file" name="image" id="image" accept=".jpg,.png,.gif,.jpeg,.bmp" onchange="previewFile()" />
+            </div>
+            <br />
+            <div class="col-md-4">
+                <img src="@Model.image" width="300px" id="preview"></img>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.HiddenFor(model => model.jobID)
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.OT, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.OT, new List<SelectListItem>
+                {
+                    new SelectListItem { Text = "Có", Value = "true" },
+                    new SelectListItem { Text = "Không", Value = "false" }
+                }, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.OT, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.employers, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.employers, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.employers, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.hide, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.hide, new List<SelectListItem>
+                {
+                    new SelectListItem { Text = "Hiển thị", Value = "true" },
+                    new SelectListItem { Text = "Ẩn", Value = "false" }
+                }, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.hide, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.dateBegin, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.dateBegin, new { htmlAttributes = new { @class = "form-control" } })
+
+                @Html.ValidationMessageFor(model => model.dateBegin, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.createBy, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.createBy, new { htmlAttributes = new { @class = "form-control", value = Model.createBy } })
+                @Html.ValidationMessageFor(model => model.createBy, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.dateModife, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.dateModife, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                @Html.ValidationMessageFor(model => model.dateModife, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.modifedBy, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.modifedBy, new { htmlAttributes = new { @class = "form-control", value = Model.modifedBy } })
+                @Html.ValidationMessageFor(model => model.modifedBy, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group" style="display:flex">
+            <div class="col-md-offset-2 col-md-10">
+                <a href="@Url.Action("Index")" class="btn btn-info">Trở về</a>
+            </div>
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Lưu" class="btn btn-success" />
+            </div>
+
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section ClientScript {
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/Assets/admin/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="~/Assets/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="~/Assets/admin/js/sb-admin-2.min.js"></script>
+    <script src="~/Assets/admin/vendor/chart.js/Chart.min.js"></script>
+    <script src="~/Assets/admin/js/plugin/ckeditor/ckeditor.js"></script>
+    <script src="~/Assets/admin/js/plugin/ckfinder/ckfinder.js"></script>
+    <script type="text/javascript">
+        var editor = CKEDITOR.replace("detail")
+        var editor = CKEDITOR.replace("detail", { height: '600px' })
+
+
+        customConfig: '~/Assets/admin/js/plugin/ckeditor/config.js'
+
+
+    </script>
+    <script type="text/javascript">
+        var editor1 = CKEDITOR.replace("location")
+        var editor1 = CKEDITOR.replace("location", { height: '600px' })
+        customConfig: '~/Assets/admin/js/plugin/ckeditor/config.js'
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+
+        function previewFile() {
+            var fileInput = document.getElementById('image');
+            var preview = document.getElementById('preview');
+            var file = fileInput.files[0];
+            var reader = new FileReader();
+
+            reader.onloadend = function () {
+                preview.src = reader.result;
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = '#';
+            }
+        }
+
+    </script>
+}

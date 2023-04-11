@@ -1,55 +1,43 @@
 ﻿@model List<Final.Models.Menu>
 @{
-    long inner_id = 0;
+    List<long?> inner_id = new List<long?>();
+
+    // Collect the IDs of the items that have an inner_menu property
     foreach (var j in Model)
     {
-        if (j.inner_menu != null)
+        if (j.inner_menu != null && !inner_id.Contains(j.inner_menu))
         {
-            inner_id = (long)j.inner_menu;
-
+            inner_id.Add(j.inner_menu);
         }
     }
 }
-<ul>
 
+<ul>
     @foreach (var item in Model)
     {
-
         if (item.name.Equals("Đăng nhập"))
         {
-            <li><a class="getstarted scrollto" href="@item.link">@item.name</a></li>
-
+            <li><a class="getstarted scrollto" href="../@item.meta">@item.name</a></li>
         }
-        else
+        else if (!inner_id.Contains(item.id) && item.inner_menu==null)
         {
-
-            if (item.id != inner_id)
-            {
-                if (item.inner_menu == null)
-                {
-                    <li><a class="nav-link scrollto" href="@item.link">@item.name</a></li>
-                }
-
-            }
-            else
-            {
-                <li class="dropdown">
-                    <a href="#"><span>@item.name</span> <i class="bi bi-chevron-down"></i></a>
-                    <ul>
-                        @foreach (var i in Model)
+            <li><a class="nav-link scrollto" href="../@item.meta">@item.name</a></li>
+          
+        }
+        else if (inner_id.Contains(item.id))
+        {
+            <li class="dropdown">
+                <a href="#"><span>@item.name</span> <i class="bi bi-chevron-down"></i></a>
+                <ul>
+                    @foreach (var i in Model)
+                    {
+                        if (i.inner_menu == item.id)
                         {
-                            if (i.inner_menu != null)
-                            {
-                                <li><a href="@i.link">@i.name</a></li>
-                            }
+                            <li><a href="../../@i.meta">@i.name</a></li>
                         }
-
-                    </ul>
-                </li>
-            }
-
-
+                    }
+                </ul>
+            </li>
         }
     }
 </ul>
-

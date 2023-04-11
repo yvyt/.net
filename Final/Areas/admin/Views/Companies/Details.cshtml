@@ -1,0 +1,175 @@
+﻿@model Final.Models.Company
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/admin/Views/Shared/_adminLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Company</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.meta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.meta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.country)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.country)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.location)
+        </dt>
+
+        <dd>
+            @Html.Raw(Model.location)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.website)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.website)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.detail)
+        </dt>
+
+        <dd>
+            @Html.Raw(Model.detail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.contact)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.contact)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.hide)
+        </dt>
+
+        <dd>
+            @if (Model.hide == true)
+            {
+
+
+                <p>Hiển thị</p>
+
+            }
+            else
+            {
+                <p>Ẩn</p>
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dateBegin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dateBegin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.createBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.createBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dateModife)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dateModife)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.modifedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.modifedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.image)
+        </dt>
+
+        <dd>
+            <img src="@Model.image" width="500px" />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.jobID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.jobID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OT)
+        </dt>
+
+        <dd>
+            @if (Model.OT == true)
+            {
+
+
+                <p>Có</p>
+
+            }
+            else
+            {
+                <p>Không</p>
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.employers)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.employers)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

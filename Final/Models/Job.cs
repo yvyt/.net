@@ -5,6 +5,7 @@ namespace Final.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Web.Mvc;
 
     [Table("Job")]
     public partial class Job
@@ -20,6 +21,7 @@ namespace Final.Models
         public int? quantity { get; set; }
 
         [StringLength(500)]
+        [AllowHtml]
         public string description { get; set; }
 
         public decimal? salary { get; set; }
@@ -45,12 +47,5 @@ namespace Final.Models
         [Required]
         [StringLength(50)]
         public string modifedBy { get; set; }
-
-        public DateTime? topHot { get; set; }
-
-        public int? numberView { get; set; }
-
-        [StringLength(500)]
-        public string Tags { get; set; }
     }
 }

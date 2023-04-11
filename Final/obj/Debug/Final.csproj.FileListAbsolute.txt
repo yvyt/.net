@@ -81,3 +81,5 @@ D:\.NET\Final\Final\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 D:\.NET\Final\Final\obj\Debug\Final.csproj.CopyComplete
 D:\.NET\Final\Final\obj\Debug\Final.dll
 D:\.NET\Final\Final\obj\Debug\Final.pdb
+D:\.NET\Final\Final\bin\CKFinder.dll
+D:\.NET\Final\Final\bin\CKFinder.pdb

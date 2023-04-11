@@ -24,8 +24,8 @@ namespace Final.Models
         [StringLength(250)]
         public string country { get; set; }
 
+        [Column(TypeName = "ntext")]
         [Required]
-        [StringLength(250)]
         public string location { get; set; }
 
         [Required]
@@ -33,7 +33,6 @@ namespace Final.Models
         public string website { get; set; }
 
         [Column(TypeName = "ntext")]
-        [Required]
         public string detail { get; set; }
 
         [StringLength(50)]
@@ -41,26 +40,22 @@ namespace Final.Models
 
         public bool? hide { get; set; }
 
-        public DateTime? dateBegin { get; set; }
+        public DateTime dateBegin { get; set; }
 
+        [Required]
         [StringLength(50)]
         public string createBy { get; set; }
 
-        public DateTime? dateModife { get; set; }
+        public DateTime dateModife { get; set; }
 
+        [Required]
         [StringLength(50)]
         public string modifedBy { get; set; }
 
-        public bool? showOnHome { get; set; }
-
-        [StringLength(500)]
-        public string Tags { get; set; }
-
-        [Required]
         [StringLength(500)]
         public string image { get; set; }
 
-        public long jobID { get; set; }
+        public long? jobID { get; set; }
 
         public bool? OT { get; set; }
 

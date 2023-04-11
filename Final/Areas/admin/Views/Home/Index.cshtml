@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/admin/Views/Shared/_adminLayout.cshtml";
+}
+@section css{
+    #content .row {
+    justify-content: center;
+    }
+
+    #content .menu-item {
+    margin: 20px 0 20px 15px;
+    border-radius: 15px;
+    }
+
+    #content .menu-item a {
+    text-decoration: none;
+    width: 100%;
+    max-width: 100vh;
+    display: flex;
+    align-items: center;
+    color: white;
+    padding: 30px 0 30px 40px;
+    }
+
+    #content .menu-item a ion-icon {
+    font-size: 2.4rem;
+    margin-right: 15px;
+    margin-bottom: 10px;
+    }
+}
+<div class="row">
+    <div class="menu-item col-lg-5 bg-danger">
+        <a href="@Url.Action("Index","menus")">
+            <ion-icon name="grid-outline"></ion-icon>
+            <h2>Quản lý Menu</h2>
+        </a>
+    </div>
+
+    <div class="menu-item col-lg-5 bg-primary">
+        <a href="@Url.Action("Index","jobcategories")">
+            <ion-icon name="key-outline"></ion-icon>
+            <h2>Quản lý danh mục</h2>
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="menu-item col-lg-5 bg-success">
+        <a href="@Url.Action("Index","jobs")">
+            <ion-icon name="bag-handle-outline"></ion-icon>
+            <h2>Quản lý Job</h2>
+        </a>
+    </div>
+
+    <div class="menu-item col-lg-5 bg-warning">
+        <a href="@Url.Action("Index","companies")">
+            <ion-icon name="business-outline"></ion-icon>
+            <h2>Quản lý Company</h2>
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="menu-item col-lg-5 bg-gray-900">
+        <a href="@Url.Action("Index","blogs")">
+            <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
+            <h2>Quản lý Blog</h2>
+        </a>
+    </div>
+
+    <div class="menu-item col-lg-5 bg-dark">
+        <a href="@Url.Action("Index","stories")">
+            <ion-icon name="book-outline"></ion-icon>
+            <h2>Quản lý Story</h2>
+        </a>
+    </div>
+</div>
+
+@section ClientScript{
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/Assets/admin/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="~/Assets/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="~/Assets/admin/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="~/Assets/admin/vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+}
+

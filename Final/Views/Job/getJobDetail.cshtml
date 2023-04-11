@@ -40,13 +40,17 @@
                         @Html.Action("getCompanyDetailByJob", "Job", new { id = Model.id })
 
                         <h3 style="background-color:whitesmoke">Mô tả công việc</h3>
-                        <span style="background-color:whitesmoke">@Model.description</span>
+                        <span style="background-color:whitesmoke">
+                            @Html.Raw(Model.description)
+                        </span>
 
                         <br>
 
                         <h3 style="background-color:whitesmoke">Yêu cầu công việc</h3>
 
-                        <span style="background-color:whitesmoke">@Model.detail</span>
+                        <span style="background-color:whitesmoke">
+                            @Html.Raw(@Model.detail)
+                        </span>
                         <br>
 
 

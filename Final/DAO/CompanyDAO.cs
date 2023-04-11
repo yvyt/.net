@@ -31,6 +31,11 @@ namespace Final.DAO
             return db.Companies.Where(x => x.hide == true && x.meta == meta).FirstOrDefault();
 
         }
+        public Company getById(long id)
+        {
+            return db.Companies.Where(x=>x.id==id).FirstOrDefault();
+
+        }
 
     }
 }

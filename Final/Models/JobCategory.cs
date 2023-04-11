@@ -14,7 +14,6 @@ namespace Final.Models
         [StringLength(250)]
         public string name { get; set; }
 
-        [Required]
         [StringLength(250)]
         public string link { get; set; }
 
@@ -25,12 +24,14 @@ namespace Final.Models
 
         public bool? hide { get; set; }
 
+        [Column(TypeName = "datetime2")]
         public DateTime dateBegin { get; set; }
 
         [Required]
         [StringLength(50)]
         public string createBy { get; set; }
 
+        [Column(TypeName = "datetime2")]
         public DateTime dateModife { get; set; }
 
         [Required]

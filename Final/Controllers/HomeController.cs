@@ -26,7 +26,7 @@ namespace Final.Controllers
         }
         public ActionResult JobCategory()
         {
-            var model = new JobCategoryDAO().getAll();
+            var model = new JobCategoryDAO().getShowOnHome();
             return PartialView(model);
         }
         public ActionResult Job(long id)
@@ -44,6 +44,10 @@ namespace Final.Controllers
             var model = new SlideDAO().getSlide();
             return PartialView(model);
         }
-        
+        public ActionResult getByIdMenu(int id)
+        {
+            var model = new MenuDAO().getParent(id);
+            return PartialView(model);
+        }
     }
 }

@@ -13,7 +13,6 @@ namespace Final.Controllers
         public ActionResult Index(string meta)
         {
             var model = new JobCategoryDAO().getByMeta(meta);
-
             return View(model);
         }
 
