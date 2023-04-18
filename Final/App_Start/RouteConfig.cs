@@ -16,14 +16,14 @@ namespace Final
                 new { controller = "Job", action = "Index", meta = UrlParameter.Optional },
                 new RouteValueDictionary
                 {
-                    {"type","job" }
+                    {"type","_cong_viec" }
                 },
                 namespaces: new[] { "Final.Controllers" });
             routes.MapRoute("JobDetail", "{type}/{meta}/{id}",
                 new { controller = "Job", action = "getJobDetail", id = UrlParameter.Optional },
                 new RouteValueDictionary
                 {
-                    {"type","job" }
+                    {"type","_cong_viec" }
                 },
 
                namespaces: new[] { "Final.Controllers" });
@@ -31,21 +31,21 @@ namespace Final
                 new { controller = "Company", action = "Index", meta = UrlParameter.Optional },
                 new RouteValueDictionary
                 {
-                    {"type","company" }
+                    {"type","_cong_ty" }
                 },
                 namespaces: new[] { "Final.Controllers" });
             routes.MapRoute("DetailCompany", "{type}/{meta}",
                 new { controller = "Company", action = "Details", meta = UrlParameter.Optional },
                 new RouteValueDictionary
                 {
-                    {"type","company" }
+                    {"type","_cong_ty" }
                 },
                namespaces: new[] { "Final.Controllers" });
             routes.MapRoute("StoryIT", "{type}",
                new { controller = "Story", action = "Index", meta = UrlParameter.Optional },
                new RouteValueDictionary
                {
-                    {"type","story" }
+                    {"type","_chuyen_it" }
                },
               namespaces: new[] { "Final.Controllers" });
             routes.MapRoute("Blog", "{type}",

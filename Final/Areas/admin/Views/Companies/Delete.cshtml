@@ -49,7 +49,8 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.location)
+            @Html.Raw(Model.location)
+
         </dd>
 
         <dt>
@@ -65,7 +66,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.detail)
+            @Html.Raw(Model.detail)
         </dd>
 
         <dt>
@@ -125,14 +126,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.jobID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.jobID)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.OT)
         </dt>
 
@@ -148,14 +141,25 @@
             @Html.DisplayFor(model => model.employers)
         </dd>
 
+        <dt>
+            Account
+        </dt>
+
+        <dd>
+            @Html.Action("getUsernameFromId", "temp", new { id = Model.userId })
+        </dd>
+
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+        <div style="display:flex">
+            <div class="col-md-offset-2 col-md-10">
+                <a href="@Url.Action("Index")" class="btn btn-info">Trở về</a>
+            </div>
+            <div class="form-actions">
+                <input type="submit" value="Delete" class="btn btn-danger" />
+            </div>
         </div>
     }
-</div>

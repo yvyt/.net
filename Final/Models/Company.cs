@@ -55,10 +55,10 @@ namespace Final.Models
         [StringLength(500)]
         public string image { get; set; }
 
-        public long? jobID { get; set; }
-
         public bool? OT { get; set; }
 
         public int? employers { get; set; }
+
+        public long userId { get; set; }
     }
 }

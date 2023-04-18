@@ -56,10 +56,17 @@
         </dt>
 
         <dd>
-            @Html.Action("getCateById", "temp", new { id = Model.id })
+            @Html.Action("getCateById", "temp", new { id = Model.categoryID })
 
         </dd>
+        <dt>
+           Company
 
+        </dt>
+        <dd>
+            @Html.Action("getCompanyByJobId", "temp", new { id = Model.companyID })
+
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.meta)
         </dt>

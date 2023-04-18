@@ -10,7 +10,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>JobCategory</h4>
         <hr />
@@ -64,8 +64,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.dateBegin, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.dateBegin, new { htmlAttributes = new { @class = "form-control", disabled="disabled" } })
-                @Html.ValidationMessageFor(model => model.dateBegin, "", new { @class = "text-danger" })
+                <p>@Model.dateBegin</p>
+                @Html.HiddenFor(model => model.dateBegin)
             </div>
         </div>
 
@@ -77,10 +77,10 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group col-md-10">
             @Html.LabelFor(model => model.dateModife, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.dateModife, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+            <div>
+                @Html.EditorFor(model => model.dateModife, new { htmlAttributes = new { @class = "form-control", type = "date", Value = DateTime.Now.ToString("yyyy-MM-dd") } })
                 @Html.ValidationMessageFor(model => model.dateModife, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -118,4 +118,45 @@
         </div>
     </div>
 }
+@section ClientScript{
+    <script src="~/Assets/admin/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="~/Assets/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="~/Assets/admin/js/sb-admin-2.min.js"></script>
+
+    <script>
+        $(function () {
+            $("#name").keyup(function () {
+                var str = $.trim($(this).val().toLowerCase());
+                str = str
+                    .normalize('NFD') // chuyển chuỗi sang unicode tổ hợp
+                    .replace(/[\u0300-\u036f]/g, ''); // xóa các ký tự dấu sau khi tách tổ hợp
+
+                // Thay ký tự đĐ
+                str = str.replace(/[đĐ]/g, 'd');
+
+                // Xóa ký tự đặc biệt
+                str = str.replace(/([^0-9a-z-\s])/g, '');
+
+                // Xóa khoảng trắng thay bằng ký tự _
+                str = str.replace(/(\s+)/g, '_');
+
+                // Xóa ký tự - liên tiếp
+                str = str.replace(/-+/g, '_');
+
+                // xóa phần dư - ở đầu & cuối
+                str = str.replace(/^-+|-+$/g, '');
+                $("#meta").val("_" + str)
+            }).keyup();
+        });
+
+
+
+    </script>
+}
+
 

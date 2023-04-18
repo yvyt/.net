@@ -1,15 +1,12 @@
-﻿@model List<Final.Models.Company>
-@foreach (var item in Model)
-{
-    <div class="col-lg-3" style="margin: 0 5px">
-        <div class="card" style=" background: whitesmoke; border-radius: 10%;">
-            <img src="@item.image" style="width: 360px; height: 275px; border-radius: 10%; ">
+﻿
+    <div class="col-lg-3" style="margin: 0 5px;">
+        <div class="card" style=" background: whitesmoke; border-radius: 10%; width: 17rem; height: 315px; margin: 10px 10px">
+            <img src="@Model.image" style="width: 100%; min-height: fit-content; height: 170px;">
             <div class="card-body container-of-card">
-                <h2 style="background:whitesmoke" class="card-title"><b style="background:whitesmoke;color:black">@item.name</b></h2>
-                <a class="card-text" href="@item.website" target="_blank" style="background:whitesmoke;color:blue;font-size:20px">@item.website</a>
+                <h2 style="background:whitesmoke" class="card-title"><b style="background:whitesmoke;color:black">@Model.name</b></h2>
+                <a class="card-text" href="@Model.website" target="_blank" style="background:whitesmoke;color:blue;font-size:15px">@Model.website</a>
             </div>
         </div>
     </div>
- }
 
 

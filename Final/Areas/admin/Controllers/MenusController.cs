@@ -58,6 +58,8 @@ namespace Final.Areas.admin.Controllers
         {
             var dao = new MenuDAO();
             ViewBag.inner_menu = new SelectList(dao.getInnerCreate(), "id", "name");
+            var sum = dao.sum();
+            ViewBag.sum = sum;
             return View();
         }
 
@@ -70,6 +72,11 @@ namespace Final.Areas.admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (menu.displayOrder == null)
+                {
+                    var dOrder = new Final.DAO.MenuDAO().sum();
+                    menu.displayOrder = dOrder+1;
+                }
                 db.Menus.Add(menu);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -91,7 +98,8 @@ namespace Final.Areas.admin.Controllers
                 return HttpNotFound();
             }
             var dao = new MenuDAO();
-            ViewBag.inner_menu = new SelectList(dao.getInnerCreate(), "id", "name");
+            var options = dao.getInnerCreate();
+            ViewBag.inner_menu = new SelectList(options, "id", "name");
             return View(menu);
         }
 

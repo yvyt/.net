@@ -5,7 +5,7 @@
         {
 
             <div class="col-md-3">
-                <div class="card" style="width: 16rem;">
+                <div class="card" style="width: 16rem; height: 20rem;">
                     <img class="card-img-top" src="~/Assets/home/images/blog2.jpg" alt="Card image cap">
                     <div style="width: 16rem;">
                         @if (item.title.Length > 30)
@@ -16,7 +16,7 @@
                         {
                             <h5 class="card-title"><b></b>@item.title</h5>
                         }
-                        <p class="card-text">@item.content_story.Substring(0, 60)...</p>
+                        <p class="card-text">@Html.Raw(@item.content_story.Substring(0, 60))...</p>
                         <button>Xem chi tiết</button>
                     </div>
                 </div>

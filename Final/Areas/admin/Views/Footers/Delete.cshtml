@@ -1,0 +1,68 @@
+﻿@model Final.Models.Footer
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/admin/Views/Shared/_adminLayout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Footer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.contentF)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.contentF)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.hide)
+        </dt>
+
+        <dd>
+            @if (Model.hide == true)
+            {
+                <p>Hiển thị</p>
+            }
+            else
+            {
+                <p>Ẩn</p>
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.columnIndex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.columnIndex)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div style="display:flex">
+            <div class="col-md-offset-2 col-md-10">
+                <a href="@Url.Action("Index")" class="btn btn-info">Trở về</a>
+            </div>
+            <div class="form-actions">
+                <input type="submit" value="Delete" class="btn btn-danger" />
+            </div>
+        </div>
+    }
+</div>

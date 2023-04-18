@@ -13,6 +13,10 @@ body {
     background: #333;
 }
 
+a {
+    text-decoration: none;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -272,8 +276,8 @@ body {
 }
 
 #front-back-full h1 {
-    color: whitesmoke;
-    padding-bottom: 5%;
+    color: #f7ba2b;
+    margin-top: 20px;
 }
 
 #front-back-full h2 {
@@ -283,31 +287,11 @@ body {
 
 #front-back-full .mb-2 {
     color: whitesmoke;
-    padding-top: 5%;
+    padding-top: 2%;
 }
 
 .row-FBF {
     display: flex;
-}
-
-.card-FBF {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    background: whitesmoke;
-    border-top-right-radius: 5%;
-    border-top-left-radius: 5%;
-    transition: 0.3s;
-    width: 98%;
-}
-
-    .card-FBF img {
-        height: 100%;
-        width: 100%;
-        border-top-right-radius: 5%;
-        border-top-left-radius: 5%;
-    }
-
-.cardFBF:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
 .container-of-card {
@@ -315,17 +299,17 @@ body {
     background: whitesmoke;
 }
 
-    .container-of-card h4 {
-        background: whitesmoke;
-    }
+.container-of-card h4 {
+    background: whitesmoke;
+}
 
-        .container-of-card h4 b {
-            background: whitesmoke;
-        }
+.container-of-card h4 b {
+    background: whitesmoke;
+}
 
-    .container-of-card p {
-        background: whitesmoke;
-    }
+.container-of-card p {
+    background: whitesmoke;
+}
 /*-----------------------------------------------------------------------------------------------*/
 /*section card*/
 /*-----------------------------------------------------------------------------------------------*/

@@ -1,4 +1,5 @@
 ﻿using Final.DAO;
+using Final.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +37,7 @@ namespace Final.Controllers
         }
         public ActionResult CompanyByJob(long id)
         {
-            var model = new CompanyDAO().getByJob(id);
+            var model = new CompanyDAO().getById(id);
             return PartialView(model);
         }
         public ActionResult getSlide()
@@ -48,6 +49,55 @@ namespace Final.Controllers
         {
             var model = new MenuDAO().getParent(id);
             return PartialView(model);
+        }
+        public ActionResult login()
+        {
+            return View();
+        }
+        [HttpPost]
+        public JsonResult UsLogin(string username, string password)
+        {
+            if (username != "" && password != "")
+            {
+                var modal = new UserDAO().login(username, password);
+                
+                if (modal != null)
+                {
+                    Session["user"] = new userLogin(modal.id,username, password, modal.email,modal.role,modal.status);
+                    String link = "";
+                    if (modal.role == 0)
+                    {
+                        link = "/admin/";
+                    }else if(modal.role== 1)
+                    {
+                        link = "/home";
+
+                    }
+                    else
+                    {
+                        link = "/employer";
+                    }
+                    return Json(new
+                    {
+                        code = 200,
+                        msg = "Đăng nhập thành công",
+                        link= link,
+                    }, JsonRequestBehavior.AllowGet);
+                }
+                else
+
+                {
+                    return Json(new { code = 500, msg = "Tài khoản hoặc mật khẩu của bạn sai" }, JsonRequestBehavior.AllowGet);
+
+                }
+            }
+            else
+            {
+                return Json(new { code = 500, msg = "Vui lòng nhập đầy đủ thông tin" }, JsonRequestBehavior.AllowGet);
+
+            }
+            return Json(new { username, password });
+
         }
     }
 }

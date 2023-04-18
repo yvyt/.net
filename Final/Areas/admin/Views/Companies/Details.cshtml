@@ -134,11 +134,12 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.jobID)
+            Account
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.jobID)
+            @Html.Action("getUsernameFromId", "temp", new { id = Model.userId })
+
         </dd>
 
         <dt>
@@ -169,7 +170,12 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div class="form-group" style="display:flex">
+    <div class="col-md-offset-2 col-md-10">
+        <a href="@Url.Action("Index")" class="btn btn-info">Trở về</a>
+    </div>
+    <div class="col-md-offset-2 col-md-10">
+        <a href="@Url.Action("Edit",new { id = Model.id })" class="btn btn-info">Chỉnh sửa</a>
+
+    </div>
+</div>

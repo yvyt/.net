@@ -24,5 +24,9 @@ namespace Final.DAO
         public Job getJobDetail(long id) { 
             return db.Jobs.Where(x=>x.id==id).FirstOrDefault();
         }
+        public List<Job> getByIdCompany(long id)
+        {
+            return db.Jobs.Where(x=>x.companyID==id).ToList();
+        }
     }
 }

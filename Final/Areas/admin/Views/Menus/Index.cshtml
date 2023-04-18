@@ -26,11 +26,9 @@
                     <tr class="text-center">
                         <th>ID</th>
                         <th>Name</th>
-                        <th>Link</th>
                         <th>Meta</th>
                         <th>Hide</th>
                         <th>Inner menu</th>
-                        <th>Date create</th>
                         <th>Date modify</th>
 
                         <th>Active</th>
@@ -45,7 +43,6 @@
                         <tr>
                             <td>@Html.Raw(number++)</td>
                             <td>@Html.DisplayFor(modelI => item.name)</td>
-                            <td>@Html.DisplayFor(modelI => item.link)</td>
 
                             <td>@Html.DisplayFor(modelI => item.meta)</td>
 
@@ -71,7 +68,6 @@
                                     }
                                 }
                             </td>
-                            <td>@Html.DisplayFor(modelI => item.dateBegin)</td>
                             <td>@Html.DisplayFor(modelI => item.dateModife)</td>
 
                             <td class="text-center">

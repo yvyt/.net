@@ -15,15 +15,15 @@ namespace Final.DAO
         }
         public List<Company> getByJob(long id)
         {
-            return db.Companies.Where(x => x.hide == true && x.jobID==id).ToList();
+            return db.Companies.Where(x => x.hide == true).ToList();
         }
         public List<Company> getAll()
         {
-            return db.Companies.ToList();
+            return db.Companies.Where(x=>x.hide==true).ToList();
         }
         public Company getByJobId(long id)
         {
-            return db.Companies.Where(x => x.hide == true && x.jobID == id).FirstOrDefault();
+            return db.Companies.Where(x => x.hide == true).FirstOrDefault();
 
         }
         public Company getByMeta(string meta)
@@ -36,6 +36,9 @@ namespace Final.DAO
             return db.Companies.Where(x=>x.id==id).FirstOrDefault();
 
         }
-
+        public Company getByUser(long id)
+        {
+            return db.Companies.Where(x=>x.userId==id).FirstOrDefault();
+        }
     }
 }

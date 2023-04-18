@@ -11,11 +11,9 @@ namespace Final.Models
     {
         public long id { get; set; }
 
-        [Required]
         [StringLength(50)]
         public string username { get; set; }
 
-        [Required]
         [StringLength(50)]
         public string password { get; set; }
 
@@ -23,6 +21,8 @@ namespace Final.Models
         [StringLength(50)]
         public string email { get; set; }
 
-        public bool role { get; set; }
+        public int? role { get; set; }
+
+        public bool? status { get; set; }
     }
 }

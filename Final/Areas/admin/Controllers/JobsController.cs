@@ -36,6 +36,7 @@ namespace Final.Areas.admin.Controllers
             return View(job);
         }
 
+        
 
         // GET: admin/Jobs/Edit/5
         public ActionResult Edit(long? id)
@@ -60,7 +61,7 @@ namespace Final.Areas.admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Edit([Bind(Include = "id,name,levelJ,quantity,description,salary,categoryID,meta,detail,hide,dateBegin,createBy,dateModife,modifedBy")] Job job)
+        public ActionResult Edit([Bind(Include = "id,name,levelJ,quantity,description,salary,categoryID,companyID,meta,detail,hide,dateBegin,createBy,dateModife,modifedBy")] Job job)
         {
             if (ModelState.IsValid)
             {

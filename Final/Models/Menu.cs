@@ -5,8 +5,6 @@ namespace Final.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
-    using System.Linq;
-    using System.Web.Mvc;
 
     [Table("Menu")]
     public partial class Menu
@@ -41,20 +39,5 @@ namespace Final.Models
         public DateTime dateModife { get; set; }
 
         public long? inner_menu { get; set; }
-        public List<SelectListItem> GetMenuList()
-        {
-            ItJobDbContext db = new ItJobDbContext();
-            var menus = db.Menus.ToList();
-            var listItems = new List<SelectListItem>();
-            foreach (var menu in menus)
-            {
-                listItems.Add(new SelectListItem()
-                {
-                    Text = menu.name,
-                    Value = menu.id.ToString()
-                });
-            }
-            return listItems;
-        }
     }
 }

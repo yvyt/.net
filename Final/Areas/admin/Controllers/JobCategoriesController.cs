@@ -40,6 +40,8 @@ namespace Final.Areas.admin.Controllers
         // GET: admin/JobCategories/Create
         public ActionResult Create()
         {
+            var sum = new Final.DAO.JobCategoryDAO().sum();
+            ViewBag.sum = sum;
             return View();
         }
 
@@ -52,6 +54,11 @@ namespace Final.Areas.admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (jobCategory.displayOrder == null)
+                {
+                    var dOrder = new Final.DAO.JobCategoryDAO().sum();
+                    jobCategory.displayOrder = dOrder  +1;
+                }
                 db.JobCategories.Add(jobCategory);
                 db.SaveChanges();
                 return RedirectToAction("Index");

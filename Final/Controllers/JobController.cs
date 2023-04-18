@@ -16,7 +16,7 @@ namespace Final.Controllers
             return View(model);
         }
 
-        public ActionResult getJob(long id,string meta)
+        public ActionResult getJob(int id,string meta)
         {
             ViewBag.Meta = meta;
             var model = new JobDAO().getAll(id);
@@ -24,7 +24,7 @@ namespace Final.Controllers
         }
         public ActionResult getCompanyByJob(long id)
         {
-            var model = new CompanyDAO().getByJob(id);
+            var model = new CompanyDAO().getById(id);
             return PartialView(model);
         }
         public ActionResult getJobDetail(long id)
@@ -34,12 +34,12 @@ namespace Final.Controllers
         }
         public ActionResult getCompanyDetailByJob(long id)
         {
-            var model = new CompanyDAO().getByJobId(id);
+            var model = new CompanyDAO().getById(id);
             return PartialView(model);
         }
         public ActionResult companyOverView(long id)
         {
-            var model = new CompanyDAO().getByJobId(id);
+            var model = new CompanyDAO().getById(id);
             return PartialView(model);
         }
         public ActionResult applyJob(long id)

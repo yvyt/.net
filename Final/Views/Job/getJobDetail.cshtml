@@ -15,13 +15,13 @@
 
 <hr />
 <div class="job-detail">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <!-- job-detail -->
             <div class="col-lg-8 col-md-8 col-sm-12" style="background-color:whitesmoke">
                 <div class="job-information" style="background-color:whitesmoke">
                     <div class="row" style="background-color:whitesmoke">
-                        <h3 style="background-color:whitesmoke">@Model.name</h3>
+                        <h3 style="background-color: whitesmoke; color: #eb5d1e;">@Model.name</h3>
                         <a href="/ung_tuyen/@Model.id"><button type="submit" class="apply">Ứng tuyển</button></a>
                     </div>
                     <hr>
@@ -37,16 +37,14 @@
                                 <span style="background-color:whitesmoke">@Model.salary</span>
                             }
                         </div>
-                        @Html.Action("getCompanyDetailByJob", "Job", new { id = Model.id })
+                        @Html.Action("getCompanyDetailByJob", "Job", new { id = Model.companyID })
 
-                        <h3 style="background-color:whitesmoke">Mô tả công việc</h3>
+                        <h3 style="background-color: whitesmoke; margin-top: 20px; color:#eb5d1e;">Mô tả công việc</h3>
                         <span style="background-color:whitesmoke">
                             @Html.Raw(Model.description)
                         </span>
 
-                        <br>
-
-                        <h3 style="background-color:whitesmoke">Yêu cầu công việc</h3>
+                        <h3 style="background-color: whitesmoke; margin-top: 20px; color:#eb5d1e; ">Yêu cầu công việc</h3>
 
                         <span style="background-color:whitesmoke">
                             @Html.Raw(@Model.detail)
@@ -60,7 +58,7 @@
             <!-- end job-detail -->
 
             <div class="col-4" style="background-color:whitesmoke;padding-top:5%">
-                @Html.Action("companyOverView", "Job", new { id = Model.id })
+                @Html.Action("companyOverView", "Job", new { id = Model.companyID })
             </div>
         </div>
     </div>

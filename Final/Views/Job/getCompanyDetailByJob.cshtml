@@ -1,10 +1,10 @@
 ﻿<div class="location" style="background-color:whitesmoke">
     <img style="background-color:whitesmoke" src="~/Assets/home/images/location.png" alt="">
-    <span style="background-color:whitesmoke">@Model.location</span>
+    <span style="background-color:whitesmoke">@Html.Raw(Model.location)</span>
 </div>
 
 <hr>
 <div style="background-color:whitesmoke">
-    <h3 style="background-color:whitesmoke">Công ty chúng tôi</h3>
-    <span style="background-color:whitesmoke">@Model.detail</span>
+    <h3 style="background-color: whitesmoke; color: #eb5d1e;">Công ty chúng tôi</h3>
+    <span style="background-color:whitesmoke">@Html.Raw(Model.detail)</span>
 </div>

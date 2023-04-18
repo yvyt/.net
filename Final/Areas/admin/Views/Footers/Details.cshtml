@@ -1,0 +1,63 @@
+﻿@model Final.Models.Footer
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/admin/Views/Shared/_adminLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Footer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.contentF)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.contentF)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.hide)
+        </dt>
+
+        <dd>
+            @if (Model.hide == true)
+            {
+                <p>Hiển thị</p>
+            }
+            else
+            {
+                <p>Ẩn</p>
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.columnIndex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.columnIndex)
+        </dd>
+
+    </dl>
+</div>
+<div class="form-group" style="display:flex">
+    <div class="col-md-offset-2 col-md-10">
+        <a href="@Url.Action("Index")" class="btn btn-info">Trở về</a>
+    </div>
+    <div class="col-md-offset-2 col-md-10">
+        <a href="@Url.Action("Edit",new { id = Model.id })" class="btn btn-info">Chỉnh sửa</a>
+
+    </div>
+</div>

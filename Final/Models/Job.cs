@@ -5,7 +5,6 @@ namespace Final.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
-    using System.Web.Mvc;
 
     [Table("Job")]
     public partial class Job
@@ -20,13 +19,14 @@ namespace Final.Models
 
         public int? quantity { get; set; }
 
-        [StringLength(500)]
-        [AllowHtml]
+        [Column(TypeName = "ntext")]
         public string description { get; set; }
 
         public decimal? salary { get; set; }
 
-        public int? categoryID { get; set; }
+        public long categoryID { get; set; }
+
+        public long companyID { get; set; }
 
         [StringLength(250)]
         public string meta { get; set; }

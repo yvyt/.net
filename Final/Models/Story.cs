@@ -9,8 +9,6 @@ namespace Final.Models
     [Table("Story")]
     public partial class Story
     {
-        [Key]
-        [Column(Order = 0)]
         public long id { get; set; }
 
         [StringLength(250)]
@@ -26,21 +24,15 @@ namespace Final.Models
 
         public bool? hide { get; set; }
 
-        [Key]
-        [Column(Order = 1)]
         public DateTime dateBegin { get; set; }
 
-        [Key]
-        [Column(Order = 2)]
+        [Required]
         [StringLength(50)]
         public string createBy { get; set; }
 
-        [Key]
-        [Column(Order = 3)]
         public DateTime dateModife { get; set; }
 
-        [Key]
-        [Column(Order = 4)]
+        [Required]
         [StringLength(50)]
         public string modifedBy { get; set; }
     }

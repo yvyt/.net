@@ -205,6 +205,7 @@ body {
   .banner-content {
     display: flex;
     justify-content: space-around;
+
   }
 
   .banner-content .open-form {
@@ -214,6 +215,7 @@ body {
   .banner-content .open-form h3 {
     font-family: "Chakra Petch";
     font-size: 65px;
+    padding-left: 20px;
   }
 
   .banner-content .open-form .btn {

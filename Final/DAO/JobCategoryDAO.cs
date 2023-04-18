@@ -31,7 +31,11 @@ namespace Final.DAO
         }
         public JobCategory getById(int id)
         {
-            return db.JobCategories.Where(x=>x.id == 3).FirstOrDefault();
+            return db.JobCategories.Where(x=>x.id == id).FirstOrDefault();
+        }
+        public int sum()
+        {
+            return db.JobCategories.Count();
         }
     }
 }

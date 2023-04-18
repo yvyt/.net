@@ -23,13 +23,23 @@ namespace Final.Areas.admin.Controllers
         public ActionResult getCompanyByJobId(int id)
         {
 
-            var model=new CompanyDAO().getByJobId(id);
+            var model = new CompanyDAO().getById(id);
             return PartialView(model);
         }
         public ActionResult InnerMenu(int inner)
         {
             var modal=new MenuDAO().getInner(inner);
             return PartialView(modal);
+        }
+        public ActionResult getUsernameFromId(int id)
+        {
+            var modal= new UserDAO().getById(id);
+            return PartialView(modal);
+        }
+        public ActionResult getBlogCateById(int id)
+        {
+            var modal = new BlogCategoryDAO().getById(id);
+            return PartialView((modal));
         }
     }
 }

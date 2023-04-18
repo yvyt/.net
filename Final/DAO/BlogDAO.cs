@@ -17,5 +17,9 @@ namespace Final.DAO
         {
             return db.Blogs.Where(x => x.hide == true).OrderBy(x => x.displayOrder).Take(4).ToList();
         }
+        public int sum()
+        {
+            return db.Blogs.Count();
+        }
     }
 }

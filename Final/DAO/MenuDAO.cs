@@ -34,5 +34,9 @@ namespace Final.DAO
         {
             return db.Menus.Where(x =>  x.inner_menu==null && x.hide==true).OrderBy(x => x.displayOrder).ToList();
         }
+        public int sum()
+        {
+            return db.Menus.Count();
+        }
     }
 }

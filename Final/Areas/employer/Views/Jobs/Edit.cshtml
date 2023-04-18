@@ -1,0 +1,230 @@
+﻿@model Final.Models.Job
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/employer/Views/Shared/_employerLayout.cshtml";
+}
+
+<h2>Edit</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Job</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.id)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.meta, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.meta, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.meta, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.levelJ, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.levelJ, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.levelJ, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.quantity, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.quantity, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Yêu cầu", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.description)
+            @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.salary, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.salary, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.salary, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.categoryID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+
+            @{
+                // Create a SelectList with the "None" option and the options from the database
+                var categories = new Final.DAO.JobCategoryDAO().get();
+                var options = new SelectList(categories, "id", "name");
+
+                @Html.DropDownListFor(model => model.categoryID, options, htmlAttributes: new { @class = "form-control" })
+            }
+
+            @Html.ValidationMessageFor(model => model.categoryID, "", new { @class = "text-danger" })
+        </div>
+
+    </div>
+
+
+
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.detail, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.detail, new { @class = "form-control", rows = "4" })
+                @Html.ValidationMessageFor(model => model.detail, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+    <div class="form-group">
+        @Html.Label("chi tiết", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.detail)
+            @Html.ValidationMessageFor(model => model.detail, "", new { @class = "text-danger" })
+
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.hide, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.hide, new List<SelectListItem>
+            {
+                new SelectListItem { Text = "Hiển thị", Value = "true" },
+                new SelectListItem { Text = "Ẩn", Value = "false" }
+            }, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.hide, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.companyID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.Action("getCompanyByJobId", "temp", new { id = Model.companyID })
+
+            @Html.HiddenFor(model => model.companyID)
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.dateBegin, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <p>@Model.dateBegin</p>
+            @Html.HiddenFor(model => model.dateBegin)
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.createBy, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.createBy, new { htmlAttributes = new { @class = "form-control", value = Model.createBy } })
+            @Html.ValidationMessageFor(model => model.createBy, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.dateModife, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.dateModife, new { htmlAttributes = new { @class = "form-control", type = "date" , Value = DateTime.Now.ToString("yyyy-MM-dd") } })
+            @Html.ValidationMessageFor(model => model.dateModife, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.modifedBy, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.modifedBy, new { htmlAttributes = new { @class = "form-control", value = Model.modifedBy } })
+            @Html.ValidationMessageFor(model => model.modifedBy, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group" style="display:flex">
+        <div class="col-md-offset-2 col-md-10">
+            <a href="@Url.Action("Index")" class="btn btn-info">Trở về</a>
+        </div>
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Lưu" class="btn btn-success" />
+        </div>
+
+    </div>
+</div>
+
+}
+
+@section ClientScript{
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/Assets/admin/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="~/Assets/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="~/Assets/admin/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="~/Assets/admin/vendor/chart.js/Chart.min.js"></script>
+    <script src="~/Assets/admin/js/plugin/ckeditor/ckeditor.js"></script>
+    <script src="~/Assets/admin/js/plugin/ckfinder/ckfinder.js"></script>
+    <script type="text/javascript">
+        var editor = CKEDITOR.replace("detail")
+        var editor = CKEDITOR.replace("detail", { height: '600px' })
+
+
+        customConfig: '~/Assets/admin/js/plugin/ckeditor/config.js'
+
+
+    </script>
+    <script type="text/javascript">
+        var editor1 = CKEDITOR.replace("description")
+        var editor1 = CKEDITOR.replace("description", { height: '600px' })
+        customConfig: '~/Assets/admin/js/plugin/ckeditor/config.js'
+    </script>
+    <script>
+        $(function () {
+            $("#name").keyup(function () {
+                var str = $.trim($(this).val().toLowerCase());
+                str = str
+                    .normalize('NFD') // chuyển chuỗi sang unicode tổ hợp
+                    .replace(/[\u0300-\u036f]/g, ''); // xóa các ký tự dấu sau khi tách tổ hợp
+
+                // Thay ký tự đĐ
+                str = str.replace(/[đĐ]/g, 'd');
+
+                // Xóa ký tự đặc biệt
+                str = str.replace(/([^0-9a-z-\s])/g, '');
+
+                // Xóa khoảng trắng thay bằng ký tự _
+                str = str.replace(/(\s+)/g, '_');
+
+                // Xóa ký tự - liên tiếp
+                str = str.replace(/-+/g, '_');
+
+                // xóa phần dư - ở đầu & cuối
+                str = str.replace(/^-+|-+$/g, '');
+                $("#meta").val("_" + str)
+            }).keyup();
+        });
+
+
+
+    </script>
+}
+

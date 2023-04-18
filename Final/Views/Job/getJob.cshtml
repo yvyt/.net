@@ -2,15 +2,15 @@
 @foreach (var item in Model)
 {
     <div class="col-lg-3 col-md-4 col-sm-6">
-        <div class="card" style="width: 17rem;height:300px">
-            @Html.Action("getCompanyByJob", "Job", new { id = @item.id })
+        <div class="card" style="width: 17rem;height:315px">
+            @Html.Action("getCompanyByJob", "Job", new { id = @item.companyID })
             @if (@item.name.Length > 20)
             {
-                <h5 class="card-title">@item.name.Substring(0, 20)...</h5><br />
+                <h5 class="card-title">@item.name.Substring(0, 20)...</h5>
             }
             else
             {
-                <h5 class="card-title">@item.name</h5><br />
+                <h5 class="card-title">@item.name</h5>
             }
             @if (item.salary != 0)
             {

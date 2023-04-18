@@ -21,5 +21,9 @@ namespace Final.DAO
         {
             return db.Stories.Where(x => x.hide == true && x.displayOrder>2).Take(6).ToList();
         }
+        public int sum()
+        {
+            return db.Stories.Count();
+        }
     }
 }

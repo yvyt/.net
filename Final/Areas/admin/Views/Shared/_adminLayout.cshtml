@@ -127,6 +127,19 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
+                <a class="nav-link" href="@Url.Action("Index","blogcategories")">
+                    <!-- <i class="fas fa-fw fa-tachometer-alt"></i> -->
+                    <ion-icon name="copy-outline"></ion-icon>
+                    <span>Quản lý danh mục Blog</span>
+                </a>
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Blog -->
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item active">
                 <a class="nav-link" href="@Url.Action("Index","blogs")">
                     <!-- <i class="fas fa-fw fa-tachometer-alt"></i> -->
                     <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
@@ -149,10 +162,25 @@
                     <span>Quản lý Story</span>
                 </a>
             </li>
-
+            <hr class="sidebar-divider">
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="@Url.Action("Index","users")">
+                    <!-- <i class="fas fa-fw fa-tachometer-alt"></i> -->
+                    <ion-icon name="layers-outline"></ion-icon>
+                    <span>Quản lý User</span>
+                </a>
+            </li>
             <!-- Divider -->
             <hr class="sidebar-divider">
-
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="@Url.Action("Index","footers")">
+                    <!-- <i class="fas fa-fw fa-tachometer-alt"></i> -->
+                    <ion-icon name="layers-outline"></ion-icon>
+                    <span>Quản lý footers</span>
+                </a>
+            </li>
             <!-- ************************************************************************************** -->
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">

@@ -1,0 +1,108 @@
+﻿@model IEnumerable<Final.Models.User>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/employer/Views/Shared/_employerLayout.cshtml";
+}
+
+<h2>Quản lý user</h2>
+
+<div class="card shadow mb-4">
+    
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr class="text-center">
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Status</th>
+
+                        <th>Active</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @{ var number = 1;}
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.Raw(number++)</td>
+                            <td>@Html.DisplayFor(modelI => item.username)</td>
+
+                            <td>@Html.DisplayFor(modelI => item.email)</td>
+
+                            <td class="text-center">
+                                @if (item.role == 1)
+                                {
+
+
+                                    <p>Người ứng tuyển</p>
+
+                                }
+                                else if(item.role==2)
+                                {
+
+
+                                    <p>Nhà tuyển dụng</p>
+                                }
+                                else
+                                {
+                                    <p>Admin</p>
+                                }
+                            </td>
+                            <td class="text-center">
+                                @if (item.status == true)
+                                {
+
+
+                                    <p class="text text-success">Hoạt động</p>
+
+                                }
+                                
+                                else
+                                {
+                                    <p class="text text-danger">Khóa</p>
+                                }
+                            </td>
+                            <td class="text-center">
+                                <a href="@Url.Action("Edit", new { id = item.id })" class="text-primary"><ion-icon name="create-outline"></ion-icon></a>
+                                <span>|</span>
+                                <a href="@Url.Action("Details", new { id = item.id })" class="text-dark"><ion-icon name="search-outline"></ion-icon></a>
+                                @if (item.status == true)
+                                {
+                                    <span>|</span>
+                                    <a href="@Url.Action("Delete", new { id = item.id })" class="text-danger"><ion-icon name="trash-outline"></ion-icon></a>
+                                }
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section ClientScript{
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/Assets/admin/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="~/Assets/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="~/Assets/admin/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="~/Assets/admin/vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="~/Assets/admin/js/demo/chart-area-demo.js"></script>
+    <script src="~/Assets/admin/js/demo/chart-pie-demo.js"></script>
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+}

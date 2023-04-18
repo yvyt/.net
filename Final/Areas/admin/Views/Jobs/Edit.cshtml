@@ -24,7 +24,13 @@
             @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
         </div>
     </div>
-
+    <div class="form-group">
+        @Html.LabelFor(model => model.meta, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.meta, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.meta, "", new { @class = "text-danger" })
+        </div>
+    </div>
     <div class="form-group">
         @Html.LabelFor(model => model.levelJ, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -78,13 +84,7 @@
 
     </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.meta, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.meta, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.meta, "", new { @class = "text-danger" })
-        </div>
-    </div>
+
 
     @*<div class="form-group">
             @Html.LabelFor(model => model.detail, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -114,14 +114,21 @@
             @Html.ValidationMessageFor(model => model.hide, "", new { @class = "text-danger" })
         </div>
     </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.companyID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.Action("getCompanyByJobId", "temp", new { id = Model.companyID })
 
+            @Html.HiddenFor(model => model.companyID)
+
+        </div>
+    </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.dateBegin, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.dateBegin, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
-
-            @Html.ValidationMessageFor(model => model.dateBegin, "", new { @class = "text-danger" })
+            <p>@Model.dateBegin</p>
+            @Html.HiddenFor(model => model.dateBegin)
         </div>
     </div>
 
@@ -134,10 +141,10 @@
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group col-md-10">
         @Html.LabelFor(model => model.dateModife, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.dateModife, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+        <div>
+            @Html.EditorFor(model => model.dateModife, new { htmlAttributes = new { @class = "form-control", type = "date", Value = DateTime.Now.ToString("yyyy-MM-dd") } })
             @Html.ValidationMessageFor(model => model.dateModife, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -178,12 +185,12 @@
     <script src="~/Assets/admin/vendor/chart.js/Chart.min.js"></script>
     <script src="~/Assets/admin/js/plugin/ckeditor/ckeditor.js"></script>
     <script src="~/Assets/admin/js/plugin/ckfinder/ckfinder.js"></script>
-  <script type="text/javascript">
-      var editor = CKEDITOR.replace("detail")
-      var editor = CKEDITOR.replace("detail", { height: '600px' })
-   
+    <script type="text/javascript">
+        var editor = CKEDITOR.replace("detail")
+        var editor = CKEDITOR.replace("detail", { height: '600px' })
 
-      customConfig: '~/Assets/admin/js/plugin/ckeditor/config.js'
+
+        customConfig: '~/Assets/admin/js/plugin/ckeditor/config.js'
 
 
     </script>
@@ -191,6 +198,35 @@
         var editor1 = CKEDITOR.replace("description")
         var editor1 = CKEDITOR.replace("description", { height: '600px' })
         customConfig: '~/Assets/admin/js/plugin/ckeditor/config.js'
+    </script>
+    <script>
+        $(function () {
+            $("#name").keyup(function () {
+                var str = $.trim($(this).val().toLowerCase());
+                str = str
+                    .normalize('NFD') // chuyển chuỗi sang unicode tổ hợp
+                    .replace(/[\u0300-\u036f]/g, ''); // xóa các ký tự dấu sau khi tách tổ hợp
+
+                // Thay ký tự đĐ
+                str = str.replace(/[đĐ]/g, 'd');
+
+                // Xóa ký tự đặc biệt
+                str = str.replace(/([^0-9a-z-\s])/g, '');
+
+                // Xóa khoảng trắng thay bằng ký tự _
+                str = str.replace(/(\s+)/g, '_');
+
+                // Xóa ký tự - liên tiếp
+                str = str.replace(/-+/g, '_');
+
+                // xóa phần dư - ở đầu & cuối
+                str = str.replace(/^-+|-+$/g, '');
+                $("#meta").val("_" + str)
+            }).keyup();
+        });
+
+
+
     </script>
 }
 

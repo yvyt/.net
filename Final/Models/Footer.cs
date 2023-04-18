@@ -16,7 +16,6 @@ namespace Final.Models
 
         public bool? hide { get; set; }
 
-        [Required]
         [StringLength(50)]
         public string type { get; set; }
 

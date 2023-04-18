@@ -16,10 +16,7 @@
                     <tr class="text-center">
                         <th>ID</th>
                         <th>Name</th>
-                        <th>Meta</th>
                         <th>Hide</th>
-                        <th>Level</th>
-                        <th>Job Category</th>
                         <th>Company</th>
                         <th>Date create</th>
                         <th>Date modify</th>
@@ -36,7 +33,6 @@
                             <td>@Html.Raw(number++)</td>
                             <td>@Html.DisplayFor(modelI => item.name)</td>
 
-                            <td>@Html.DisplayFor(modelI => item.meta)</td>
 
                             <td class="text-center">
                                 @if (item.hide == true)
@@ -51,14 +47,10 @@
                                     <p>Ẩn</p>
                                 }
                             </td>
-                            <td>@Html.DisplayFor(modelI => item.levelJ)</td>
 
+                            
                             <td>
-                                @Html.Action("getCateById", "temp", new { id= item.categoryID })
-
-                            </td>
-                            <td>
-                                @Html.Action("getCompanyByJobId", "temp", new { id = item.id })
+                                @Html.Action("getCompanyByJobId", "temp", new { id = item.companyID })
                             </td>
 
                             <td>@Html.DisplayFor(modelI => item.dateBegin)</td>
@@ -68,7 +60,7 @@
                                 <a href="@Url.Action("Edit", new { id = item.id })" class="text-primary"><ion-icon name="create-outline"></ion-icon></a>
                                 <span>|</span>
                                 <a href="@Url.Action("Details", new { id = item.id })" class="text-dark"><ion-icon name="search-outline"></ion-icon></a>
-                                @if (item.hide==true)
+                                @if (item.hide == true)
                                 {
                                     <span>|</span>
                                     <a href="@Url.Action("Delete", new { id = item.id })" class="text-danger"><ion-icon name="trash-outline"></ion-icon></a>

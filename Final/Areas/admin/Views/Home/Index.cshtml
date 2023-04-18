@@ -62,17 +62,31 @@
 </div>
 
 <div class="row">
+    <div class="menu-item col-lg-5 bg-info">
+        <a href="@Url.Action("Index","blogcategories")">
+            <ion-icon name="copy-outline"></ion-icon>
+            <h2>Quản lý danh mục Blog</h2>
+        </a>
+    </div>
     <div class="menu-item col-lg-5 bg-gray-900">
         <a href="@Url.Action("Index","blogs")">
             <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
             <h2>Quản lý Blog</h2>
         </a>
     </div>
+</div>
+<div class="row">
 
-    <div class="menu-item col-lg-5 bg-dark">
+    <div class="menu-item col-lg-5 bg-gradient-warning">
         <a href="@Url.Action("Index","stories")">
             <ion-icon name="book-outline"></ion-icon>
             <h2>Quản lý Story</h2>
+        </a>
+    </div>
+    <div class="menu-item col-lg-5 bg-gradient-success">
+        <a href="@Url.Action("Index","users")">
+            <ion-icon name="book-outline"></ion-icon>
+            <h2>Quản lý User</h2>
         </a>
     </div>
 </div>

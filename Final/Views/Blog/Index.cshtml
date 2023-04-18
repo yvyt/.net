@@ -13,9 +13,16 @@
     <link href="@Url.Content("~/Assets/home/css/BlogITStyle.css")" rel="stylesheet" type="text/css" />
 }
 
+<div class="blog-banner">
+    <div class="container-fluid">
+        <div class="banner-content">
+            <img src="~/Assets/home/images/blog_banner.jpg" alt="">
+        </div>
+    </div>
+</div>
 
 <div class="Title1">
-    <h3>Chuyên mục</h3>
+    <h3 class="text-dark">Chuyên mục</h3>
     <hr class="line">
 </div>
 
@@ -31,10 +38,10 @@
                             <span class="yellow"></span>
                             <span class="green"></span>
                         </div>
-                        <a href="#">@item.title</a>
+                        <a href="#">@Html.Raw(item.title)</a>
                         <!-- <h5>Chuyên môn</h5> -->
                         <p>
-                           @item.description
+                           @Html.Raw(item.description)
                         </p>
                     </div>
                 </div>
@@ -47,28 +54,27 @@
 
 <!--===============Blog nhiều người đọc nhất hiện nay=================-->
 <div class="Title2">
-    <h3>Blog nổi bật</h3>
+    <h3 class="text-dark">Blog nổi bật</h3>
     <hr class="line">
-
+        
 </div>
 
 <section id="Blog-news">
 
-    <div class="container">
-        @{ Html.RenderAction("getBlogs", "Blog");}
+     @{ Html.RenderAction("getBlogs", "Blog");}
 
-    </div>
 </section>
 
 <!--Chia sẻ câu chuyện-->
-<div class="Title2">
-    <h3>Chia sẻ câu chuyện</h3>
+<div class="Title3">
+    <h3 class="text-dark">Chia sẻ câu chuyện</h3>
     <hr class="line">
 
 </div>
+
 <section id="share-blog">
     <div class="container">
-        <h5>Bạn có thể chia sẻ câu chuyện tại đây!</h5>
+        <h5 class="text-dark">Bạn có thể chia sẻ câu chuyện tại đây!</h5>
         <button>Chia sẻ ngay</button>
     </div>
 </section>

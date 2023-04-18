@@ -60,7 +60,7 @@ namespace Final.Areas.admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Edit([Bind(Include = "id,name,meta,type,country,location,website,detail,contact,hide,image,jobID,OT,employers,dateBegin,createBy,dateModife,modifedBy")] Company company, HttpPostedFileBase image)
+        public ActionResult Edit([Bind(Include = "id,name,meta,type,country,location,website,detail,contact,hide,dateBegin,createBy,dateModife,modifedBy,image,OT,employers,userId")] Company company, HttpPostedFileBase image)
         {
             var path = "";
             var filename = "";
@@ -93,18 +93,14 @@ namespace Final.Areas.admin.Controllers
                 tempCompany.modifedBy = company.modifedBy;
                 tempCompany.dateModife = company.dateModife;
                 tempCompany.OT = company.OT;
-                tempCompany.jobID = company.jobID;
+                tempCompany.userId = company.userId;
                 tempCompany.employers = company.employers;
                 db.Entry(tempCompany).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-
             return View(company);
-
-
-
         }
 
         // GET: admin/Companies/Delete/5
@@ -128,7 +124,7 @@ namespace Final.Areas.admin.Controllers
         public ActionResult DeleteConfirmed(long id)
         {
             Company company = db.Companies.Find(id);
-            company.hide = false;
+            company.hide=false;
             db.SaveChanges();
             return RedirectToAction("Index");
         }
