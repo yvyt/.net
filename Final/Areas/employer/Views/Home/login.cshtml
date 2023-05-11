@@ -10,34 +10,42 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="~/Assets/home/css/styleLoginRegister.css">
-    <title>Login</title>
+    <title>Đăng Nhập</title>
 
 </head>
 <body>
     <section style="background: url(/Assets/home/images/background4.jpg) no-repeat; background-size: 100%;">
         <div class="form-box">
             <div class="form-value">
-                    <h2>Đăng Nhập</h2>
-                    <div class="inputbox">
-                        <ion-icon name="mail-outline"></ion-icon>
-                        <input type="username" required id="username">
-                        <label for="">Username</label>
-                    </div>
-                    <div class="inputbox">
-                        <ion-icon name="lock-closed-outline"></ion-icon>
-                        <input type="password" required id="password">
-                        <label for="">Mật khẩu</label>
-                    </div>
-                    <div id="errorMsg"></div>
-                    <div class="forget">
-                        <label for="">
-                            <a href="#">Quên mật khẩu</a>
-                        </label>
-                    </div>
-                    <button id="login">Đăng nhập</button>
-                    <div class="register">
-                        <a href="register.html">Đăng kí tài khoản.</a>
-                    </div>
+                <h2>Đăng Nhập</h2>
+                <div class="inputbox">
+                    <ion-icon name="mail-outline"></ion-icon>
+                    <input type="text" required id="username">
+                    <label for="">Email</label>
+                </div>
+                <div class="inputbox">
+                    <ion-icon name="lock-closed-outline"></ion-icon>
+                    <input type="password" required id="password">
+                    <label for="">Mật khẩu</label>
+                </div>
+
+                <div id="errorMsg" style="color:red"></div>
+                <br />
+                <br />
+                <div class="forget">
+                    <label for="">
+                        <a href="#">Quên mật khẩu</a>
+                    </label>
+                </div>
+                <button id="login">Đăng nhập</button>
+                <div class="register">
+                    <a href="/home/register">Đăng kí ứng tuyển.</a>
+                    <br />
+                    <br />
+                    <a href="/home/employerRegister">Đăng kí tuyển dụng.</a>
+
+                </div>
+
             </div>
         </div>
     </section>
@@ -50,27 +58,27 @@
             var usname = $("#username").val();
             var password = $("#password").val();
             console.log(usname, password)
-                $.ajax({
-                    url: '/Home/UsLogin',
-                    type: 'post',
-                    data: {
-                        username: usname,
-                        password: password,
-                    },
-                    success: function (data) {
-                        console.log(data)
-                        if (data.code == 200) {
-                            window.location = data.link;
-                            
+            $.ajax({
+                url: '/Home/UsLogin',
+                type: 'post',
+                data: {
+                    email: usname,
+                    password: password,
+                },
+                success: function (data) {
+                    console.log(data)
+                    if (data.code == 200) {
+                        window.location = data.link;
 
-                        } else {
-                            console.log(data.msg);
-                            $("#errorMsg").empty();
-                            $("#errorMsg").append(data.msg);
 
-                        }
+                    } else {
+                        console.log(data.msg);
+                        $("#errorMsg").empty();
+                        $("#errorMsg").append(data.msg);
+
                     }
-                })
+                }
+            })
         });
     </script>
 </body>

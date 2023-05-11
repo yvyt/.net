@@ -5,101 +5,75 @@
     Layout = "~/Areas/admin/Views/Shared/_adminLayout.cshtml";
 }
 
-<h2>Delete</h2>
+<h2>Xóa danh mục blog</h2>
 
-<h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>BlogCategory</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.title)
-        </dt>
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr class="text-center">
+                            <th colspan="2"><h5 id="name">@Html.DisplayFor(model => Model.title)</h5></th>
+                        </tr>
+                    </thead>
+                    <tbody id="display">
+                        <tr>
+                            <td><b>Meta</b></td>
 
-        <dd>
-            @Html.DisplayFor(model => model.title)
-        </dd>
+                            <td>@Html.DisplayFor(model => Model.meta)</td>
+                        </tr>
+                        <tr>
+                            <td><b>Mô tả</b></td>
+                            <td>@Html.Raw(Model.description)</td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.description)
-        </dt>
+                        </tr>
 
-        <dd>
-            @Html.Raw(Model.description)
-        </dd>
+                        <tr>
+                            <td><b>Liên kết ngoài</b></td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.link)
-        </dt>
+                            <td>@Html.DisplayFor(model => Model.link)</td>
+                        </tr>
+                        <tr>
+                            <td><b>Vị trí hiển thị</b></td>
+                            <td>@Html.DisplayFor(model => Model.displayOrder)</td>
+                        </tr>
+                        <tr>
+                            <td><b>Hiển thị</b></td>
 
-        <dd>
-            @Html.DisplayFor(model => model.link)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.meta)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.meta)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.displayOrder)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.displayOrder)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.hide)
-        </dt>
-
-        <dd>
-            @if (Model.hide == true)
-            {
-                <p>Hiển thị</p>
-            }
-            else
-            {
-                <p>Ẩn</p>
-            }
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.dateBegin)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.dateBegin)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.createBy)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.createBy)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.dateModife)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.dateModife)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.modifedBy)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.modifedBy)
-        </dd>
-
-    </dl>
+                            <td>
+                                @if (Model.hide == true)
+                                {
+                                    <p>Hiển thị</p>
+                                }
+                                else
+                                {
+                                    <p>Ẩn</p>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Ngày tạo</b></td>
+                            <td>@Html.DisplayFor(model => model.dateBegin)</td>
+                        </tr>
+                        <tr>
+                            <td><b>Người tạo</b></td>
+                            <td>@Html.DisplayFor(model => model.createBy)</td>
+                        </tr>
+                        <tr>
+                            <td><b>Ngày cập nhật</b></td>
+                            <td>@Html.DisplayFor(model => model.dateModife)</td>
+                        </tr>
+                        <tr>
+                            <td><b>Người cập nhật</b></td>
+                            <td>@Html.DisplayFor(model => model.modifedBy)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
     @using (Html.BeginForm())
     {

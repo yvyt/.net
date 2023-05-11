@@ -101,5 +101,15 @@ namespace Final.Areas.admin.Controllers
             }
             base.Dispose(disposing);
         }
+        [HttpPost]
+        public JsonResult Data()
+        {
+            ItJobDbContext db = new ItJobDbContext();
+            return Json(db.Users.ToList());
+        }
+        public ActionResult userRegister()
+        {
+            return View();
+        }
     }
 }

@@ -16,8 +16,7 @@
                         {
                             <h5 class="card-title"><b></b>@item.title</h5>
                         }
-                        <p class="card-text">@Html.Raw(@item.content_story.Substring(0, 60))...</p>
-                        <button>Xem chi tiết</button>
+                        <button style=" margin-top: 50px; "><a href="/_blog/@item.meta">Xem chi tiết</a></button>
                     </div>
                 </div>
             </div>
@@ -25,4 +24,4 @@
 
         }
     </div>
-    </div>
+ </div>

@@ -5,53 +5,53 @@
     Layout = "~/Areas/admin/Views/Shared/_adminLayout.cshtml";
 }
 
-<h2>Delete</h2>
+<h2>Xóa footer</h2>
 
-<h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Footer</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.contentF)
-        </dt>
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr class="text-center">
+                            <th colspan="2"><h5 id="name">@Html.DisplayFor(model => Model.contentF)</h5></th>
+                        </tr>
+                    </thead>
+                    <tbody id="display">
+                        <tr>
+                            <td><b>Loại</b></td>
 
-        <dd>
-            @Html.DisplayFor(model => model.contentF)
-        </dd>
+                            <td>@Html.DisplayFor(model => Model.type)</td>
+                        </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.hide)
-        </dt>
 
-        <dd>
-            @if (Model.hide == true)
-            {
-                <p>Hiển thị</p>
-            }
-            else
-            {
-                <p>Ẩn</p>
-            }
-        </dd>
+                        <tr>
+                            <td><b>Cột</b></td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.type)
-        </dt>
+                            <td>@Html.DisplayFor(model => Model.columnIndex)</td>
+                        </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.type)
-        </dd>
+                        <tr>
+                            <td><b>Hiển thị</b></td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.columnIndex)
-        </dt>
+                            <td>
+                                @if (Model.hide == true)
+                                {
+                                    <p>Hiển thị</p>
+                                }
+                                else
+                                {
+                                    <p>Ẩn</p>
+                                }
+                            </td>
+                        </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.columnIndex)
-        </dd>
-
-    </dl>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
     @using (Html.BeginForm())
     {

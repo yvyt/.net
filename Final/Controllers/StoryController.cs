@@ -20,5 +20,15 @@ namespace Final.Controllers
             var model = new StoryDAO().AnotherStory();
             return PartialView(model);
         }
+        public ActionResult detail(string meta)
+        {
+            var model = new StoryDAO().getByMeta(meta);
+            return View(model);
+        }
+        public ActionResult all()
+        {
+            var modal = new StoryDAO().getAll();
+            return View(modal);
+        }
     }
 }

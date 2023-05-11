@@ -1,0 +1,65 @@
+﻿@model Final.Models.companyRegister
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/admin/Views/Shared/_adminLayout.cshtml";
+}
+
+<h2>Xét duyệt tài khoản</h2>
+<div class="card shadow mb-4">
+
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr class="text-center">
+                        <th colspan="2"><h5 id="name">@Html.DisplayFor(model => Model.name)</h5></th>
+                    </tr>
+                </thead>
+                <tbody id="display">
+                    <tr>
+                        <td><b>Website</b></td>
+                        <td>@Html.DisplayFor(model => Model.website)</td>
+
+                    </tr>
+                    <tr>
+                        <td><b>Loại hình</b></td>
+
+                        <td>@Html.DisplayFor(model => Model.type)</td>
+                    </tr>
+                    <tr>
+                        <td><b>Địa chỉ</b></td>
+                        <td>@Html.DisplayFor(model => Model.location)</td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="form-group" style="display:flex">
+    <div class="col-md-offset-2 col-md-10">
+        <a href="@Url.Action("Index")" class="btn btn-info">Trở về</a>
+    </div>
+    <div class="col-md-offset-2 col-md-10">
+        @if (Model.active == true)
+        {
+            <button id="deleteButton" data-url="@Url.Action("Delete", "companyRegisters", new { id = Model.id })" class="btn btn-danger">Từ chối</button>
+        }
+        <a href="@Url.Action("Edit",new { id = Model.id })" class="btn btn-success">Duyệt</a>
+    </div>
+</div>
+@section ClientScript{
+    <script src="~/Assets/home/vendor/jquery/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var name = document.getElementById("name").textContent
+            $('#deleteButton').click(function () {
+                if (confirm(`Bạn có chắc chắn từ chối công ty ${name}?`)) {
+                    window.location.href = $(this).data('url');
+                }
+            });
+        });
+    </script>
+}

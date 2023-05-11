@@ -36,23 +36,6 @@ namespace Final.Areas.admin.Controllers
             return View(menu);
         }
 
-     
-
-        public List<SelectListItem> getList()
-        {
-            var menus = db.Menus.ToList();
-            var listItems = new List<SelectListItem>();
-            foreach (var menu in menus)
-            {
-                listItems.Add(new SelectListItem()
-                {
-                    Text = menu.name,
-                    Value = menu.id.ToString(),
-                }) ;
-            }
-            return listItems;
-        }
-
         // GET: admin/Menus/Create
         public ActionResult Create()
         {
@@ -158,6 +141,12 @@ namespace Final.Areas.admin.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        [HttpPost]
+        public JsonResult Data()
+        {
+            ItJobDbContext db = new ItJobDbContext();
+            return Json(db.Menus.ToList());
         }
     }
 }

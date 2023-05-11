@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Final.DAO;
+using Final.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +13,13 @@ namespace Final.Areas.admin.Controllers
         // GET: admin/Home
         public ActionResult Index()
         {
+
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
             return View();
         }
+        
     }
 }

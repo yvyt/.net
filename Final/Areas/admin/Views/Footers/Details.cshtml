@@ -5,52 +5,48 @@
     Layout = "~/Areas/admin/Views/Shared/_adminLayout.cshtml";
 }
 
-<h2>Details</h2>
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr class="text-center">
+                        <th colspan="2"><h5 id="name">@Html.DisplayFor(model => Model.contentF)</h5></th>
+                    </tr>
+                </thead>
+                <tbody id="display">
+                    <tr>
+                        <td><b>Loại</b></td>
 
-<div>
-    <h4>Footer</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.contentF)
-        </dt>
+                        <td>@Html.DisplayFor(model => Model.type)</td>
+                    </tr>
+                    
 
-        <dd>
-            @Html.DisplayFor(model => model.contentF)
-        </dd>
+                    <tr>
+                        <td><b>Cột</b></td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.hide)
-        </dt>
+                        <td>@Html.DisplayFor(model => Model.columnIndex)</td>
+                    </tr>
+                   
+                    <tr>
+                        <td><b>Hiển thị</b></td>
 
-        <dd>
-            @if (Model.hide == true)
-            {
-                <p>Hiển thị</p>
-            }
-            else
-            {
-                <p>Ẩn</p>
-            }
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.type)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.type)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.columnIndex)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.columnIndex)
-        </dd>
-
-    </dl>
+                        <td>
+                            @if (Model.hide == true)
+                            {
+                                <p>Hiển thị</p>
+                            }
+                            else
+                            {
+                                <p>Ẩn</p>
+                            }
+                        </td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 <div class="form-group" style="display:flex">
     <div class="col-md-offset-2 col-md-10">

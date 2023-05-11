@@ -21,5 +21,14 @@ namespace Final.DAO
         {
             return db.Blogs.Count();
         }
+        public Blog getByMeta(string meta)
+        {
+            return db.Blogs.Where(x=>x.meta== meta).FirstOrDefault();
+        }
+        public List<Blog> all()
+        {
+            return db.Blogs.Where(x => x.hide == true).OrderBy(x => x.displayOrder).ToList();
+
+        }
     }
 }

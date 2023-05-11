@@ -14,11 +14,18 @@
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <div class="btn-group">
-            <a href="@Url.Action("Create")" class="p-2 font-weight-bold text-white bg-dark">+ Thêm mới</a>
+    <div style="display:flex">
+        <div class="card-header py-3">
+            <div class="btn-group">
+                <a href="@Url.Action("Create")" class="p-2 font-weight-bold text-white bg-dark">+ Thêm mới</a>
+            </div>
+        </div>
+        <div style="display: flex; position: absolute; right: 20px;" class="py-3">
+                <p style="margin:10px">Search:</p>
+                <input type="text" name="searchQuery" placeholder="" class="form-control" id="charSearch">
         </div>
     </div>
+
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -35,12 +42,12 @@
                     </tr>
                 </thead>
 
-                <tbody>
+                <tbody id="display">
 
                     @{ var number = 1;}
                     @foreach (var item in Model)
                     {
-                        <tr>
+                        <tr >
                             <td>@Html.Raw(number++)</td>
                             <td>@Html.DisplayFor(modelI => item.name)</td>
 
@@ -74,7 +81,7 @@
                                 <a href="@Url.Action("Edit", new { id = item.id })" class="text-primary"><ion-icon name="create-outline"></ion-icon></a>
                                 <span>|</span>
                                 <a href="@Url.Action("Details", new { id = item.id })" class="text-dark"><ion-icon name="search-outline"></ion-icon></a>
-                                @if (item.hide==true)
+                                @if (item.hide == true)
                                 {
                                     <span>|</span>
                                     <a href="@Url.Action("Delete", new { id = item.id })" class="text-danger"><ion-icon name="trash-outline"></ion-icon></a>
@@ -103,8 +110,82 @@
     <script src="~/Assets/admin/vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="~/Assets/admin/js/demo/chart-area-demo.js"></script>
-    <script src="~/Assets/admin/js/demo/chart-pie-demo.js"></script>
-    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <script>
+    $(document).ready(function () {
+            $("#charSearch").on('input', function () {
+                $.ajax({
+                    url: '@Url.Action("Data", "Menus")',
+                    type: 'post',
 
+                    success: function (menuData) {
+                        var char = $("#charSearch").val();
+                        var menu_data = []
+                        if (menuData) {
+                            for (let i = 0; i < menuData.length; i++) {
+                                menu_data.push(menuData[i])
+                            }
+
+                        }
+                        let result = []
+                        if (char) {
+                            result = menu_data.filter(element => element['name'].toLowerCase().includes(char));
+
+
+                        } else {
+                            result = menu_data
+                        }
+                        var html_result = "";
+                        if (result.length > 0) {
+                            var ht1 = "";
+                            for (i = 0; i < result.length; i++) {
+                                ht1+=`<tr>`
+                                ht1 += `<td>${i+1}</td>`
+                                ht1 += `<td>${result[i]['name']}</td>`;
+                                ht1 += `<td>${result[i]['meta']}</td>`;
+                                ht1 += `<td class="text-center">`;
+                                if (result[i]['hide']) {
+                                    ht1 += `<p>Hiển thị</p>`;
+
+                                } else {
+                                    ht1 += `<p>Ẩn</p>`;
+                                }
+                                ht1 += `<td>`;
+                                for (j = 0; j < menuData.length; j++) {
+                                    if (menuData[j]['id'] === result[i]["inner_menu"]) {
+                                        ht1+=`<p> ${menuData[j]['name']}</p>`
+                                    }
+                                }
+                                ht1 += `</td>`
+                                const dateString = result[i]['dateModife'];
+                                const dateRegex = /\/Date\((\d+)\)\//; // Regular expression to extract the numeric value
+                                const match = dateRegex.exec(dateString); // Extract the numeric value from the string
+                                const timestamp = Number(match[1]); // Convert the string to a number
+                                const date = new Date(timestamp);
+
+                                ht1 += `<td>${date.toDateString()}</td>
+`;
+                                ht1 += `<td class="text-center">`
+                                const menuid = result[i]['id'];
+                                ht1 += '<a href="@Url.Action("Edit")/' + menuid + '" class="text-primary"><ion-icon name="create-outline"></ion-icon></a>';
+                                ht1 += `<span>|</span>`
+                                ht1 += '<a href="@Url.Action("Details")/' + menuid + '" class="text-dark"><ion-icon name="search-outline"></ion-icon></a>';
+                                if (result[i]['hide']) {
+                                    ht1 +=`<span>|</span>`
+                                    ht1 += '<a href="@Url.Action("Delete")/' + menuid + '" class="text-danger"><ion-icon name="trash-outline"></ion-icon></a>';
+
+                                }
+                                ht1 += `</td>`
+                                ht1+=`</tr>`
+
+                            }
+                            html_result += ht1;
+
+                            document.getElementById("display").innerHTML = html_result;
+                        }
+
+                    }
+                })
+            })
+
+        });</script>
 }

@@ -1,0 +1,151 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/Assets/home/css/styleCompany.css">
+    <script src="~/Assets/home/vendor/jquery/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <title>Đăng Ký Tuyển Dụng</title>
+
+</head>
+<body>
+    <section style=" background: url(/Assets/home/images/background4.jpg) no-repeat; background-size: cover;">
+        <div class="container" id="container-loginCompany">
+            <h2>Đăng Ký Tuyển Dụng</h2>
+            <div class="form-box">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="inputbox">
+                            <ion-icon name="text-outline"></ion-icon>
+                            <input type="text" required id="name">
+                            <label for="">Company Name</label>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="inputbox">
+                            <ion-icon name="globe-outline"></ion-icon>
+                            <input type="text" required id="website">
+                            <label for="">Website</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+
+                        <div class="inputbox" >
+                            <select id="type" class="form-control" style="color:white; background:transparent; border:none; height:50px">
+                                <option style="color:black;" disabled selected>Type</option>
+                                <option value="1" style="color:black;" > Outsourcing</option>
+                                <option value="2" style="color:black; "> Product</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="inputbox">
+                            <ion-icon name="mail-outline"></ion-icon>
+                            <input type="email" required id="email">
+                            <label for="">Email</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-1"></div>
+                    <div class="col-10">
+                        <div class="inputbox col-12 ">
+                            <ion-icon name="pin-outline"></ion-icon>
+                            <input type="text" required id="address">
+                            <label for="">Address</label>
+                        </div>
+                    </div>
+                    <div class="col-1"></div>
+                </div>
+                <div class="row">
+                    <div class="col-1"></div>
+                    <div class="col-10">
+                        <div class="inputbox col-12 ">
+                            <ion-icon name="lock-closed-outline"></ion-icon>
+                            <input type="password" required id="password">
+                            <label for="">Password</label>
+                        </div>
+                    </div>
+                    <div class="col-1"></div>
+                </div>
+                <div class="row">
+                    <div class="col-1"></div>
+                    <div class="col-10">
+                        <div class="inputbox col-12 ">
+                            <ion-icon name="lock-closed-outline"></ion-icon>
+                            <input type="password" required id="confirm">
+                            <label for="">Confirm password</label>
+                        </div>
+                        <div id="errorMsg" style="color:red"></div>
+                        <br />
+                        <div class="back">
+                            <label for="">
+                                <a href="/home/login">Đăng nhập</a>
+                            </label>
+                        </div>
+                        
+                        <button id="register"> Đăng ký </button>
+                        <div class="register">
+                            <a href="/home/register">Đăng kí ứng tuyển.</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script>
+        $(document).on('click', "#register", function () {
+            var name = $("#name").val();
+            var email = $("#email").val();
+            var website = $("#website").val()
+            var type = $("#type").val()
+            var address = $("#address").val()
+            var password = $("#password").val();
+            var confirm = $("#confirm").val();
+            $.ajax({
+                url: '/Home/CompanyRegister',
+                type: 'post',
+                data: {
+                    name: name,
+                    email: email,
+                    website: website,
+                    type: type,
+                    address: address,
+                    password: password,
+                    confirm: confirm,
+                },
+                success: function (data) {
+                    console.log(data)
+                    if (data.code == 200) {
+
+                        $("#errorMsg").empty();
+                        $("#errorMsg").html("Chúng tôi sẽ gửi email cho bạn khi tài khoản được duyệt. Nhấn vào <a href='/home'>Đây</a> để trở lại trang chủ")
+
+
+                    } else {
+                        console.log(data.msg);
+                        $("#errorMsg").empty();
+                        $("#errorMsg").append(data.msg);
+
+                    }
+                }
+            })
+        });
+    </script>
+</body>
+
+</html>

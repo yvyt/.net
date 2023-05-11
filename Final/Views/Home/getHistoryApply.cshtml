@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Final.Models.UserApply>
+
+<div class="col-md-12">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr >
+                <th scope="col">STT</th>
+                <th scope="col">Tên công việc</th>
+                <th scope="col">Công ty</th>
+                <th scope="col">Ngày gửi</th>
+                <th scope="col">Trạng thái</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ var number = 1;}
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@Html.Raw(number++)</th>
+                    <td>@Html.Action("getJobById", "Home", new { id = item.jobId })</td>
+                    <td>@Html.Action("getCompany", "Home", new { id = item.jobId })</td>
+                    <td>@item.dateApply</td>
+                    <td>
+                        @if (item.status == 0)
+                        {
+                            <p>Chờ duyệt</p>
+                        }
+                        else if(item.status==1)
+                        {
+
+
+                        <p class="text text-success">Đã duyệt</p>
+                        }
+                        else
+                        {
+                            <p class="text text-danger">Đã từ chối</p>
+                        }
+                     </td>
+
+                </tr>
+            }
+
+
+        </tbody>
+    </table>
+</div>

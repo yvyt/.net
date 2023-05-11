@@ -21,5 +21,15 @@ namespace Final.Controllers
 
             return PartialView(model);
         }
+        public ActionResult detail(string meta)
+        {
+            var blog = new BlogDAO().getByMeta(meta);
+            return View(blog);
+        }
+        public ActionResult all()
+        {
+            var all=new BlogDAO().all();
+            return View(all);
+        }
     }
 }

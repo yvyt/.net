@@ -5,7 +5,6 @@
     Layout = "~/Areas/admin/Views/Shared/_adminLayout.cshtml";
 }
 
-<h2>Edit</h2>
 
 @using (Html.BeginForm())
 {
@@ -17,7 +16,7 @@
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.id)
     <div class="form-group">
-        @Html.LabelFor(model => model.title, htmlAttributes: new { @class = "control-label col-md-2" })
+        <h6>Tiêu đề</h6>
         <div class="col-md-10">
             @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
@@ -25,7 +24,7 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.meta, htmlAttributes: new { @class = "control-label col-md-2" })
+        <h6>Meta</h6>
         <div class="col-md-10">
             @Html.EditorFor(model => model.meta, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.meta, "", new { @class = "text-danger" })
@@ -35,7 +34,7 @@
 
 
     <div class="form-group">
-        @Html.Label("Description", htmlAttributes: new { @class = "control-label col-md-2" })
+        <h6>Nội dung</h6>
         <div class="col-md-10">
             @Html.TextAreaFor(model => model.content_story)
             @Html.ValidationMessageFor(model => model.content_story, "", new { @class = "text-danger" })
@@ -45,7 +44,7 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.CategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <h6>Danh mục</h6>
         <div class="col-md-10">
 
             @Html.DropDownListFor(model => model.CategoryId, null, htmlAttributes: new { @class = "form-control" })
@@ -56,7 +55,7 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.displayOrder, htmlAttributes: new { @class = "control-label col-md-2" })
+        <h6>Vị trí</h6>
         <div class="col-md-10">
             @Html.EditorFor(model => model.displayOrder, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.displayOrder, "", new { @class = "text-danger" })
@@ -64,7 +63,7 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.hide, htmlAttributes: new { @class = "control-label col-md-2" })
+        <h6>Hiển thị</h6>
         <div class="col-md-10">
             @Html.DropDownListFor(model => model.hide, new List<SelectListItem>
             {
@@ -76,7 +75,7 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.dateBegin, htmlAttributes: new { @class = "control-label col-md-2" })
+        <h6>Ngày tạo</h6>
         <div class="col-md-10">
             <p>@Model.dateBegin</p>
             @Html.HiddenFor(model => model.dateBegin)
@@ -85,7 +84,7 @@
 
 
     <div class="form-group">
-        @Html.LabelFor(model => model.createBy, htmlAttributes: new { @class = "control-label col-md-2" })
+        Người tạo
         <div class="col-md-10">
             @Html.EditorFor(model => model.createBy, new { htmlAttributes = new { @class = "form-control", value = Model.createBy } })
             @Html.ValidationMessageFor(model => model.createBy, "", new { @class = "text-danger" })
@@ -93,7 +92,7 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.dateModife, htmlAttributes: new { @class = "control-label col-md-2" })
+        Ngày cập nhật
         <div class="col-md-10">
             @Html.EditorFor(model => model.dateModife, new { htmlAttributes = new { @class = "form-control", type = "date", Value = DateTime.Now.ToString("yyyy-MM-dd") } })
             @Html.ValidationMessageFor(model => model.dateModife, "", new { @class = "text-danger" })
@@ -101,7 +100,7 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.modifedBy, htmlAttributes: new { @class = "control-label col-md-2" })
+        Nội dung cập nhật
         <div class="col-md-10">
             @Html.EditorFor(model => model.modifedBy, new { htmlAttributes = new { @class = "form-control", value = Model.modifedBy } })
             @Html.ValidationMessageFor(model => model.modifedBy, "", new { @class = "text-danger" })
@@ -168,8 +167,6 @@
                 $("#meta").val("_" + str)
             }).keyup();
         });
-
-
 
     </script>
     }

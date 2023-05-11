@@ -41,5 +41,16 @@ namespace Final.Areas.employer.Controllers
             var modal = new BlogCategoryDAO().getById(id);
             return PartialView((modal));
         }
+        public ActionResult getUsernameById(int id)
+        {
+            var modal = new UserDAO().getById(id);
+            return PartialView(modal);
+        }
+        public ActionResult getJobById(int id)
+        {
+            var modal = new JobDAO().getById(id);
+            return PartialView(modal);
+
+        }
     }
 }

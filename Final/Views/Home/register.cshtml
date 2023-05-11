@@ -1,0 +1,94 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/Assets/home/css/styleLoginRegister.css">
+    <title>Đăng ký</title>
+</head>
+<body>
+    <section>
+        <div class="form-box">
+            <div class="form-value">
+                <h2>Đăng Kí</h2>
+                <div class="inputbox">
+                    <ion-icon name="mail-outline"></ion-icon>
+                    <input type="email" required id="email">
+                    <label for="">Email</label>
+                </div>
+                <div class="inputbox">
+                    <ion-icon name="mail-outline"></ion-icon>
+                    <input type="text" required id="username">
+                    <label for="">Username</label>
+                </div>
+                <div class="inputbox">
+                    <ion-icon name="lock-closed-outline"></ion-icon>
+                    <input type="password" required id="password">
+                    <label for="">Mật khẩu</label>
+                </div>
+                <div class="inputbox">
+                    <ion-icon name="lock-closed-outline"></ion-icon>
+                    <input type="password" required id="confirm">
+                    <label for="">Xác Nhận Mật khẩu</label>
+                </div>
+
+                <div id="errorMsg" style="color:red"></div>
+                <br />
+                <br />
+                <div class="back">
+                    <label for="">
+                        <a href="/home/login">Đăng nhập</a>
+                    </label>
+                </div>
+
+                <button id="register">Xác nhận</button>
+                <div class="register">
+                    <a href="/home/employerRegister">Đăng kí tuyển dụng.</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script> -->
+    <script src="~/Assets/home/vendor/jquery/jquery.min.js"></script>
+
+    <script>
+        $(document).on('click', "#register", function () {
+            var usname = $("#username").val();
+            var email = $("#email").val();
+            var password = $("#password").val();
+            var confirm = $("#confirm").val();
+
+            $.ajax({
+                url: '/Home/UsRegister',
+                type: 'post',
+                data: {
+                    email: email,
+                    username: usname,
+                    password: password,
+                    confirm: confirm
+                },
+                success: function (data) {
+                    console.log(data)
+                    if (data.code == 200) {
+
+                        window.location = "/home/login";
+
+
+                    } else {
+                        console.log(data.msg);
+                        $("#errorMsg").empty();
+                        $("#errorMsg").append(data.msg);
+
+                    }
+                }
+            })
+        });
+    </script>
+</body>
+
+</html>

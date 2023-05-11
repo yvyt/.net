@@ -15,14 +15,40 @@
 <ul>
     @foreach (var item in Model)
     {
+
         if (item.name.Equals("Đăng nhập"))
         {
-            <li><a class="getstarted scrollto" href="../@item.meta">@item.name</a></li>
+            if (ViewBag.userCurrent != null)
+            {
+                <li class="dropdown">
+                <a class="getstarted scrollto">@ViewBag.userCurrent</a>
+                <ul>
+                    <li><a href="../../home/profile">Cá nhân</a></li>
+
+                    <li><a href="../../home/logout">Đăng xuất</a></li>
+                </ul>
+                </li>
+            }
+            else
+            {
+                <li><a class="getstarted scrollto" href="../@item.meta">@item.name</a></li>
+
+            }
+
         }
-        else if (!inner_id.Contains(item.id) && item.inner_menu==null)
+        else if (item.name.Equals("Đăng ký"))
+        {
+            if (ViewBag.userCurrent == null)
+            {
+
+                <li><a class="nav-link scrollto" href="../@item.meta" >@item.name</a></li>
+
+            }
+        }
+        else if (!inner_id.Contains(item.id) && item.inner_menu == null)
         {
             <li><a class="nav-link scrollto" href="../@item.meta">@item.name</a></li>
-          
+
         }
         else if (inner_id.Contains(item.id))
         {
@@ -33,11 +59,12 @@
                     {
                         if (i.inner_menu == item.id)
                         {
-                            <li><a href="../../@i.meta">@i.name</a></li>
+                            <li><a href="../../@i.meta" style="background:#333">@i.name</a></li>
                         }
                     }
                 </ul>
             </li>
         }
     }
+
 </ul>

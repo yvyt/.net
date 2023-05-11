@@ -9,18 +9,27 @@ namespace Final.Models
     [Table("UserApply")]
     public partial class UserApply
     {
-        [Key]
-        [Column(Order = 0)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public long UserId { get; set; }
+        public long id { get; set; }
 
-        [Key]
-        [Column(Order = 1)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public long JobId { get; set; }
+        public long userId { get; set; }
 
-        public bool? Status { get; set; }
+        public long jobId { get; set; }
 
-        public bool? Active { get; set; }
+        [Required]
+        [StringLength(250)]
+        public string cv { get; set; }
+
+        public int status { get; set; }
+
+        public DateTime dateApply { get; set; }
+        public UserApply( long userId, long jobId, string cv, DateTime dateApply)
+        {
+            this.userId = userId;
+            this.jobId = jobId;
+            this.cv = cv;
+            this.status = 0;
+            this.dateApply = dateApply;
+        }
+        public UserApply() { }
     }
 }

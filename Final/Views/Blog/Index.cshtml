@@ -38,10 +38,10 @@
                             <span class="yellow"></span>
                             <span class="green"></span>
                         </div>
-                        <a href="#">@Html.Raw(item.title)</a>
+                        <a href="#">@item.title</a>
                         <!-- <h5>Chuyên môn</h5> -->
                         <p>
-                           @Html.Raw(item.description)
+                           @item.description
                         </p>
                     </div>
                 </div>
@@ -60,9 +60,10 @@
 </div>
 
 <section id="Blog-news">
-
-     @{ Html.RenderAction("getBlogs", "Blog");}
-
+    @{ Html.RenderAction("getBlogs", "Blog");}
+    <div style="text-align:center;margin-top:20px">
+        <a class="text text-danger" style="margin-top:10px;font-size:25px" href="/blog/all">Xem tất cả</a>
+    </div>
 </section>
 
 <!--Chia sẻ câu chuyện-->

@@ -52,7 +52,7 @@ namespace Final
                new { controller = "Blog", action = "Index", meta = UrlParameter.Optional },
                new RouteValueDictionary
                {
-                    {"type","blog" }
+                    {"type","_blog" }
                },
                namespaces: new[] { "Final.Controllers" });
             routes.MapRoute("JobApply", "{type}/{id}",
@@ -62,6 +62,34 @@ namespace Final
                     {"type","ung_tuyen" }
                },
                namespaces: new[] { "Final.Controllers" });
+            routes.MapRoute("DetailBlog", "{type}/{meta}",
+              new { controller = "Blog", action = "detail", id = UrlParameter.Optional },
+              new RouteValueDictionary
+              {
+                    {"type","_blog" }
+              },
+              namespaces: new[] { "Final.Controllers" });
+            routes.MapRoute("AllBlog", "{type}/{meta}",
+              new { controller = "Blog", action = "all", id = UrlParameter.Optional },
+              new RouteValueDictionary
+              {
+                    {"type","blog" }
+              },
+              namespaces: new[] { "Final.Controllers" });
+            routes.MapRoute("DetailStory", "{type}/{meta}",
+              new { controller = "Story", action = "detail", id = UrlParameter.Optional },
+              new RouteValueDictionary
+              {
+                    {"type","_chuyen_it" }
+              },
+              namespaces: new[] { "Final.Controllers" });
+            routes.MapRoute("AllStory", "{type}/{meta}",
+              new { controller = "Story", action = "all", id = UrlParameter.Optional },
+              new RouteValueDictionary
+              {
+                    {"type","chuyen_it" }
+              },
+              namespaces: new[] { "Final.Controllers" });
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

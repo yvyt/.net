@@ -9,29 +9,30 @@
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
+    <div style="display: flex;" class="py-3">
+        <p style="margin:10px">Search:</p>
+        <input type="text" name="searchQuery" placeholder="" class="form-control" id="charSearch">
+    </div>
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr class="text-center">
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Hide</th>
-                        <th>Company</th>
-                        <th>Date create</th>
-                        <th>Date modify</th>
-
-                        <th>Active</th>
+                        <th>STT</th>
+                        <th>Tên công việc</th>
+                        <th>Hiển thị</th>
+                        <th>Công ty</th>
+                        <th>Hành động</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="display">
 
                     @{ var number = 1;}
                     @foreach (var item in Model)
                     {
                         <tr>
                             <td>@Html.Raw(number++)</td>
-                            <td>@Html.DisplayFor(modelI => item.name)</td>
+                            <td style="max-width: 400px; word-wrap: break-word; overflow-wrap: break-word;">@Html.DisplayFor(modelI => item.name)</td>
 
 
                             <td class="text-center">
@@ -48,14 +49,10 @@
                                 }
                             </td>
 
-                            
+
                             <td>
                                 @Html.Action("getCompanyByJobId", "temp", new { id = item.companyID })
                             </td>
-
-                            <td>@Html.DisplayFor(modelI => item.dateBegin)</td>
-                            <td>@Html.DisplayFor(modelI => item.dateModife)</td>
-
                             <td class="text-center">
                                 <a href="@Url.Action("Edit", new { id = item.id })" class="text-primary"><ion-icon name="create-outline"></ion-icon></a>
                                 <span>|</span>
@@ -74,3 +71,108 @@
         </div>
     </div>
 </div>
+@section ClientScript{
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/Assets/admin/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="~/Assets/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="~/Assets/admin/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="~/Assets/admin/vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script>
+    $(document).ready(function () {
+            $("#charSearch").on('input', function () {
+                $.ajax({
+                    url: '@Url.Action("getData", "Jobs")',
+                    type: 'post',
+
+                    success: function (data) {
+                        var char = $("#charSearch").val();
+                        const jobs = data.jobs
+                        const company = data.company
+                        var job_data = []
+                        var company_data = []
+                        if (jobs) {
+                            for (let i = 0; i < jobs.length; i++) {
+                                job_data.push(jobs[i])
+                            }
+
+                        }
+                        if (company) {
+                            for (let i = 0; i < company.length; i++) {
+                                company_data.push(company[i])
+                            }
+                        }
+                        let result = []
+                        if (char) {
+                            result = job_data.filter(element => element['name'].toLowerCase().includes(char));
+
+
+                        } else {
+                            result = job_data
+                        }
+                        
+                        var html_result = "";
+                        if (result.length > 0) {
+                            var ht1 = "";
+                            for (i = 0; i < result.length; i++) {
+                                ht1 += `<tr>`
+                                ht1 += `<td>${i+1}</td>`
+                                ht1 += `<td>${result[i]['name']}</td>`;
+                                ht1 += `<td class="text-center">`;
+                                if (result[i]['hide']) {
+                                    ht1 += `<p>Hiển thị</p>`;
+
+                                } else {
+                                    ht1 += `<p>Ẩn</p>`;
+                                }
+                                ht1 += `<td>`;
+                                for (j = 0; j < company_data.length; j++) {
+                                    if (company_data[j]['id'] == result[i]["companyID"]) {
+                                        ht1 += `<p> ${company_data[j]['name']}</p>`
+                                    }
+                                }
+                                ht1 += `</td>`
+                                const dateString = result[i]['dateModife'];
+                                const dateBegin = result[i]['dateBegin']
+                                const dateRegex = /\/Date\((\d+)\)\//; // Regular expression to extract the numeric value
+                                const match = dateRegex.exec(dateString); // Extract the numeric value from the string
+                                const matchBegin = dateRegex.exec(dateBegin)
+                                const timestamp = Number(match[1]); // Convert the string to a number
+                                const dateB = Number(matchBegin);
+                                const date = new Date(timestamp);
+                                const begin = new Date(dateB)
+                                ht1 += `<td>${begin.toDateString()}</td>`
+                                ht1 += `<td>${date.toDateString()}</td>`;
+                                ht1 += `<td class="text-center">`
+                                const menuid = result[i]['id'];
+                                ht1 += '<a href="@Url.Action("Edit")/' + menuid + '" class="text-primary"><ion-icon name="create-outline"></ion-icon></a>';
+                                ht1 += `<span>|</span>`
+                                ht1 += '<a href="@Url.Action("Details")/' + menuid + '" class="text-dark"><ion-icon name="search-outline"></ion-icon></a>';
+                                if (result[i]['hide']) {
+                                    ht1 += `<span>|</span>`
+                                    ht1 += '<a href="@Url.Action("Delete")/' + menuid + '" class="text-danger"><ion-icon name="trash-outline"></ion-icon></a>';
+
+                                }
+                                ht1 += `</td>`
+                                ht1 += `</tr>`
+
+                            }
+                            html_result += ht1;
+
+                            document.getElementById("display").innerHTML = html_result;
+                        }
+
+                    }
+                })
+            })
+
+     });</script>
+}

@@ -106,5 +106,11 @@ namespace Final.Areas.admin.Controllers
             }
             base.Dispose(disposing);
         }
+        [HttpPost]
+        public JsonResult getData()
+        {
+            ItJobDbContext db = new ItJobDbContext();
+            return Json(new { jobs = db.Jobs.ToList(), company=db.Companies.ToList()});
+        }
     }
 }

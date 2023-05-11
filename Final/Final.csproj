@@ -137,6 +137,7 @@
     <Compile Include="Areas\admin\Controllers\BlogCategoriesController.cs" />
     <Compile Include="Areas\admin\Controllers\BlogsController.cs" />
     <Compile Include="Areas\admin\Controllers\CompaniesController.cs" />
+    <Compile Include="Areas\admin\Controllers\companyRegistersController.cs" />
     <Compile Include="Areas\admin\Controllers\FootersController.cs" />
     <Compile Include="Areas\admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\admin\Controllers\JobCategoriesController.cs" />
@@ -148,6 +149,7 @@
     <Compile Include="Areas\employer\Controllers\HomeController.cs" />
     <Compile Include="Areas\employer\Controllers\JobsController.cs" />
     <Compile Include="Areas\employer\Controllers\tempController.cs" />
+    <Compile Include="Areas\employer\Controllers\UserAppliesController.cs" />
     <Compile Include="Areas\employer\employerAreaRegistration.cs" />
     <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
@@ -158,12 +160,15 @@
     <Compile Include="DAO\BlogDAO.cs" />
     <Compile Include="DAO\CommenDAOt.cs" />
     <Compile Include="DAO\CompanyDAO.cs" />
+    <Compile Include="DAO\CompanyRegisterDAO.cs" />
     <Compile Include="DAO\FooterDAO.cs" />
     <Compile Include="DAO\JobCategoryDAO.cs" />
     <Compile Include="DAO\JobDAO.cs" />
     <Compile Include="DAO\MenuDAO.cs" />
+    <Compile Include="DAO\ProfileUserDAO.cs" />
     <Compile Include="DAO\SlideDAO.cs" />
     <Compile Include="DAO\StoryDAO.cs" />
+    <Compile Include="DAO\UserApplyDAO.cs" />
     <Compile Include="DAO\UserDAO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -172,15 +177,15 @@
     <Compile Include="Models\BlogCategory.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Company.cs" />
-    <Compile Include="Models\Contact.cs" />
+    <Compile Include="Models\companyRegister.cs" />
     <Compile Include="Models\Footer.cs" />
     <Compile Include="Models\Job.cs" />
     <Compile Include="Models\JobCategory.cs" />
     <Compile Include="Models\Menu.cs" />
     <Compile Include="Models\ItJobDbContext.cs" />
+    <Compile Include="Models\ProfileUser.cs" />
     <Compile Include="Models\Slide.cs" />
     <Compile Include="Models\Story.cs" />
-    <Compile Include="Models\SubMenu.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserApply.cs" />
     <Compile Include="Models\userLogin.cs" />
@@ -1306,6 +1311,7 @@
     <Content Include="Assets\admin\js\plugin\ckfinder\translations.txt" />
     <Content Include="Assets\admin\js\sb-admin-2.js" />
     <Content Include="Assets\admin\js\sb-admin-2.min.js" />
+    <Content Include="Assets\admin\js\search.js" />
     <Content Include="Assets\admin\vendor\bootstrap\js\bootstrap.bundle.js" />
     <Content Include="Assets\admin\vendor\bootstrap\js\bootstrap.bundle.min.js" />
     <Content Include="Assets\admin\vendor\bootstrap\js\bootstrap.js" />
@@ -2977,10 +2983,13 @@
     <Content Include="Assets\admin\vendor\jquery\jquery.slim.min.js" />
     <Content Include="Assets\home\css\BlogITStyle.css" />
     <Content Include="Assets\home\css\CompanyStyle.css" />
+    <Content Include="Assets\home\css\detailBlogIT.css" />
     <Content Include="Assets\home\css\DetailCompanyStyle.css" />
     <Content Include="Assets\home\css\JobStyle.css" />
     <Content Include="Assets\home\css\JobDetailStyle.css" />
+    <Content Include="Assets\home\css\ProfileStyle.css" />
     <Content Include="Assets\home\css\StoryStyle.css" />
+    <Content Include="Assets\home\css\styleCompany.css" />
     <Content Include="Assets\home\css\styleForgotAndResetPW.css" />
     <Content Include="Assets\home\css\styleLoginRegister.css" />
     <Content Include="Assets\home\images\background.jpg" />
@@ -3018,6 +3027,7 @@
     <Content Include="Assets\home\images\logo4.jpg" />
     <Content Include="Assets\home\images\office-building.png" />
     <Content Include="Assets\home\images\person.jpg" />
+    <Content Include="Assets\home\images\profile-user.png" />
     <Content Include="Assets\home\images\salary.png" />
     <Content Include="Assets\home\images\story_banner.png" />
     <Content Include="Assets\home\js\boostrap.js" />
@@ -5121,6 +5131,12 @@
     <Content Include="Areas\admin\Views\Users\Details.cshtml" />
     <Content Include="Areas\admin\Views\Users\Edit.cshtml" />
     <Content Include="Areas\admin\Views\Users\Index.cshtml" />
+    <Content Include="Areas\admin\Views\Users\userRegister.cshtml" />
+    <Content Include="Areas\admin\Views\companyRegisters\Details.cshtml" />
+    <Content Include="Areas\admin\Views\companyRegisters\Index.cshtml" />
+    <Content Include="Areas\employer\Views\UserApplies\Index.cshtml" />
+    <Content Include="Areas\employer\Views\temp\getUsernameById.cshtml" />
+    <Content Include="Areas\employer\Views\temp\getJobById.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -5169,6 +5185,18 @@
     <Content Include="Views\Company\RateOverView.cshtml" />
     <Content Include="Views\Job\applyJob.cshtml" />
     <Content Include="Views\Home\login.cshtml" />
+    <Content Include="Views\Home\register.cshtml" />
+    <Content Include="Views\Home\employerRegister.cshtml" />
+    <Content Include="Views\Job\jobApply.cshtml" />
+    <Content Include="Views\Blog\detail.cshtml" />
+    <Content Include="Views\Story\detail.cshtml" />
+    <Content Include="Views\Story\all.cshtml" />
+    <Content Include="Views\Blog\all.cshtml" />
+    <Content Include="Views\Home\profile.cshtml" />
+    <Content Include="Views\Home\getDetails.cshtml" />
+    <Content Include="Views\Home\getHistoryApply.cshtml" />
+    <Content Include="Views\Home\getJobById.cshtml" />
+    <Content Include="Views\Home\getCompany.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

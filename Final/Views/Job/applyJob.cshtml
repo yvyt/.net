@@ -16,11 +16,13 @@
 <hr />
 <div class="apply bg-white">
     <div class="container">
-        <form action="" method="post">
+        @using (Html.BeginForm("jobApply", "Job", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
             <h3>@Model.name</h3>
+            <input type="hidden" name="jobId" value="@Model.id"/>
             <div class="row">
                 <label for="name" class="col-sm-2">Họ và tên:</label>
-                <input type="text" class="col-sm-10" name="name" id="name">
+                <input type="text" class="col-sm-10" name="name" id="name" required value="@ViewBag.username">
             </div>
 
             <br>
@@ -28,22 +30,18 @@
             <div class="row">
                 <label for="cv" class="col-sm-2">CV:</label>
                 <div class="col-sm-10">
-                    <input type="file" class="" name="cv" id="cv"> <br><br>
+                    <input type="file" class="" name="file" id="cv" required> <br><br>
                     <span class="text-danger"></span> <br>
-                    <span class="text-secondary">Hỗ trợ định dạng .doc .docx .pdf, không chứa mật khẩu bảo vệ, dung lượng dưới 3MB</span>
+                    <span class="text-secondary">Hỗ trợ định dạng .pdf, không chứa mật khẩu bảo vệ, dung lượng dưới 3MB</span>
                 </div>
             </div>
             <br>
-
-            <div class="row mb-4">
-                <label class="text" for="comment">Những kỹ năng, dự án công việc hoặc thành tích nào khiến bạn trở thành một ứng cử viên sáng giá?</label>
-                <textarea class="form-control" cols="120" rows="4" placeholder="Nêu nhiều ví dụ cụ thể để làm hồ sơ ứng tuyển của bạn thuyết phục hơn ..." id="comment"></textarea>
-            </div>
-
             <div class="row">
                 <button class="btn btn-danger" type="submit">Gửi CV của tôi</button>
             </div>
-        </form>
+        }
+
+
     </div>
 </div>
 

@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Delete";
-    Layout = "~/Areas/employer/Views/Shared/_employerLayout.cshtml";
+    Layout = "~/Areas/admin/Views/Shared/_adminLayout.cshtml";
 }
 
 <h2>Delete</h2>
@@ -49,17 +49,32 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.status)
+            @if (Model.status == true)
+            {
+
+
+                <p class="text text-success">Hoạt động</p>
+
+            }
+
+            else
+            {
+                <p class="text text-danger">Khóa</p>
+            }
         </dd>
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+        <div style="display:flex">
+            <div class="col-md-offset-2 col-md-10">
+                <a href="@Url.Action("Index")" class="btn btn-info">Trở về</a>
+            </div>
+            <div class="form-actions">
+                <input type="submit" value="Delete" class="btn btn-danger" />
+            </div>
         </div>
     }
 </div>

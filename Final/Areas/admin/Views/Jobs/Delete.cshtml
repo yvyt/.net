@@ -5,137 +5,107 @@
     Layout = "~/Areas/admin/Views/Shared/_adminLayout.cshtml";
 }
 
-<h2>Delete</h2>
+<h2>Xóa công việc</h2>
 
-<h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Job</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.name)
-        </dt>
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr class="text-center">
+                            <th colspan="2"><h5 id="name">@Html.DisplayFor(model => Model.name)</h5></th>
+                        </tr>
+                    </thead>
+                    <tbody id="display">
+                        <tr>
+                            <td><b>Meta</b></td>
 
-        <dd>
-            @Html.DisplayFor(model => model.name)
-        </dd>
+                            <td>@Html.DisplayFor(model => Model.meta)</td>
+                        </tr>
+                        <tr>
+                            <td><b>Danh mục công việc</b></td>
+                            <td>@Html.Action("getCateById", "temp", new { id = Model.categoryID })</td>
+                        </tr>
+                        <tr>
+                            <td><b>Công ty</b></td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.levelJ)
-        </dt>
+                            <td>
+                                @Html.Action("getCompanyByJobId", "temp", new { id = Model.companyID })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Số lượng tuyển</b></td>
 
-        <dd>
-            @Html.DisplayFor(model => model.levelJ)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.quantity)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.quantity)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.description)
-        </dt>
-
-        <dd>
-            @Html.Raw(Model.description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.salary)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.salary)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.categoryID)
-        </dt>
-
-        <dd>
-            @Html.Action("getCateById", "temp", new { id = Model.categoryID })
-
-        </dd>
-        <dt>
-            Company
-
-        </dt>
-        <dd>
-            @Html.Action("getCompanyByJobId", "temp", new { id = Model.companyID })
-
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.meta)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.meta)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.detail)
-        </dt>
-
-        <dd>
-            @Html.Raw(Model.detail)
-
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.hide)
-        </dt>
-
-        <dd>
-            @if (Model.hide == true)
-            {
+                            <td>@Html.DisplayFor(model => Model.quantity)</td>
+                        </tr>
 
 
-                <p>Hiển thị</p>
+                        <tr>
+                            <td><b>Cấp độ</b></td>
 
-            }
-            else
-            {
-                <p>Ẩn</p>
-            }
-        </dd>
+                            <td>@Html.DisplayFor(model => Model.levelJ)</td>
+                        </tr>
+                        <tr>
+                            <td><b>Yêu cầu</b></td>
+                            <td>@Html.Raw(Model.description)</td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.dateBegin)
-        </dt>
+                        </tr>
+                        <tr>
+                            <td><b>Mức lương</b></td>
 
-        <dd>
-            @Html.DisplayFor(model => model.dateBegin)
-        </dd>
+                            <td>
+                                @if (Model.salary != 0)
+                                {
+                                    <p>@Model.salary</p>
+                                }
+                                else
+                                {
+                                    <p>Thương lượng với ứng viên</p>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Mô tả chi tiết</b></td>
+                            <td>@Html.Raw(Model.detail)</td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.createBy)
-        </dt>
+                        </tr>
+                        <tr>
+                            <td><b>Hiển thị</b></td>
 
-        <dd>
-            @Html.DisplayFor(model => model.createBy)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.dateModife)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.dateModife)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.modifedBy)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.modifedBy)
-        </dd>
-
-    </dl>
+                            <td>
+                                @if (Model.hide == true)
+                                {
+                                    <p>Hiển thị</p>
+                                }
+                                else
+                                {
+                                    <p>Ẩn</p>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Ngày tạo</b></td>
+                            <td>@Html.DisplayFor(model => model.dateBegin)</td>
+                        </tr>
+                        <tr>
+                            <td><b>Người tạo</b></td>
+                            <td>@Html.DisplayFor(model => model.createBy)</td>
+                        </tr>
+                        <tr>
+                            <td><b>Ngày cập nhật</b></td>
+                            <td>@Html.DisplayFor(model => model.dateModife)</td>
+                        </tr>
+                        <tr>
+                            <td><b>Người cập nhật</b></td>
+                            <td>@Html.DisplayFor(model => model.modifedBy)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
 
     @using (Html.BeginForm())

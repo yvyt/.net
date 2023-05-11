@@ -60,5 +60,26 @@ namespace Final.Models
         public int? employers { get; set; }
 
         public long userId { get; set; }
+        public Company(string name, string meta, string type, string location, string website, DateTime dateBegin, string createBy, DateTime dateModife, string modifedBy, long userId)
+        {
+            this.name = name;
+            this.meta = meta;
+            this.type = type;
+            this.country = "";
+            this.location = location;
+            this.website = website;
+            this.detail = "";
+            this.contact = "";
+            this.hide = true;
+            this.dateBegin = dateBegin;
+            this.createBy = createBy;
+            this.dateModife = dateModife;
+            this.modifedBy = modifedBy;
+            this.image = "/Assets/home/images/logo1.jpg";
+            OT = false;
+            this.employers = 0;
+            this.userId = userId;
+        }
+        public Company() { }
     }
 }

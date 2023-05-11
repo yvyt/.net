@@ -25,5 +25,13 @@ namespace Final.DAO
         {
             return db.Stories.Count();
         }
+        public Story getByMeta(string meta)
+        {
+            return db.Stories.Where(x=>x.meta==meta).FirstOrDefault();
+        }
+        public List<Story> getAll()
+        {
+            return db.Stories.Where(x => x.hide == true).OrderBy(x=>x.displayOrder).ToList();
+        }
     }
 }

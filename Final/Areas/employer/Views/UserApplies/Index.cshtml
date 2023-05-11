@@ -1,0 +1,92 @@
+﻿@model IEnumerable<Final.Models.UserApply>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/employer/Views/Shared/_employerLayout.cshtml";
+}
+
+
+<h1 class="h3 mb-4 text-gray-800">Quản lý ứng tuyển</h1>
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <div class="btn-group">
+            <a href="@Url.Action("Create")" class="p-2 font-weight-bold text-white bg-dark">+ Thêm mới</a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr class="text-center">
+                        <th>STT</th>
+                        <th>Tên người ứng tuyển</th>
+                        <th>Tên công việc</th>
+                        <th>CV</th>
+                        <th>Ngày ứng tuyển</th>
+                        <th>Trạng thái</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @{ var number = 1;}
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.Raw(number++)</td>
+                            <td>
+                                @Html.Action("getUsernameById", "temp", new { id = item.userId })
+                            </td>
+
+                            <td>
+                                @Html.Action("getJobById", "temp", new { id = item.jobId })
+                            </td>
+
+                            <td>
+                                <a href="@Url.Action("DownloadPdf", new {user=item.userId,cv= item.cv})">Download PDF</a>
+                            </td>
+
+
+                            <td>@Html.DisplayFor(modelI => item.dateApply)</td>
+                            <td>
+                                @if (item.status == 2)
+                                {
+                                    <p class="text text-danger"> Đã từ chối</p>
+                                }
+                                else if(item.status==1)
+                                {
+                                    <p class="text text-success">Đã duyệt</p>
+                                }
+                                else
+                                {
+                                    <p class="text text-info">Chờ duyệt</p>
+                                }
+                            </td>
+                            <td class="text-center">
+                                @if (item.status == 0)
+                                {
+                                    <button class="btn btn-danger" onclick="refuse(@item.id)">Từ chối</button>
+                                    <a href="@Url.Action("Edit",new { id = @item.id })" class="btn btn-success">Duyệt</a>
+                                }
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section ClientScript{
+    <script src="~/Assets/home/vendor/jquery/jquery.min.js"></script>
+    <script>
+        function refuse(id) {
+
+            if (confirm(`Bạn có chắc chắn từ chối ứng viên ?`)) {
+                window.location.href = "/employer/userapplies/Delete/"+id;
+            }
+        }
+    </script>
+}

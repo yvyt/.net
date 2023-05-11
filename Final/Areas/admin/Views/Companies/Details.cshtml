@@ -5,170 +5,111 @@
     Layout = "~/Areas/admin/Views/Shared/_adminLayout.cshtml";
 }
 
-<h2>Details</h2>
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr class="text-center">
+                        <th colspan="2"><h5 id="name">@Html.DisplayFor(model => Model.name)</h5></th>
+                    </tr>
+                </thead>
+                <tbody id="display">
+                    <tr>
+                        <td><b>Meta</b></td>
 
-<div>
-    <h4>Company</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.name)
-        </dt>
+                        <td>@Html.DisplayFor(model => Model.meta)</td>
+                    </tr>
+                    <tr>
+                        <td><b>Loại hình</b></td>
+                        <td>@Html.DisplayFor(model => Model.type)</td>
 
-        <dd>
-            @Html.DisplayFor(model => model.name)
-        </dd>
+                    </tr>
+                    <tr>
+                        <td><b>Hình ảnh</b></td>
+                        <td><img src="@Model.image"/></td>
+                    </tr>
+                    <tr>
+                        <td><b>Quốc gia</b></td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.meta)
-        </dt>
+                        <td>@Html.DisplayFor(model => Model.country)</td>
+                    </tr>
+                    <tr>
+                        <td><b>Địa chỉ</b></td>
+                        <td>@Html.Raw(Model.location)</td>
+                    </tr>
+                    <tr>
+                        <td><b>Webstie</b></td>
+                        <td><a href="@Model.website" target="_blank">@Model.website</a></td>
+                    </tr>
+                    <tr>
+                        <td><b>Chi tiết</b></td>
 
-        <dd>
-            @Html.DisplayFor(model => model.meta)
-        </dd>
+                        <td>@Html.Raw(Model.detail)</td>
+                    </tr>
+                    <tr>
+                        <td><b>Liên hệ</b></td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.type)
-        </dt>
+                        <td>@Html.DisplayFor(model => Model.contact)</td>
+                    </tr>
+                    <tr>
+                        <td><b>OT</b></td>
 
-        <dd>
-            @Html.DisplayFor(model => model.type)
-        </dd>
+                        <td>
+                            @if (Model.OT == true)
+                            {
+                                <p>Có</p>
+                            }
+                            else
+                            {
+                                <p>Không</p>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>Nhân viên</b></td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.country)
-        </dt>
+                        <td>@Html.DisplayFor(model => Model.employers)</td>
+                    </tr>
+                    <tr>
+                        <td><b>Email tài khoản HR</b></td>
 
-        <dd>
-            @Html.DisplayFor(model => model.country)
-        </dd>
+                        <td> @Html.Action("getUsernameFromId", "temp", new { id = Model.userId })</td>
+                    </tr>
+                    <tr>
+                        <td><b>Hiển thị</b></td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.location)
-        </dt>
-
-        <dd>
-            @Html.Raw(Model.location)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.website)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.website)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.detail)
-        </dt>
-
-        <dd>
-            @Html.Raw(Model.detail)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.contact)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.contact)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.hide)
-        </dt>
-
-        <dd>
-            @if (Model.hide == true)
-            {
-
-
-                <p>Hiển thị</p>
-
-            }
-            else
-            {
-                <p>Ẩn</p>
-            }
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.dateBegin)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.dateBegin)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.createBy)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.createBy)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.dateModife)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.dateModife)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.modifedBy)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.modifedBy)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.image)
-        </dt>
-
-        <dd>
-            <img src="@Model.image" width="500px" />
-        </dd>
-
-        <dt>
-            Account
-        </dt>
-
-        <dd>
-            @Html.Action("getUsernameFromId", "temp", new { id = Model.userId })
-
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.OT)
-        </dt>
-
-        <dd>
-            @if (Model.OT == true)
-            {
-
-
-                <p>Có</p>
-
-            }
-            else
-            {
-                <p>Không</p>
-            }
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.employers)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.employers)
-        </dd>
-
-    </dl>
+                        <td>
+                            @if (Model.hide == true)
+                            {
+                                <p>Hiển thị</p>
+                            }
+                            else
+                            {
+                                <p>Ẩn</p>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>Ngày tạo</b></td>
+                        <td>@Html.DisplayFor(model => model.dateBegin)</td>
+                    </tr>
+                    <tr>
+                        <td><b>Người tạo</b></td>
+                        <td>@Html.DisplayFor(model => model.createBy)</td>
+                    </tr>
+                    <tr>
+                        <td><b>Ngày cập nhật</b></td>
+                        <td>@Html.DisplayFor(model => model.dateModife)</td>
+                    </tr>
+                    <tr>
+                        <td><b>Người cập nhật</b></td>
+                        <td>@Html.DisplayFor(model => model.modifedBy)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 <div class="form-group" style="display:flex">
     <div class="col-md-offset-2 col-md-10">

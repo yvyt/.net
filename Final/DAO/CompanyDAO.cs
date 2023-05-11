@@ -40,5 +40,9 @@ namespace Final.DAO
         {
             return db.Companies.Where(x=>x.userId==id).FirstOrDefault();
         }
+        public Company companyExist(string website)
+        {
+            return db.Companies.Where(x=>x.website==website).FirstOrDefault();
+        }
     }
 }

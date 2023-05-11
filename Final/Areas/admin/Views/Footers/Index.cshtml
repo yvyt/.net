@@ -8,22 +8,25 @@
 <h2>Quản lý footer</h2>
 
 <div class="card shadow mb-4">
-    
+    <div style="display: flex;" class="py-3">
+        <p style="margin:10px">Search:</p>
+        <input type="text" name="searchQuery" placeholder="" class="form-control" id="charSearch">
+    </div>
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr class="text-center">
-                        <th>ID</th>
-                        <th>Content</th>
-                        <th>Type</th>
-                        <th>Hide</th>
-                        <th>Column</th>
+                        <th>STT</th>
+                        <th>Nội dung</th>
+                        <th>Loại</th>
+                        <th>Cột</th>
+                        <th>Hiển thị</th>
 
-                        <th>Active</th>
+                        <th>Hành động</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="display">
 
                     @{ var number = 1;}
                     @foreach (var item in Model)
@@ -32,7 +35,8 @@
                             <td>@Html.Raw(number++)</td>
                             <td>@Html.DisplayFor(modelI => item.contentF)</td>
 
-
+                            <td>@Html.DisplayFor(modelI => item.type)</td>
+                            <td>@Html.DisplayFor(modelI => item.columnIndex)</td>
                             <td class="text-center">
                                 @if (item.hide == true)
                                 {
@@ -46,8 +50,7 @@
                                     <p>Ẩn</p>
                                 }
                             </td>
-                            <td>@Html.DisplayFor(modelI => item.type)</td>
-                            <td>@Html.DisplayFor(modelI => item.columnIndex)</td>
+
 
                             <td class="text-center">
                                 <a href="@Url.Action("Edit", new { id = item.id })" class="text-primary"><ion-icon name="create-outline"></ion-icon></a>
@@ -68,3 +71,87 @@
     </div>
 </div>
 
+@section ClientScript{
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/Assets/admin/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="~/Assets/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="~/Assets/admin/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="~/Assets/admin/vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script>
+    $(document).ready(function () {
+            $("#charSearch").on('input', function () {
+                $.ajax({
+                    url: '@Url.Action("Data", "Footers")',
+                    type: 'post',
+
+                    success: function (data) {
+                        var char = $("#charSearch").val();
+                        var footers = []
+                        if (data) {
+                            for (let i = 0; i < data.length; i++) {
+                                footers.push(data[i])
+                            }
+
+                        }
+                        let result = []
+                        if (char) {
+                            result = footers.filter(element => element['contentF'].toLowerCase().includes(char));
+
+
+                        } else {
+                            result = footers
+                        }
+                        var html_result = "";
+                        if (result.length > 0) {
+                            var ht1 = "";
+                            for (i = 0; i < result.length; i++) {
+                                ht1+=`<tr>`
+                                ht1 += `<td>${i+1}</td>`
+                                ht1 += `<td>${result[i]['contentF']}</td>`;
+
+                                ht1 += `<td class="text-center">`;
+                                if (result[i]['hide']) {
+                                    ht1 += `<p>Hiển thị</p>`;
+
+                                } else {
+                                    ht1 += `<p>Ẩn</p>`;
+                                }
+                                ht1 += "</td>"
+                                ht1 += `<td>${result[i]['type']}</td>`;
+                                ht1 += `<td>${result[i]['columnIndex']} </td>`
+                                
+                                ht1 += `<td class="text-center">`
+                                const menuid = result[i]['id'];
+                                ht1 += '<a href="@Url.Action("Edit")/' + menuid + '" class="text-primary"><ion-icon name="create-outline"></ion-icon></a>';
+                                ht1 += `<span>|</span>`
+                                ht1 += '<a href="@Url.Action("Details")/' + menuid + '" class="text-dark"><ion-icon name="search-outline"></ion-icon></a>';
+                                if (result[i]['hide']) {
+                                    ht1 +=`<span>|</span>`
+                                    ht1 += '<a href="@Url.Action("Delete")/' + menuid + '" class="text-danger"><ion-icon name="trash-outline"></ion-icon></a>';
+
+                                }
+                                ht1 += `</td>`
+                                ht1+=`</tr>`
+
+                            }
+                            html_result += ht1;
+
+                            document.getElementById("display").innerHTML = html_result;
+                        }
+
+                    }
+                })
+            })
+
+        });</script>
+
+}

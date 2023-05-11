@@ -8,29 +8,35 @@
 
 <h2>Quản lý danh mục blog</h2>
 <div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <div class="btn-group">
-            <a href="@Url.Action("Create")" class="p-2 font-weight-bold text-white bg-dark">+ Thêm mới</a>
+    <div style="display:flex">
+        <div class="card-header py-3">
+            <div class="btn-group">
+                <a href="@Url.Action("Create")" class="p-2 font-weight-bold text-white bg-dark">+ Thêm mới</a>
+            </div>
+        </div>
+        <div style="display: flex; position: absolute; right: 20px;" class="py-3">
+            <p style="margin:10px">Search:</p>
+            <input type="text" name="searchQuery" placeholder="" class="form-control" id="charSearch">
         </div>
     </div>
+    
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr class="text-center">
-                        <th>ID</th>
-                        <th>Title</th>
-                        <th>Link</th>
+                        <th>STT</th>
+                        <th>Tiêu đề</th>
                         <th>Meta</th>
-                        <th>Hide</th>
-                        <th>Date create</th>
-                        <th>Date modify</th>
+                        <th>Hiển thị</th>
+                        <th>Ngày tạo</th>
+                        <th>Ngày cập nhật</th>
 
-                        <th>Active</th>
+                        <th>Hoạt động</th>
                     </tr>
                 </thead>
 
-                <tbody>
+                <tbody id="display">
 
                     @{ var number = 1;}
                     @foreach (var item in Model)
@@ -38,7 +44,6 @@
                         <tr>
                             <td>@Html.Raw(number++)</td>
                             <td>@Html.Raw(item.title)</td>
-                            <td>@Html.DisplayFor(modelI => item.link)</td>
 
                             <td>@Html.DisplayFor(modelI => item.meta)</td>
 
@@ -91,8 +96,84 @@
     <script src="~/Assets/admin/vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="~/Assets/admin/js/demo/chart-area-demo.js"></script>
-    <script src="~/Assets/admin/js/demo/chart-pie-demo.js"></script>
-    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+   
+    <script>
+        $(document).ready(function () {
+            $("#charSearch").on('input', function () {
+                $.ajax({
+                    url: '@Url.Action("Data", "BlogCategories")',
+                    type: 'post',
 
+                    success: function (data) {
+                        var char = $("#charSearch").val();
+                        var cate_data = []
+                        if (data) {
+                            for (let i = 0; i < data.length; i++) {
+                                cate_data.push(data[i])
+                            }
+
+                        }
+                        let result = []
+                        if (char) {
+                            result = cate_data.filter(element => element['title'].toLowerCase().includes(char));
+
+
+                        }
+                        else {
+                            result= cate_data
+                        }
+                        var html_result = "";
+                        if (result.length > 0) {
+                            var ht1 = "";
+                            for (i = 0; i < result.length; i++) {
+                                ht1+=`<tr>`
+                                ht1 += `<td>${i+1}</td>`
+                                ht1 += `<td>${result[i]['title']}</td>`;
+                                ht1 += `<td>${result[i]['link']}</td>`;
+                                ht1 += `<td>${result[i]['meta']}</td>`;
+                                ht1 += `<td class="text-center">`;
+                                if (result[i]['hide']) {
+                                    ht1 += `<p>Hiển thị</p>`;
+
+                                } else {
+                                    ht1 += `<p>Ẩn</p>`;
+                                }
+                                ht1 += `</td>`
+                                
+                                const dateString = result[i]['dateModife'];
+                                const dateBegin = result[i]['dateBegin']
+                                const dateRegex = /\/Date\((\d+)\)\//; // Regular expression to extract the numeric value
+                                const match = dateRegex.exec(dateString); // Extract the numeric value from the string
+                                const matchBegin = dateRegex.exec(dateBegin)
+                                const timestamp = Number(match[1]); // Convert the string to a number
+                                const dateB = Number(matchBegin);
+                                const date = new Date(timestamp);
+                                const begin = new Date(dateB)
+                                ht1 += `<td>${begin.toDateString()}</td>`
+                                ht1 += `<td>${date.toDateString()}</td>`;
+                                ht1 += `<td class="text-center">`
+                                const menuid = result[i]['id'];
+                                ht1 += '<a href="@Url.Action("Edit")/' + menuid + '" class="text-primary"><ion-icon name="create-outline"></ion-icon></a>';
+                                ht1 += `<span>|</span>`
+                                ht1 += '<a href="@Url.Action("Details")/' + menuid + '" class="text-dark"><ion-icon name="search-outline"></ion-icon></a>';
+                                if (result[i]['hide']) {
+                                    ht1 +=`<span>|</span>`
+                                    ht1 += '<a href="@Url.Action("Delete")/' + menuid + '" class="text-danger"><ion-icon name="trash-outline"></ion-icon></a>';
+
+                                }
+                                ht1 += `</td>`
+                                ht1+=`</tr>`
+
+                            }
+                            html_result += ht1;
+
+                            document.getElementById("display").innerHTML = html_result;
+                        }
+
+                    }
+                })
+            })
+
+        });
+    </script>
 }
