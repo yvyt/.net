@@ -23,9 +23,15 @@
                 <li class="dropdown">
                 <a class="getstarted scrollto">@ViewBag.userCurrent</a>
                 <ul>
+                    @if (ViewBag.role == 0)
+                    {
+                        <li><a href="../../admin">Quản trị</a></li>
+
+                    }
                     <li><a href="../../home/profile">Cá nhân</a></li>
 
                     <li><a href="../../home/logout">Đăng xuất</a></li>
+
                 </ul>
                 </li>
             }

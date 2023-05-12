@@ -17,12 +17,32 @@ namespace Final.Areas.admin.Controllers
         // GET: admin/Footers
         public ActionResult Index()
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             return View(db.Footers.ToList());
         }
 
         // GET: admin/Footers/Details/5
         public ActionResult Details(long? id)
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -39,6 +59,16 @@ namespace Final.Areas.admin.Controllers
         // GET: admin/Footers/Edit/5
         public ActionResult Edit(long? id)
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -70,6 +100,16 @@ namespace Final.Areas.admin.Controllers
         // GET: admin/Footers/Delete/5
         public ActionResult Delete(long? id)
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

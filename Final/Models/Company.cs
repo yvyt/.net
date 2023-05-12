@@ -42,15 +42,11 @@ namespace Final.Models
 
         public DateTime dateBegin { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string createBy { get; set; }
+        public long createBy { get; set; }
 
         public DateTime dateModife { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string modifedBy { get; set; }
+        public long modifedBy { get; set; }
 
         [StringLength(500)]
         public string image { get; set; }
@@ -60,7 +56,12 @@ namespace Final.Models
         public int? employers { get; set; }
 
         public long userId { get; set; }
-        public Company(string name, string meta, string type, string location, string website, DateTime dateBegin, string createBy, DateTime dateModife, string modifedBy, long userId)
+
+        public Company()
+        {
+        }
+
+        public Company(string name, string meta, string type, string location, string website, DateTime dateBegin, long createBy, DateTime dateModife, long modifedBy, long userId)
         {
             this.name = name;
             this.meta = meta;
@@ -69,17 +70,16 @@ namespace Final.Models
             this.location = location;
             this.website = website;
             this.detail = "";
-            this.contact = "";
+            this.contact ="";
             this.hide = true;
             this.dateBegin = dateBegin;
             this.createBy = createBy;
             this.dateModife = dateModife;
             this.modifedBy = modifedBy;
-            this.image = "/Assets/home/images/logo1.jpg";
+            this.image = image;
             OT = false;
             this.employers = 0;
             this.userId = userId;
         }
-        public Company() { }
     }
 }

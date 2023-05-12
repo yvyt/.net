@@ -33,5 +33,9 @@ namespace Final.DAO
         {
             return db.Stories.Where(x => x.hide == true).OrderBy(x=>x.displayOrder).ToList();
         }
+        public List<Story> getByUserId(long id)
+        {
+            return db.Stories.Where(x=>x.createBy==id).ToList();
+        }
     }
 }

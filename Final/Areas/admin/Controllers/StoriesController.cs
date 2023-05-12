@@ -17,12 +17,32 @@ namespace Final.Areas.admin.Controllers
         // GET: admin/Stories
         public ActionResult Index()
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             return View(db.Stories.ToList());
         }
 
         // GET: admin/Stories/Details/5
         public ActionResult Details(long? id)
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -38,8 +58,18 @@ namespace Final.Areas.admin.Controllers
         // GET: admin/Stories/Create
         public ActionResult Create()
         {
-            ViewBag.sum = new Final.DAO.StoryDAO().sum() + 1;
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
+            }
+            ViewBag.sum = new Final.DAO.StoryDAO().sum() + 1;
+            ViewBag.user = user.id;
             return View();
         }
 
@@ -69,6 +99,16 @@ namespace Final.Areas.admin.Controllers
         // GET: admin/Stories/Edit/5
         public ActionResult Edit(long? id)
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -92,6 +132,8 @@ namespace Final.Areas.admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                userLogin user = Session["user"] as userLogin;
+                story.modifedBy = user.id;
                 db.Entry(story).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -102,6 +144,16 @@ namespace Final.Areas.admin.Controllers
         // GET: admin/Stories/Delete/5
         public ActionResult Delete(long? id)
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

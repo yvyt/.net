@@ -16,13 +16,13 @@ namespace Final.DAO
         public companyRegister addCompany(string name, string email, string website, string type, string address)
         {
             companyRegister c = new companyRegister(name,email,website, type,address,true);
-            db.CompanyRegisters.Add(c);
+            db.companyRegisters.Add(c);
             db.SaveChanges();
             return c;
         }
         public companyRegister companyExist(string website)
         {
-            return db.CompanyRegisters.Where(x=>x.website== website).FirstOrDefault();
+            return db.companyRegisters.Where(x=>x.website== website).FirstOrDefault();
         }
     }
 }

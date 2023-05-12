@@ -1,7 +1,9 @@
 ﻿@model List<Final.Models.Comment>
 @foreach (var item in Model)
 {
-    <h2><b>@item.name</b></h2>
+    <h2><b>
+    @{ Html.RenderAction("getUsername", "Home", new { id = item.userId });}
+    </b></h2>
     {
         int r = 0;
         for (var i = 1; i <= @item.star; i++)

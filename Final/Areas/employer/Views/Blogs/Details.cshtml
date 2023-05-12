@@ -1,0 +1,83 @@
+﻿@model Final.Models.Blog
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/employer/Views/Shared/_employerLayout.cshtml";
+}
+
+
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr class="text-center">
+                        <th colspan="2"><h5 id="name">@Html.DisplayFor(model => Model.title)</h5></th>
+                    </tr>
+                </thead>
+                <tbody id="display">
+                    <tr>
+                        <td><b>Meta</b></td>
+
+                        <td>@Html.DisplayFor(model => Model.meta)</td>
+                    </tr>
+                    <tr>
+                        <td><b>Nội dung</b></td>
+                        <td>@Html.Raw(Model.content_story)</td>
+
+                    </tr>
+
+                    <tr>
+                        <td><b>Danh mục</b></td>
+
+                        <td>@Html.Action("getBlogCateById", "temp", new { id = Model.CategoryId })</td>
+                    </tr>
+                    <tr>
+                        <td><b>Vị trí hiển thị</b></td>
+                        <td>@Html.DisplayFor(model => Model.displayOrder)</td>
+                    </tr>
+                    <tr>
+                        <td><b>Hiển thị</b></td>
+
+                        <td>
+                            @if (Model.hide == true)
+                            {
+                                <p>Hiển thị</p>
+                            }
+                            else
+                            {
+                                <p>Ẩn</p>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>Ngày tạo</b></td>
+                        <td>@Html.DisplayFor(model => model.dateBegin)</td>
+                    </tr>
+                    <tr>
+                        <td><b>Người tạo</b></td>
+                        <td>@Html.Action("getUsernameFromId", "temp", new { id = Model.createBy })</td>
+                    </tr>
+                    <tr>
+                        <td><b>Ngày cập nhật</b></td>
+                        <td>@Html.DisplayFor(model => model.dateModife)</td>
+                    </tr>
+                    <tr>
+                        <td><b>Người cập nhật</b></td>
+                        <td>@Html.Action("getUsernameFromId", "temp", new { id = Model.modifedBy })</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="form-group" style="display:flex">
+    <div class="col-md-offset-2 col-md-10">
+        <a href="@Url.Action("Index")" class="btn btn-info">Trở về</a>
+    </div>
+    <div class="col-md-offset-2 col-md-10">
+        <a href="@Url.Action("Edit",new { id = Model.id })" class="btn btn-info">Chỉnh sửa</a>
+
+    </div>
+</div>
+

@@ -19,9 +19,17 @@ namespace Final.Areas.employer.Controllers
         // GET: employer/Jobs
         public ActionResult Index()
         {
-                        
-           
-                userLogin user = Session["user"] as userLogin;
+
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 2)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
                 var company = new CompanyDAO().getByUser(user.id);
                 var modal = new JobDAO().getByIdCompany(company.id);
            
@@ -34,6 +42,16 @@ namespace Final.Areas.employer.Controllers
         // GET: employer/Jobs/Details/5
         public ActionResult Details(long? id)
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 2)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -49,10 +67,20 @@ namespace Final.Areas.employer.Controllers
         // GET: employer/Jobs/Create
         public ActionResult Create()
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
             userLogin user = Session["user"] as userLogin;
+            if (user.role != 2)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             var company = new CompanyDAO().getByUser(user.id);
             ViewBag.idCompany = company.id;
             ViewBag.userEditor = user.username;
+            ViewBag.user = user.id;
             return View();
         }
 
@@ -78,6 +106,16 @@ namespace Final.Areas.employer.Controllers
         // GET: admin/Jobs/Edit/5
         public ActionResult Edit(long? id)
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 2)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -101,6 +139,9 @@ namespace Final.Areas.employer.Controllers
         {
             if (ModelState.IsValid)
             {
+              
+                userLogin user = Session["user"] as userLogin;
+                job.modifedBy = user.id;
                 db.Entry(job).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -112,6 +153,16 @@ namespace Final.Areas.employer.Controllers
         // GET: employer/Jobs/Delete/5
         public ActionResult Delete(long? id)
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 2)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

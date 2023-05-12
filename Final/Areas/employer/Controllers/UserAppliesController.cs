@@ -19,7 +19,16 @@ namespace Final.Areas.employer.Controllers
         // GET: employer/UserApplies
         public ActionResult Index()
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
             userLogin user = Session["user"] as userLogin;
+            if (user.role != 2)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
 
             var modal = new UserApplyDAO().job(user.id);
             return View(modal);
@@ -28,6 +37,16 @@ namespace Final.Areas.employer.Controllers
         // GET: employer/UserApplies/Edit/5
         public ActionResult Edit(long? id)
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 2)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -75,6 +94,16 @@ namespace Final.Areas.employer.Controllers
         // GET: employer/UserApplies/Delete/5
         public ActionResult Delete(long? id)
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 2)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

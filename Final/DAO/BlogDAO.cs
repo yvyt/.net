@@ -30,5 +30,9 @@ namespace Final.DAO
             return db.Blogs.Where(x => x.hide == true).OrderBy(x => x.displayOrder).ToList();
 
         }
+        public List<Blog> getByUserId(long id)
+        {
+            return db.Blogs.Where(x=>x.createBy==id).ToList();
+        }
     }
 }

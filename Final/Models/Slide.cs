@@ -27,15 +27,11 @@ namespace Final.Models
 
         public DateTime dateBegin { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string createBy { get; set; }
+        public long createBy { get; set; }
 
         public DateTime dateModife { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string modifedBy { get; set; }
+        public long modifedBy { get; set; }
 
         [Required]
         [StringLength(500)]

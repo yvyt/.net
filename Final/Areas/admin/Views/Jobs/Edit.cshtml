@@ -10,7 +10,7 @@
         margin-left: 10px
     }
 </style>
-
+<h2>Chỉnh sửa công việc</h2>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -124,25 +124,28 @@
 
 
     <div class="form-group">
-        <h6>Người tạo</h6>
+        <h6>Tạo bởi</h6>
         <div class="col-md-10">
-            @Html.EditorFor(model => model.createBy, new { htmlAttributes = new { @class = "form-control", value = Model.createBy } })
+            <p>@Html.Action("getUsernameFromId", "temp", new { id = Model.createBy })</p>
+            @Html.HiddenFor(model => model.createBy)
             @Html.ValidationMessageFor(model => model.createBy, "", new { @class = "text-danger" })
         </div>
     </div>
 
-    <div class="form-group col-md-10">
+    <div class="form-group">
         <h6>Ngày cập nhật</h6>
-        <div>
+        <div class="col-md-10">
             @Html.EditorFor(model => model.dateModife, new { htmlAttributes = new { @class = "form-control", type = "date", Value = DateTime.Now.ToString("yyyy-MM-dd") } })
             @Html.ValidationMessageFor(model => model.dateModife, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        <h6>Người cập nhật</h6>
+        <h6>Cập nhật bởi</h6>
         <div class="col-md-10">
-            @Html.EditorFor(model => model.modifedBy, new { htmlAttributes = new { @class = "form-control", value = Model.modifedBy } })
+            <p>@Html.Action("getUsernameFromId", "temp", new { id = Model.modifedBy })</p>
+
+            @Html.HiddenFor(model => model.modifedBy)
             @Html.ValidationMessageFor(model => model.modifedBy, "", new { @class = "text-danger" })
         </div>
     </div>

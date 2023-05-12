@@ -18,13 +18,34 @@ namespace Final.Areas.admin.Controllers
 
         // GET: admin/Blogs
         public ActionResult Index()
+
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             return View(db.Blogs.ToList());
         }
 
         // GET: admin/Blogs/Details/5
         public ActionResult Details(long? id)
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -40,9 +61,20 @@ namespace Final.Areas.admin.Controllers
         // GET: admin/Blogs/Create
         public ActionResult Create()
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             var list = new BlogCategoryDAO();
             ViewBag.CategoryId = new SelectList(list.getAll(), "id", "title");
             ViewBag.sum = new Final.DAO.BlogDAO().sum() + 1;
+            ViewBag.user = user.id;
             return View();
         }
 
@@ -60,6 +92,7 @@ namespace Final.Areas.admin.Controllers
                 {
                     var dOrder = new Final.DAO.BlogDAO().sum();
                     blog.displayOrder = dOrder + 1;
+                    
                 }
                 db.Blogs.Add(blog);
                 db.SaveChanges();
@@ -72,6 +105,16 @@ namespace Final.Areas.admin.Controllers
         // GET: admin/Blogs/Edit/5
         public ActionResult Edit(long? id)
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -97,7 +140,10 @@ namespace Final.Areas.admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                userLogin user = Session["user"] as userLogin;
+                blog.modifedBy = user.id;
                 db.Entry(blog).State = EntityState.Modified;
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -107,6 +153,16 @@ namespace Final.Areas.admin.Controllers
         // GET: admin/Blogs/Delete/5
         public ActionResult Delete(long? id)
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

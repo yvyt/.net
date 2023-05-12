@@ -10,11 +10,6 @@
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <div class="btn-group">
-            <a href="@Url.Action("Create")" class="p-2 font-weight-bold text-white bg-dark">+ Thêm mới</a>
-        </div>
-    </div>
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -45,7 +40,7 @@
                             </td>
 
                             <td>
-                                <a href="@Url.Action("DownloadPdf", new {user=item.userId,cv= item.cv})">Download PDF</a>
+                                <a href="@Url.Action("DownloadPdf", new {user=item.userId,cv= item.cv})">Tải CV</a>
                             </td>
 
 
@@ -55,7 +50,7 @@
                                 {
                                     <p class="text text-danger"> Đã từ chối</p>
                                 }
-                                else if(item.status==1)
+                                else if (item.status == 1)
                                 {
                                     <p class="text text-success">Đã duyệt</p>
                                 }
@@ -69,6 +64,12 @@
                                 {
                                     <button class="btn btn-danger" onclick="refuse(@item.id)">Từ chối</button>
                                     <a href="@Url.Action("Edit",new { id = @item.id })" class="btn btn-success">Duyệt</a>
+
+                                }
+                                else if (item.status == 2)
+                                {
+                                    <a href="@Url.Action("Edit",new { id = @item.id })" class="btn btn-success">Duyệt</a>
+
                                 }
                             </td>
                         </tr>
@@ -85,8 +86,22 @@
         function refuse(id) {
 
             if (confirm(`Bạn có chắc chắn từ chối ứng viên ?`)) {
-                window.location.href = "/employer/userapplies/Delete/"+id;
+                window.location.href = "/employer/userapplies/Delete/" + id;
             }
         }
     </script>
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/Assets/admin/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="~/Assets/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="~/Assets/admin/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="~/Assets/admin/vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
 }

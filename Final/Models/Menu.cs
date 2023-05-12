@@ -20,9 +20,7 @@ namespace Final.Models
         [StringLength(250)]
         public string meta { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string modifedBy { get; set; }
+        public long modifedBy { get; set; }
 
         public int? displayOrder { get; set; }
 
@@ -31,9 +29,7 @@ namespace Final.Models
         [Column(TypeName = "datetime2")]
         public DateTime dateBegin { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string createBy { get; set; }
+        public long createBy { get; set; }
 
         [Column(TypeName = "datetime2")]
         public DateTime dateModife { get; set; }

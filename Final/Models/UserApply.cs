@@ -9,6 +9,9 @@ namespace Final.Models
     [Table("UserApply")]
     public partial class UserApply
     {
+        private DateTime today;
+
+        
         public long id { get; set; }
 
         public long userId { get; set; }
@@ -22,14 +25,15 @@ namespace Final.Models
         public int status { get; set; }
 
         public DateTime dateApply { get; set; }
-        public UserApply( long userId, long jobId, string cv, DateTime dateApply)
+        public UserApply(long userId, long jobId, string cv, DateTime today)
         {
             this.userId = userId;
             this.jobId = jobId;
             this.cv = cv;
             this.status = 0;
-            this.dateApply = dateApply;
+            this.today = today;
         }
         public UserApply() { }
+
     }
 }

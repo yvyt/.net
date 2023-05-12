@@ -32,7 +32,8 @@ namespace Final.Models
         public string email { get; set; }
 
         public bool active { get; set; }
-        public companyRegister( string name, string email, string website, string type, string location, bool active)
+
+        public companyRegister(string website, string name, string type, string location, string email, bool active)
         {
             this.website = website;
             this.name = name;

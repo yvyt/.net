@@ -21,17 +21,21 @@ namespace Final.Models
 
         [StringLength(550)]
         public string address { get; set; }
-        public ProfileUser() { }
-        public ProfileUser(long userID, string fullname, string phone, string address)
+
+        public ProfileUser()
+        {
+        }
+
+        public ProfileUser(long userID)
         {
             this.userID = userID;
+        }
+
+        public ProfileUser(long userID, string fullname, string phone, string address) : this(userID)
+        {
             this.fullname = fullname;
             this.phone = phone;
             this.address = address;
-        }
-        public ProfileUser(long userId)
-        {
-            this.userID = userId;
         }
     }
 }

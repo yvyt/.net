@@ -3,6 +3,7 @@ using Final.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -17,11 +18,22 @@ namespace Final.Areas.employer.Controllers
             {
                 return View("login");
             }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 2)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             return View();
         }
         public ActionResult login()
         {
             return View();
+        }
+        public ActionResult Menu()
+        {
+            userLogin user = Session["user"] as userLogin;
+            return PartialView(user);
         }
     }
 }

@@ -24,17 +24,37 @@ namespace Final.Areas.admin.Controllers
         // GET: admin/companyRegisters
         public ActionResult Index()
         {
-            return View(db.CompanyRegisters.ToList());
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
+            return View(db.companyRegisters.ToList());
         }
 
         // GET: admin/companyRegisters/Details/5
         public ActionResult Details(long? id)
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            companyRegister companyRegister = db.CompanyRegisters.Find(id);
+            companyRegister companyRegister = db.companyRegisters.Find(id);
             if (companyRegister == null)
             {
                 return HttpNotFound();
@@ -44,19 +64,28 @@ namespace Final.Areas.admin.Controllers
         // GET: admin/companyRegisters/Edit/5
         public ActionResult Edit(long? id)
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            companyRegister companyRegister = db.CompanyRegisters.Find(id);
+            companyRegister companyRegister = db.companyRegisters.Find(id);
             if (companyRegister == null)
             {
                 return HttpNotFound();
             }
             DateTime today = DateTime.Now;
             string todayString = today.ToString("yyyy-MM-dd");
-            userLogin user = Session["user"] as userLogin;
-            var username = user.username;
+            var username = user.id;
             Company company = new Company(companyRegister.name,ToSlug(companyRegister.name),companyRegister.type,companyRegister.location,companyRegister.website,today,username,today,username,user.id);
             db.Companies.Add(company);
             User u=new UserDAO().findUser(companyRegister.email);
@@ -66,7 +95,7 @@ namespace Final.Areas.admin.Controllers
             }
             u.status = true;
             db.Entry(u).State = EntityState.Modified; // Mark the User object as modified so it gets updated in the database
-            db.CompanyRegisters.Remove(companyRegister);
+            db.companyRegisters.Remove(companyRegister);
             db.SaveChanges();
             try
             {
@@ -98,11 +127,21 @@ namespace Final.Areas.admin.Controllers
         // GET: admin/companyRegisters/Delete/5
         public ActionResult Delete(long? id)
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            companyRegister companyRegister = db.CompanyRegisters.Find(id);
+            companyRegister companyRegister = db.companyRegisters.Find(id);
             if (companyRegister == null)
             {
                 return HttpNotFound();

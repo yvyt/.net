@@ -79,7 +79,7 @@
             <div class="form-group col-md-4" style="display:none">
                 @Html.LabelFor(model => model.createBy, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div>
-                    @Html.EditorFor(model => model.createBy, new { htmlAttributes = new { @class = "form-control", Value = "admin" } })
+                    @Html.EditorFor(model => model.createBy, new { htmlAttributes = new { @class = "form-control", Value = ViewBag.user } })
                     @Html.ValidationMessageFor(model => model.createBy, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -102,7 +102,7 @@
             <div class="form-group col-md-4" style="display:none">
                 @Html.LabelFor(model => model.modifedBy, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div>
-                    @Html.EditorFor(model => model.modifedBy, new { htmlAttributes = new { @class = "form-control", Value = "admin" } })
+                    @Html.EditorFor(model => model.modifedBy, new { htmlAttributes = new { @class = "form-control", Value = ViewBag.user } })
                     @Html.ValidationMessageFor(model => model.modifedBy, "", new { @class = "text-danger" })
                 </div>
             </div>

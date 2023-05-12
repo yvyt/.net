@@ -18,12 +18,32 @@ namespace Final.Areas.admin.Controllers
         // GET: admin/Jobs
         public ActionResult Index()
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             return View(db.Jobs.ToList());
         }
 
         // GET: admin/Jobs/Details/5
         public ActionResult Details(long? id)
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -41,6 +61,16 @@ namespace Final.Areas.admin.Controllers
         // GET: admin/Jobs/Edit/5
         public ActionResult Edit(long? id)
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -63,8 +93,11 @@ namespace Final.Areas.admin.Controllers
         [ValidateInput(false)]
         public ActionResult Edit([Bind(Include = "id,name,levelJ,quantity,description,salary,categoryID,companyID,meta,detail,hide,dateBegin,createBy,dateModife,modifedBy")] Job job)
         {
+            userLogin user = Session["user"] as userLogin;
+
             if (ModelState.IsValid)
             {
+                job.modifedBy = user.id;
                 db.Entry(job).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -75,6 +108,16 @@ namespace Final.Areas.admin.Controllers
         // GET: admin/Jobs/Delete/5
         public ActionResult Delete(long? id)
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

@@ -8,7 +8,7 @@ namespace Final.Models
     public partial class ItJobDbContext : DbContext
     {
         public ItJobDbContext()
-            : base("name=Model120")
+            : base("name=Model122")
         {
         }
 
@@ -16,28 +16,21 @@ namespace Final.Models
         public virtual DbSet<BlogCategory> BlogCategories { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<Company> Companies { get; set; }
+        public virtual DbSet<companyRegister> companyRegisters { get; set; }
         public virtual DbSet<Footer> Footers { get; set; }
         public virtual DbSet<Job> Jobs { get; set; }
         public virtual DbSet<JobCategory> JobCategories { get; set; }
         public virtual DbSet<Menu> Menus { get; set; }
+        public virtual DbSet<ProfileUser> ProfileUsers { get; set; }
         public virtual DbSet<Slide> Slides { get; set; }
+        public virtual DbSet<Story> Stories { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserApply> UserApplies { get; set; }
-        public virtual DbSet<Story> Stories { get; set; }
-        public virtual DbSet<companyRegister> CompanyRegisters { get; set; }
-        public virtual DbSet<ProfileUser> ProfileUsers { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Blog>()
                 .Property(e => e.meta)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Blog>()
-                .Property(e => e.createBy)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Blog>()
-                .Property(e => e.modifedBy)
                 .IsUnicode(false);
 
             modelBuilder.Entity<BlogCategory>()
@@ -46,14 +39,6 @@ namespace Final.Models
 
             modelBuilder.Entity<BlogCategory>()
                 .Property(e => e.meta)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<BlogCategory>()
-                .Property(e => e.createBy)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<BlogCategory>()
-                .Property(e => e.modifedBy)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Company>()
@@ -73,15 +58,19 @@ namespace Final.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<Company>()
-                .Property(e => e.createBy)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Company>()
-                .Property(e => e.modifedBy)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Company>()
                 .Property(e => e.image)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<companyRegister>()
+                .Property(e => e.website)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<companyRegister>()
+                .Property(e => e.type)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<companyRegister>()
+                .Property(e => e.email)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Job>()
@@ -92,14 +81,6 @@ namespace Final.Models
                 .Property(e => e.meta)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Job>()
-                .Property(e => e.createBy)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Job>()
-                .Property(e => e.modifedBy)
-                .IsUnicode(false);
-
             modelBuilder.Entity<JobCategory>()
                 .Property(e => e.link)
                 .IsUnicode(false);
@@ -108,45 +89,13 @@ namespace Final.Models
                 .Property(e => e.meta)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<JobCategory>()
-                .Property(e => e.createBy)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<JobCategory>()
-                .Property(e => e.modifedBy)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Menu>()
-                .Property(e => e.modifedBy)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Menu>()
-                .Property(e => e.createBy)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Slide>()
-                .Property(e => e.createBy)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Slide>()
-                .Property(e => e.modifedBy)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Story>()
-                .Property(e => e.meta)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Story>()
-                .Property(e => e.createBy)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Story>()
-                .Property(e => e.modifedBy)
-                .IsUnicode(false);
             modelBuilder.Entity<ProfileUser>()
                 .Property(e => e.phone)
                 .IsFixedLength();
 
+            modelBuilder.Entity<Story>()
+                .Property(e => e.meta)
+                .IsUnicode(false);
         }
     }
 }

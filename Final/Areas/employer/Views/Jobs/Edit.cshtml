@@ -5,7 +5,14 @@
     Layout = "~/Areas/employer/Views/Shared/_employerLayout.cshtml";
 }
 
-<h2>Edit</h2>
+<h2>Chỉnh sửa công việc</h2>
+
+<style>
+    h6 {
+        margin-left: 10px
+    }
+</style>
+<h2>Chỉnh sửa công việc</h2>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -17,56 +24,19 @@
     @Html.HiddenFor(model => model.id)
 
     <div class="form-group">
-        @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <h6>Tên công việc</h6>
         <div class="col-md-10">
             @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(model => model.meta, htmlAttributes: new { @class = "control-label col-md-2" })
+        <h6>Meta</h6>
         <div class="col-md-10">
             @Html.EditorFor(model => model.meta, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.meta, "", new { @class = "text-danger" })
         </div>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.levelJ, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.levelJ, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.levelJ, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.quantity, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.quantity, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.quantity, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.Label("Yêu cầu", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextAreaFor(model => model.description)
-            @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
-
-        </div>
-
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.salary, htmlAttributes: new { @class = "control-label col-md-2" })
-        <p class="text text-info">Nhập 0 khi bạn muốn thương lượng mức lương với ứng viên</p>
-
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.salary, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.salary, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-
     <div class="form-group">
         @Html.LabelFor(model => model.categoryID, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -83,18 +53,54 @@
         </div>
 
     </div>
-
-
-
-    @*<div class="form-group">
-            @Html.LabelFor(model => model.detail, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextAreaFor(model => model.detail, new { @class = "form-control", rows = "4" })
-                @Html.ValidationMessageFor(model => model.detail, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
     <div class="form-group">
-        @Html.Label("chi tiết", htmlAttributes: new { @class = "control-label col-md-2" })
+        <h6>Công ty</h6>
+        <div class="col-md-10">
+            @Html.Action("getCompanyByJobId", "temp", new { id = Model.companyID })
+
+            @Html.HiddenFor(model => model.companyID)
+
+        </div>
+    </div>
+    <div class="form-group">
+        <h6>Cấp độ</h6>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.levelJ, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.levelJ, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <h6>Số lượng tuyển</h6>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.quantity, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.quantity, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <h6>Yêu cầu</h6>
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.description)
+            @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <h6>
+            Mức lương(<i class="text text-info "> *Nhập 0 khi bạn muốn thương lượng mức lương với ứng viên </i>)
+        </h6>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.salary, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.salary, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <h6>Mô tả chi tiết</h6>
         <div class="col-md-10">
             @Html.TextAreaFor(model => model.detail)
             @Html.ValidationMessageFor(model => model.detail, "", new { @class = "text-danger" })
@@ -104,7 +110,7 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.hide, htmlAttributes: new { @class = "control-label col-md-2" })
+        <h6>Hiển thị</h6>
         <div class="col-md-10">
             @Html.DropDownListFor(model => model.hide, new List<SelectListItem>
             {
@@ -114,18 +120,10 @@
             @Html.ValidationMessageFor(model => model.hide, "", new { @class = "text-danger" })
         </div>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.companyID, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.Action("getCompanyByJobId", "temp", new { id = Model.companyID })
 
-            @Html.HiddenFor(model => model.companyID)
-
-        </div>
-    </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.dateBegin, htmlAttributes: new { @class = "control-label col-md-2" })
+        <h6>Ngày tạo</h6>
         <div class="col-md-10">
             <p>@Model.dateBegin</p>
             @Html.HiddenFor(model => model.dateBegin)
@@ -134,25 +132,28 @@
 
 
     <div class="form-group">
-        @Html.LabelFor(model => model.createBy, htmlAttributes: new { @class = "control-label col-md-2" })
+        <h6>Tạo bởi</h6>
         <div class="col-md-10">
-            @Html.EditorFor(model => model.createBy, new { htmlAttributes = new { @class = "form-control", value = Model.createBy } })
+            <p>@Html.Action("getUsernameFromId", "temp", new { id = Model.createBy })</p>
+            @Html.HiddenFor(model => model.createBy)
             @Html.ValidationMessageFor(model => model.createBy, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.dateModife, htmlAttributes: new { @class = "control-label col-md-2" })
+        <h6>Ngày cập nhật</h6>
         <div class="col-md-10">
-            @Html.EditorFor(model => model.dateModife, new { htmlAttributes = new { @class = "form-control", type = "date" , Value = DateTime.Now.ToString("yyyy-MM-dd") } })
+            @Html.EditorFor(model => model.dateModife, new { htmlAttributes = new { @class = "form-control", type = "date", Value = DateTime.Now.ToString("yyyy-MM-dd") } })
             @Html.ValidationMessageFor(model => model.dateModife, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.modifedBy, htmlAttributes: new { @class = "control-label col-md-2" })
+        <h6>Cập nhật bởi</h6>
         <div class="col-md-10">
-            @Html.EditorFor(model => model.modifedBy, new { htmlAttributes = new { @class = "form-control", value = Model.modifedBy } })
+            <p>@Html.Action("getUsernameFromId", "temp", new { id = Model.modifedBy })</p>
+
+            @Html.HiddenFor(model => model.modifedBy)
             @Html.ValidationMessageFor(model => model.modifedBy, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -169,6 +170,7 @@
 </div>
 
 }
+
 
 @section ClientScript{
     <!-- Bootstrap core JavaScript-->

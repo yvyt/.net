@@ -34,6 +34,13 @@ namespace Final
                     {"type","_cong_ty" }
                 },
                 namespaces: new[] { "Final.Controllers" });
+            routes.MapRoute("Category", "{type}",
+               new { controller = "JobCategory", action = "Index", meta = UrlParameter.Optional },
+               new RouteValueDictionary
+               {
+                    {"type","_danh_muc_cong_viec" }
+               },
+               namespaces: new[] { "Final.Controllers" });
             routes.MapRoute("DetailCompany", "{type}/{meta}",
                 new { controller = "Company", action = "Details", meta = UrlParameter.Optional },
                 new RouteValueDictionary

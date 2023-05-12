@@ -10,8 +10,7 @@ namespace Final.Models
     {
         public long id { get; set; }
 
-        [StringLength(250)]
-        public string name { get; set; }
+        public long userId { get; set; }
 
         public long CompanyID { get; set; }
 

@@ -1,0 +1,10 @@
+﻿<div class="dropdown" style=" right: 30px; position: absolute;">
+    <button class="btn btn-info dropdown-toggle rounded" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true">
+        @Model.username
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a href="@Url.Action("Index","Profile")" class="dropdown-item">Cá nhân</a>
+        <a href="../../home/logout" class="dropdown-item">Đăng xuất</a>
+    </div>
+</div>
+

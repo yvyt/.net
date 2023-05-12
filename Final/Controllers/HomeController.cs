@@ -3,6 +3,7 @@ using Final.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -14,25 +15,40 @@ namespace Final.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            
+            userLogin user = Session["user"] as userLogin;
+            if (user == null)
+            {
+                return RedirectToAction("login");
+
+            }
+            if (user.role == 2)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             return View();
         }
         public ActionResult Menu()
         {
-            var model = new MenuDAO().getAll();
             userLogin user = Session["user"] as userLogin;
+            
+            var model = new MenuDAO().getAll();
             if (user != null)
             {
                 ViewBag.userCurrent = user.username;
+                ViewBag.role = user.role;
+
             }
             return PartialView(model);
         }
         public ActionResult Footer() {
+
             var model = new FooterDAO().getALL();
             return PartialView(model);
         }
         public ActionResult JobCategory()
         {
+
             var model = new JobCategoryDAO().getShowOnHome();
             return PartialView(model);
         }
@@ -84,13 +100,17 @@ namespace Final.Controllers
         public ActionResult profile()
         {
             userLogin user = Session["user"] as userLogin;
+            if (user.role == 2)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             if (user == null)
             {
                 return RedirectToAction("login");
 
             }
             var model = new ProfileUserDAO().getByUserId((int)user.id);
-
             return View(model);
         }
         public ActionResult getDetails(int id)
@@ -114,6 +134,12 @@ namespace Final.Controllers
             var compay = new CompanyDAO().getById(model.companyID);
             return PartialView(compay);
         }
+        public ActionResult getUsername(long id)
+        {
+            var model = new UserDAO().getById((int)id);
+            return PartialView(model);
+
+        }
         public ActionResult employerRegister()
         {
             return View();
@@ -121,6 +147,12 @@ namespace Final.Controllers
         [HttpPost]
         public ActionResult updateProfile(string id,string fullname, string phone, string address)
         {
+            userLogin user = Session["user"] as userLogin;
+            if (user.role == 2)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             var profile= new ProfileUserDAO().getById(int.Parse(id));
             if (profile == null)
             {

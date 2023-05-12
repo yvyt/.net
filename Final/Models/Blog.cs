@@ -28,14 +28,25 @@ namespace Final.Models
 
         public DateTime dateBegin { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string createBy { get; set; }
+        public long createBy { get; set; }
 
         public DateTime dateModife { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string modifedBy { get; set; }
+        public long modifedBy { get; set; }
+
+        public Blog(string meta, string title, string content_story, long? categoryId, int? displayOrder, bool? hide, DateTime dateBegin, long createBy, DateTime dateModife, long modifedBy)
+        {
+            this.meta = meta;
+            this.title = title;
+            this.content_story = content_story;
+            CategoryId = categoryId;
+            this.displayOrder = displayOrder;
+            this.hide = hide;
+            this.dateBegin = dateBegin;
+            this.createBy = createBy;
+            this.dateModife = dateModife;
+            this.modifedBy = modifedBy;
+        }
+        public Blog() { }
     }
 }

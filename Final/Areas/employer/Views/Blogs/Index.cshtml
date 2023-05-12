@@ -1,0 +1,197 @@
+﻿@model IEnumerable<Final.Models.Blog>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/employer/Views/Shared/_employerLayout.cshtml";
+}
+
+<h1 class="h3 mb-4 text-gray-800">Quản lý Blog</h1>
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div style="display:flex">
+        <div class="card-header py-3">
+            <div class="btn-group">
+                <a href="@Url.Action("Create")" class="p-2 font-weight-bold text-white bg-dark">+ Thêm mới</a>
+            </div>
+        </div>
+        <div style="display: flex; position: absolute; right: 20px;" class="py-3">
+            <p style="margin:10px">Search:</p>
+            <input type="text" name="searchQuery" placeholder="" class="form-control" id="charSearch">
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr class="text-center">
+                        <th>STT</th>
+                        <th>Tiêu đề</th>
+                        <th>Hiện thị</th>
+                        <th>Danh mục</th>
+                        <th>Ngày tạo</th>
+                        <th>Ngày cập nhật</th>
+
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody id="display">
+
+                    @{ var number = 1;}
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.Raw(number++)</td>
+                            <td>@Html.DisplayFor(modelI => item.title)</td>
+
+
+                            <td class="text-center">
+                                @if (item.hide == true)
+                                {
+
+
+                                    <p>Hiển thị</p>
+
+                                }
+                                else
+                                {
+                                    <p>Ẩn</p>
+                                }
+                            </td>
+
+                            <td>
+                                @Html.Action("getBlogCateById", "temp", new { id = item.CategoryId })
+
+                            </td>
+
+
+                            <td>@Html.DisplayFor(modelI => item.dateBegin)</td>
+                            <td>@Html.DisplayFor(modelI => item.dateModife)</td>
+
+                            <td class="text-center">
+                                <a href="@Url.Action("Edit", new { id = item.id })" class="text-primary"><ion-icon name="create-outline"></ion-icon></a>
+                                <span>|</span>
+                                <a href="@Url.Action("Details", new { id = item.id })" class="text-dark"><ion-icon name="search-outline"></ion-icon></a>
+                                @if (item.hide == true)
+                                {
+                                    <span>|</span>
+                                    <a href="@Url.Action("Delete", new { id = item.id })" class="text-danger"><ion-icon name="trash-outline"></ion-icon></a>
+                                }
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section ClientScript{
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/Assets/admin/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="~/Assets/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="~/Assets/admin/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="~/Assets/admin/vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script>
+    $(document).ready(function () {
+            $("#charSearch").on('input', function () {
+                $.ajax({
+                    url: '@Url.Action("Data", "Blogs")',
+                    type: 'post',
+
+                    success: function (data) {
+                        var char = $("#charSearch").val();
+                        const blogs = data.blogs
+                        const cate=data.categories
+                        var blog_data = []
+                        var cate_data=[]
+                        if (blogs) {
+                            for (let i = 0; i < blogs.length; i++) {
+                                blog_data.push(blogs[i])
+                            }
+
+                        }
+                        if (cate) {
+                            for (let i = 0; i < cate.length; i++) {
+                                cate_data.push(cate[i])
+                            }
+
+                        }
+                        let result = []
+                        if (char) {
+                            result = blog_data.filter(element => element['title'].toLowerCase().includes(char));
+
+
+                        }
+                        else {
+                            result= blog_data
+                        }
+                        var html_result = "";
+                        if (result.length > 0) {
+                            var ht1 = "";
+                            for (i = 0; i < result.length; i++) {
+                                ht1+=`<tr>`
+                                ht1 += `<td>${i+1}</td>`
+                                ht1 += `<td>${result[i]['title']}</td>`;
+                                ht1 += `<td class="text-center">`;
+                                if (result[i]['hide']) {
+                                    ht1 += `<p>Hiển thị</p>`;
+
+                                } else {
+                                    ht1 += `<p>Ẩn</p>`;
+                                }
+                                ht1 += `</td>`
+                                ht1 += `<td>`;
+                                for (j = 0; j < cate_data.length; j++) {
+                                    if (cate_data[j]['id'] == result[i]["CategoryId"]) {
+                                        ht1 += `<p> ${cate_data[j]['title']}</p>`
+                                    }
+                                }
+                                ht1 += `</td>`
+                                const dateString = result[i]['dateModife'];
+                                const dateBegin = result[i]['dateBegin']
+                                const dateRegex = /\/Date\((\d+)\)\//; // Regular expression to extract the numeric value
+                                const match = dateRegex.exec(dateString); // Extract the numeric value from the string
+                                const matchBegin = dateRegex.exec(dateBegin)
+                                const timestamp = Number(match[1]); // Convert the string to a number
+                                const dateB = Number(matchBegin);
+                                const date = new Date(timestamp);
+                                const begin = new Date(dateB)
+                                ht1 += `<td>${begin.toDateString()}</td>`
+                                ht1 += `<td>${date.toDateString()}</td>`;
+                                ht1 += `<td class="text-center">`
+                                const menuid = result[i]['id'];
+                                ht1 += '<a href="@Url.Action("Edit")/' + menuid + '" class="text-primary"><ion-icon name="create-outline"></ion-icon></a>';
+                                ht1 += `<span>|</span>`
+                                ht1 += '<a href="@Url.Action("Details")/' + menuid + '" class="text-dark"><ion-icon name="search-outline"></ion-icon></a>';
+                                if (result[i]['hide']) {
+                                    ht1 +=`<span>|</span>`
+                                    ht1 += '<a href="@Url.Action("Delete")/' + menuid + '" class="text-danger"><ion-icon name="trash-outline"></ion-icon></a>';
+
+                                }
+                                ht1 += `</td>`
+                                ht1+=`</tr>`
+
+                            }
+                            html_result += ht1;
+
+                            document.getElementById("display").innerHTML = html_result;
+                        }
+
+                    }
+                })
+            })
+
+        });</script>
+
+
+}

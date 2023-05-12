@@ -1,6 +1,19 @@
 ﻿@model List<Final.Models.Job>
 @foreach (var item in Model)
-{
+{<div class="col-lg-3" style="margin: 0 5px;">
+        <div class="card" style=" background: whitesmoke; border-radius: 10%; width: 17rem; height: 315px; margin: 10px 10px">
             @Html.Action("CompanyByJob", "Home", new { id = @item.companyID })
+            @if (item.name.Length > 25)
+            {
+                <h3 style="background: transparent; margin-left: 16px; " class="card-title"><b style="background:whitesmoke;color:black">@item.name.Substring(0, 25)...</b></h3>
+            }
+            else
+            {
+                <h3 style="background: transparent; margin-left: 16px; " class="card-title"><b style="background:whitesmoke;color:black">@item.name</b></h3>
+
+            }
+
+        </div>
+    </div>
 }
 

@@ -19,12 +19,32 @@ namespace Final.Areas.admin.Controllers
         // GET: admin/Companies
         public ActionResult Index()
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             return View(db.Companies.ToList());
         }
 
         // GET: admin/Companies/Details/5
         public ActionResult Details(long? id)
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -42,6 +62,16 @@ namespace Final.Areas.admin.Controllers
         // GET: admin/Companies/Edit/5
         public ActionResult Edit(long? id)
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -67,9 +97,21 @@ namespace Final.Areas.admin.Controllers
             var dao = new CompanyDAO();
             Company tempCompany = dao.getById(company.id);
             var imgPath = "/Assets/home/images/company/";
+            var user = new UserDAO().getById((int)company.userId);
+            userLogin u = Session["user"] as userLogin;
 
             if (ModelState.IsValid)
             {
+                if (company.hide == false)
+                {
+                    user.status = false;
+                }
+                else
+                {
+                    user.status = true;
+                }
+                db.Entry(user).State = EntityState.Modified;
+
                 if (image != null)
                 {
                     filename = DateTime.UtcNow.ToString("dd-MM-yy-hh-mm-ss") + image.FileName;
@@ -78,7 +120,7 @@ namespace Final.Areas.admin.Controllers
                     imgPath = imgPath + filename;
                     tempCompany.image = imgPath;
                 }
-
+                
                 tempCompany.name = company.name;
                 tempCompany.meta = company.meta;
                 tempCompany.type = company.type;
@@ -90,11 +132,12 @@ namespace Final.Areas.admin.Controllers
                 tempCompany.hide = company.hide;
                 tempCompany.dateBegin = company.dateBegin;
                 tempCompany.createBy = company.createBy;
-                tempCompany.modifedBy = company.modifedBy;
+                tempCompany.modifedBy = u.id;
                 tempCompany.dateModife = company.dateModife;
                 tempCompany.OT = company.OT;
                 tempCompany.userId = company.userId;
                 tempCompany.employers = company.employers;
+
                 db.Entry(tempCompany).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -106,6 +149,16 @@ namespace Final.Areas.admin.Controllers
         // GET: admin/Companies/Delete/5
         public ActionResult Delete(long? id)
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -124,6 +177,9 @@ namespace Final.Areas.admin.Controllers
         public ActionResult DeleteConfirmed(long id)
         {
             Company company = db.Companies.Find(id);
+            var u = new UserDAO().getById((int)company.userId);
+            u.status = false;
+            db.Entry(u).State = EntityState.Modified;
             company.hide=false;
             db.SaveChanges();
             return RedirectToAction("Index");

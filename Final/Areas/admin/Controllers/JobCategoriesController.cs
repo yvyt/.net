@@ -17,14 +17,36 @@ namespace Final.Areas.admin.Controllers
 
         // GET: admin/JobCategories
         public ActionResult Index()
+
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             return View(db.JobCategories.ToList());
         }
         
 
         // GET: admin/JobCategories/Details/5
         public ActionResult Details(long? id)
+
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -40,8 +62,19 @@ namespace Final.Areas.admin.Controllers
         // GET: admin/JobCategories/Create
         public ActionResult Create()
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             var sum = new Final.DAO.JobCategoryDAO().sum();
             ViewBag.sum = sum;
+            ViewBag.user = user.id;
             return View();
         }
 
@@ -52,12 +85,14 @@ namespace Final.Areas.admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,name,link,meta,displayOrder,hide,dateBegin,createBy,dateModife,modifedBy,showOnHome")] JobCategory jobCategory)
         {
+
             if (ModelState.IsValid)
             {
                 if (jobCategory.displayOrder == null)
                 {
                     var dOrder = new Final.DAO.JobCategoryDAO().sum();
                     jobCategory.displayOrder = dOrder  +1;
+                   
                 }
                 db.JobCategories.Add(jobCategory);
                 db.SaveChanges();
@@ -70,6 +105,16 @@ namespace Final.Areas.admin.Controllers
         // GET: admin/JobCategories/Edit/5
         public ActionResult Edit(long? id)
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -91,6 +136,9 @@ namespace Final.Areas.admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                userLogin user = Session["user"] as userLogin;
+
+                jobCategory.modifedBy = user.id;
                 db.Entry(jobCategory).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -101,6 +149,16 @@ namespace Final.Areas.admin.Controllers
         // GET: admin/JobCategories/Delete/5
         public ActionResult Delete(long? id)
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -128,8 +186,11 @@ namespace Final.Areas.admin.Controllers
             jobCategory.showOnHome = false;
 
             Menu menu = db.Menus.FirstOrDefault(m => m.meta == jobCategory.meta);
+            if (menu != null)
+            {
+                menu.hide = false;
 
-            menu.hide= false;
+            }
 
             db.SaveChanges();
 

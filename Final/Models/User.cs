@@ -9,20 +9,6 @@ namespace Final.Models
     [Table("User")]
     public partial class User
     {
-        
-
-        public User(string email, string username, string password, int role, bool active)
-        {
-            this.email = email;
-            this.username = username;
-            this.password = password;
-            this.role    = role;
-            this.status =active;
-        }
-        public User()
-        {
-
-        }
         public long id { get; set; }
 
         [StringLength(50)]
@@ -38,5 +24,15 @@ namespace Final.Models
         public int? role { get; set; }
 
         public bool? status { get; set; }
+        public User() { }
+
+        public User(string username, string password, string email, int? role, bool? status)
+        {
+            this.username = username;
+            this.password = password;
+            this.email = email;
+            this.role = role;
+            this.status = status;
+        }
     }
 }

@@ -26,5 +26,6 @@ namespace Final.DAO
             }
             return rate/commnets.Count();
         }
+        
     }
 }

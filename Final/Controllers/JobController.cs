@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -14,12 +15,19 @@ namespace Final.Controllers
         // GET: Job
         public ActionResult Index(string meta)
         {
+            userLogin user = Session["user"] as userLogin;
+            if (user.role == 2)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             var model = new JobCategoryDAO().getByMeta(meta);
             return View(model);
         }
 
         public ActionResult getJob(int id,string meta)
         {
+
             ViewBag.Meta = meta;
             var model = new JobDAO().getAll(id);
             return PartialView(model);
@@ -47,6 +55,11 @@ namespace Final.Controllers
         public ActionResult applyJob(long id)
         {
             userLogin user = Session["user"] as userLogin;
+            if (user.role == 2)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             if (user == null)
             {
                 return RedirectToAction("../home/login");
@@ -60,11 +73,16 @@ namespace Final.Controllers
         public ActionResult jobApply(string jobId,string name,HttpPostedFileBase file)
         {
             userLogin user = Session["user"] as userLogin;
+            
             if (user == null)
             {
                 return RedirectToAction("../home/login");
             }
+            if (user.role == 2)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
+            }
             var email = user.email;
             if (file != null && file.ContentLength > 0)
             {

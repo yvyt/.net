@@ -5,75 +5,66 @@
     Layout = "~/Areas/admin/Views/Shared/_adminLayout.cshtml";
 }
 
-<h2>Details</h2>
 
-<div>
-    <h4>User</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.username)
-        </dt>
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr class="text-center">
+                        <th colspan="2"><h5 id="name">@Html.DisplayFor(model => Model.username)</h5></th>
+                    </tr>
+                </thead>
+                <tbody id="display">
+                    @Html.Action("getProfile", "temp", new { id = Model.id })
 
-        <dd>
-            @Html.DisplayFor(model => model.username)
-        </dd>
+                    <tr>
+                        <td><b>Email</b></td>
 
+                        <td>@Html.DisplayFor(model => Model.email)</td>
+                    </tr>
 
-
-        <dt>
-            @Html.DisplayNameFor(model => model.email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.role)
-        </dt>
-
-        <dd>
-                @if (Model.role == 1)
-                {
+                    <tr>
+                        <td><b>Vai trò</b></td>
+                        <td>
+                            @if (Model.role == 1)
+                            {
 
 
-                    <p>Người ứng tuyển</p>
+                                <p>Người ứng tuyển</p>
 
-                }
-                else if (Model.role == 2)
-                {
-
-
-                    <p>Nhà tuyển dụng</p>
-                }
-                else
-                {
-                    <p>Admin</p>
-                }
-            
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.status)
-        </dt>
-
-        <dd>
-                @if (Model.status == true)
-                {
+                            }
+                            else if (Model.role == 2)
+                            {
 
 
-                    <p class="text text-success">Hoạt động</p>
+                                <p>Nhà tuyển dụng</p>
+                            }
+                            else
+                            {
+                                <p>Admin</p>
+                            }
 
-                }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>Trạng thái</b></td>
 
-                else
-                {
-                    <p class="text text-danger">Khóa</p>
-                }
-       </dd>
-
-    </dl>
+                        <td>
+                            @if (Model.status == true)
+                            {
+                                <p>Hoạt động</p>
+                            }
+                            else
+                            {
+                                <p>Khóa</p>
+                            }
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 <div class="form-group" style="display:flex">
     <div class="col-md-offset-2 col-md-10">

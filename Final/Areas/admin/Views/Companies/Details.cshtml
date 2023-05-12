@@ -96,7 +96,7 @@
                     </tr>
                     <tr>
                         <td><b>Người tạo</b></td>
-                        <td>@Html.DisplayFor(model => model.createBy)</td>
+                        <td>@Html.Action("getUsernameFromId", "temp", new { id = Model.createBy })</td>
                     </tr>
                     <tr>
                         <td><b>Ngày cập nhật</b></td>
@@ -104,7 +104,7 @@
                     </tr>
                     <tr>
                         <td><b>Người cập nhật</b></td>
-                        <td>@Html.DisplayFor(model => model.modifedBy)</td>
+                        <td>@Html.Action("getUsernameFromId", "temp", new { id = Model.modifedBy })</td>
                     </tr>
                 </tbody>
             </table>

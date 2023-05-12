@@ -18,12 +18,32 @@ namespace Final.Areas.admin.Controllers
         // GET: admin/Menus
         public ActionResult Index()
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             return View(db.Menus.ToList());
         }
 
         // GET: admin/Menus/Details/5
         public ActionResult Details(long? id)
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -39,10 +59,22 @@ namespace Final.Areas.admin.Controllers
         // GET: admin/Menus/Create
         public ActionResult Create()
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             var dao = new MenuDAO();
             ViewBag.inner_menu = new SelectList(dao.getInnerCreate(), "id", "name");
             var sum = dao.sum();
             ViewBag.sum = sum;
+            ViewBag.user = user.id;
+
             return View();
         }
 
@@ -71,6 +103,16 @@ namespace Final.Areas.admin.Controllers
         // GET: admin/Menus/Edit/5
         public ActionResult Edit(long? id)
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -93,8 +135,11 @@ namespace Final.Areas.admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id,name,link,meta,modifedBy,displayOrder,hide,inner_menu,dateBegin,createBy,dateModife")] Menu menu)
         {
+            userLogin user = Session["user"] as userLogin;
+
             if (ModelState.IsValid)
             {
+                menu.modifedBy = user.id;
                 db.Entry(menu).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -105,6 +150,16 @@ namespace Final.Areas.admin.Controllers
         // GET: admin/Menus/Delete/5
         public ActionResult Delete(long? id)
         {
+            if (Session["user"] == null)
+            {
+                return View("login");
+            }
+            userLogin user = Session["user"] as userLogin;
+            if (user.role != 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

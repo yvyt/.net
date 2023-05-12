@@ -5,8 +5,12 @@
     Layout = "~/Areas/admin/Views/Shared/_adminLayout.cshtml";
 }
 
-<h2>Create New Menu</h2>
-
+<style>
+    h6 {
+        margin-left: 10px
+    }
+</style>
+<h2>Thêm menu</h2>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -14,60 +18,61 @@
 <div class="form-horizontal">
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="row" style="margin-left:0px">
-        <div class="form-group col-md-6">
-            @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div>
-                @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group col-md-6">
-            @Html.LabelFor(model => model.inner_menu, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div>
-
-                @{
-                    // Create a SelectList with the "None" option and the options from the database
-                    var categories = new Final.DAO.MenuDAO().getInnerCreate();// Assuming this is a list of categories retrieved from the database
-                    var options = new SelectList(categories, "id", "name");
-
-                    var defaultOption = new List<SelectListItem>
-                    {
-                        new SelectListItem { Value = "", Text = "None" }
-                    };
-
-                    options = new SelectList(defaultOption.Concat(options), "Value", "Text");
-
-
-                    @Html.DropDownListFor(model => model.inner_menu, options, htmlAttributes: new { @class = "form-control" })
-                }
-
-                @Html.ValidationMessageFor(model => model.inner_menu, "", new { @class = "text-danger" })
-            </div>
-
+<div class="row" style="margin-left:0px">
+    <div class="form-group col-md-6">
+        <h6>Tên menu</h6>
+        <div>
+            @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
         </div>
     </div>
-
-    
     <div class="form-group">
-        @Html.LabelFor(model => model.link, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-12">
-            @Html.EditorFor(model => model.link, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.link, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.meta, htmlAttributes: new { @class = "control-label col-md-2" })
+        <h6>Meta</h6>
         <div class="col-md-12">
             @Html.EditorFor(model => model.meta, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.meta, "", new { @class = "text-danger" })
         </div>
     </div>
+    <div class="form-group col-md-11">
+        <h6>Danh mục cha</h6>
+        <div>
+
+            @{
+                // Create a SelectList with the "None" option and the options from the database
+                var categories = new Final.DAO.MenuDAO().getInnerCreate();// Assuming this is a list of categories retrieved from the database
+                var options = new SelectList(categories, "id", "name");
+
+                var defaultOption = new List<SelectListItem>
+                    {
+                        new SelectListItem { Value = "", Text = "None" }
+                    };
+
+                options = new SelectList(defaultOption.Concat(options), "Value", "Text");
+
+
+                @Html.DropDownListFor(model => model.inner_menu, options, htmlAttributes: new { @class = "form-control" })
+            }
+
+            @Html.ValidationMessageFor(model => model.inner_menu, "", new { @class = "text-danger" })
+        </div>
+
+    </div>
+</div>
+
+    
+    <div class="form-group col-md-12">
+        <h6>Liên kết ngoài</h6>
+        <div >
+            @Html.EditorFor(model => model.link, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.link, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
 
     <div class="row" style="margin-left:0px">
         <div class="form-group col-md-6">
-            @Html.LabelFor(model => model.displayOrder, htmlAttributes: new { @class = "control-label col-md-2" })
+            <h6>Vị trí hiển thị</h6>
             <div>
                 @Html.EditorFor(model => model.displayOrder, new { htmlAttributes = new { @class = "form-control", Placeholder = ViewBag.sum } })
                 @Html.ValidationMessageFor(model => model.displayOrder, "", new { @class = "text-danger" })
@@ -75,7 +80,7 @@
         </div>
 
         <div class="form-group col-md-6">
-            @Html.LabelFor(model => model.hide, htmlAttributes: new { @class = "control-label col-md-2" })
+            <h6>Hiển thị</h6>
             <div>
                 @Html.DropDownListFor(model => model.hide, new List<SelectListItem>
                 {
@@ -91,30 +96,30 @@
 
     <div class="row" style="margin-left:0px">
         <div class="form-group col-md-4" style="display:none">
-            @Html.LabelFor(model => model.createBy, htmlAttributes: new { @class = "control-label col-md-2" })
+            <h6>Người tạo</h6>
             <div>
-                @Html.EditorFor(model => model.createBy, new { htmlAttributes = new { @class = "form-control", Value = "admin" } })
+                @Html.EditorFor(model => model.createBy, new { htmlAttributes = new { @class = "form-control", Value = ViewBag.user } })
                 @Html.ValidationMessageFor(model => model.createBy, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group col-md-6">
-            @Html.LabelFor(model => model.dateBegin, htmlAttributes: new { @class = "control-label col-md-2" })
+            <h6>Ngày tạo</h6>
             <div>
                 @Html.EditorFor(model => model.dateBegin, new { htmlAttributes = new { @class = "form-control", type = "date", Value = DateTime.Now.ToString("yyyy-MM-dd") } })
                 @Html.ValidationMessageFor(model => model.dateBegin, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group col-md-6">
-            @Html.LabelFor(model => model.dateModife, htmlAttributes: new { @class = "control-label col-md-2" })
+            <h6>Ngày cập nhật</h6>
             <div>
                 @Html.EditorFor(model => model.dateModife, new { htmlAttributes = new { @class = "form-control", type = "date", Value = DateTime.Now.ToString("yyyy-MM-dd") } })
                 @Html.ValidationMessageFor(model => model.dateModife, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group col-md-4" style="display:none">
-            @Html.LabelFor(model => model.modifedBy, htmlAttributes: new { @class = "control-label col-md-2" })
+            Người cập nhật
             <div>
-                @Html.EditorFor(model => model.modifedBy, new { htmlAttributes = new { @class = "form-control", Value = "admin" } })
+                @Html.EditorFor(model => model.modifedBy, new { htmlAttributes = new { @class = "form-control", Value = ViewBag.user } })
                 @Html.ValidationMessageFor(model => model.modifedBy, "", new { @class = "text-danger" })
             </div>
         </div>

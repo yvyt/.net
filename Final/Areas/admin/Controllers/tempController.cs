@@ -41,5 +41,10 @@ namespace Final.Areas.admin.Controllers
             var modal = new BlogCategoryDAO().getById(id);
             return PartialView((modal));
         }
+        public ActionResult getProfile(int id)
+        {
+            var modal= new ProfileUserDAO().getByUserId(id);
+            return PartialView((modal));
+        }
     }
 }
